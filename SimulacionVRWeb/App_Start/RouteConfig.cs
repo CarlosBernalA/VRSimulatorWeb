@@ -15,12 +15,13 @@ namespace SimulacionVRWeb
 
            
 
-            routes.MapRoute(
-                name: "login",
-                url: "login",
-                defaults: new {controller = "Home", action = "Login"}
-             );
-            routes.MapRoute(
+        routes.MapRoute(
+            name: "login",
+            url: "login",
+            defaults: new {controller = "Home", action = "Login"}
+        );
+
+        routes.MapRoute(
             name: "local",
             url: "local",
             defaults: new { controller = "Local", action = "Local" }
