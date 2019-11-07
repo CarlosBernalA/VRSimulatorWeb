@@ -146,6 +146,7 @@
     <Compile Include="Models\Bussines\B_Area.cs" />
     <Compile Include="Models\Bussines\B_TipoSimulacion.cs" />
     <Compile Include="Models\Entities\Area.cs" />
+    <Compile Include="Models\Entities\Rol.cs" />
     <Compile Include="Models\Entities\TipoSimulacion.cs" />
     <Compile Include="Models\Persistent\Connection.cs" />
     <Compile Include="Models\Persistent\P_Area.cs" />
