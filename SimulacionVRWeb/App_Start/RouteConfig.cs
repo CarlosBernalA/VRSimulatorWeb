@@ -60,7 +60,7 @@ namespace SimulacionVRWeb
         routes.MapRoute(
             name: "principal",
             url: "principal",
-            defaults: new { controller = "Home", action = "Home" }
+            defaults: new { controller = "Home", action = "Index" }
         );
 
         routes.MapRoute(
