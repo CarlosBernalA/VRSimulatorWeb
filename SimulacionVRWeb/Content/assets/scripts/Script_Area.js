@@ -19,6 +19,8 @@ $(document).ready(function () {
 
 	$(".agregarCiudadano").on("click", function () {
 		ID = 0;
+		$("#txt_nombre").val("");
+		$("#txt_desc").val("");
 	});
 
 	$("#btn_guardar").on("click", function () {
@@ -57,6 +59,7 @@ $(document).ready(function () {
 		$("#agregararea").modal("show");
 	});
 	$(document).on("click", ".btn_remove", function () {
+		var btn=$(this);
 		swal({
 			title: 'Eliminar',
 			text: "¿Esta seguro de eliminar este colaborador?",
@@ -68,9 +71,9 @@ $(document).ready(function () {
 			cancelButtonText: 'Cancelar'
 		}).then(function () {
 			Managment_Area({
-				AreaId:$(this).attr("data-id"),
-				are_Nombre:"",
-				are_Descripcion:"",
+				AreaId:btn.attr("data-id"),
+				are_Nombre:"e",
+				are_Descripcion:"e",
 				are_Estado:1,
 				Action:3
 			});
@@ -130,6 +133,7 @@ function Managment_Area(data) {
 		},
 		complete: function () {
 			if(_data.Result==1){
+				$("#agregararea").modal("hide");
 				if(data.Action==1){
 					Load_Colaboradores();
 					Toast({
