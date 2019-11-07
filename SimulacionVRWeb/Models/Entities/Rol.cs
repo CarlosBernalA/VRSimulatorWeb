@@ -17,7 +17,7 @@ namespace SimulacionVRWeb.Models.Entities
             this.rol_RolId = rol_RolId;
             this.rol_Nombre = rol_Nombre;
             this.rol_Descripcion = rol_Descripcion;
-            this.rol_Estado = rol_Estado;
+            this.rol_Estado = rol_Estado; 
         }
     }
 
