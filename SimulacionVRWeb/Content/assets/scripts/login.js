@@ -57,8 +57,24 @@ function Loginin(data) {
         complete: function () {
             if (_data.Message != "") {
                 principal()
-            } else {
-                console.log("no");
+			} else {
+				swal({
+					title: 'ERROR',
+					text: "Datos incorrectos!",
+					type: 'warning',
+					showCancelButton: false,
+					confirmButtonColor: '#F9354C',
+					cancelButtonColor: '#41B314',
+					confirmButtonText: 'OK'
+				}).then(function () {
+					
+				}).catch(swal.noop);
+				//Toast({
+				//	action: "error",
+				//	message: "Datos incorrectos",
+				//	position: "top-right",
+				//});
+                //console.log("no");
             }
 			
         }
