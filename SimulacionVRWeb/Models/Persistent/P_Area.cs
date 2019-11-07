@@ -26,7 +26,7 @@ namespace SimulacionVRWeb.Models.Persistent
                     listEntidad = new List<Area>();
                     while (reader.Read())
                     {
-                        entidad = new Area(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(0));                        
+                        entidad = new Area(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3));                        
                         listEntidad.Add(entidad);
                     }
                 }
@@ -34,6 +34,48 @@ namespace SimulacionVRWeb.Models.Persistent
                 connection.Close();
             }
             return listEntidad;
+        }
+
+        public Area_Result Managment_Area(Area _area,int Action)
+        {
+            Area_Result resu = new Area_Result();
+            using (SqlConnection connection = new SqlConnection(cadena))
+            {
+
+                try
+                {
+                    String id="";
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("VR_Managment_Area", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@AreaId", SqlDbType.Int).Value = _area.AreaId;
+                    command.Parameters.Add("@are_Nombre", SqlDbType.VarChar).Value = _area.are_Nombre;
+                    command.Parameters.Add("@are_Descripcion", SqlDbType.VarChar).Value = _area.are_Descripcion;
+                    command.Parameters.Add("@are_Estado", SqlDbType.Int).Value = _area.are_Estado;
+                    command.Parameters.Add("@Action", SqlDbType.Int).Value = Action;
+                    SqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleResult);
+                    if (reader.HasRows)
+                    {
+
+                        if (reader.Read())
+                        {
+                            id = reader.GetValue(0).ToString();
+                        }
+                    }
+                    reader.Close();
+                    connection.Close();
+                    resu.Result = 1;
+                    resu.Message = id ;
+                }
+                catch (Exception e)
+                {
+                    connection.Close();
+                    resu.Result = 0;
+                    resu.Message = e.Message;
+                }
+            }
+            return resu;
         }
     }
 }

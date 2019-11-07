@@ -17,5 +17,12 @@ namespace SimulacionVRWeb.Models.Bussines
             listEntidad = dao.list_area();
             return listEntidad;
         }
+        //REALIZA MANTENIMIENTO DE DE AREAS
+        public Area_Result Managment_Area(Area _area, int Action)
+        {            
+            P_Area dao = new P_Area();
+            Area_Result ar = dao.Managment_Area(_area, Action);
+            return ar;
+        }
     }
 }

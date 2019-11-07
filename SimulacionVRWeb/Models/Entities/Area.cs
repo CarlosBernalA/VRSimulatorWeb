@@ -7,10 +7,10 @@ namespace SimulacionVRWeb.Models.Entities
 {
     public class Area
     {
-        int AreaId { get; set; }
-        String are_Nombre { get; set; }
-        String are_Descripcion { get; set; }
-        int are_Estado { get; set; }
+        public int AreaId { get; set; }
+        public String are_Nombre { get; set; }
+        public String are_Descripcion { get; set; }
+        public int are_Estado { get; set; }
 
         public Area(int AreaId, String are_Nombre, String are_Descripcion, int are_Estado)
         {
@@ -19,5 +19,17 @@ namespace SimulacionVRWeb.Models.Entities
             this.are_Descripcion = are_Descripcion;
             this.are_Estado = are_Estado;
         }
+    }
+    public class Area_S{
+        public int AreaId { get; set; }
+        public String are_Nombre { get; set; }
+        public String are_Descripcion { get; set; }
+        public int are_Estado { get; set; }
+        public int Action { get; set; }
+    }
+    public class Area_Result
+    {
+        public int Result { get; set; }
+        public String Message { get; set; }
     }
 }

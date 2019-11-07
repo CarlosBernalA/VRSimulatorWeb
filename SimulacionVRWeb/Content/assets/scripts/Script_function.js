@@ -10,3 +10,20 @@ function CurrectSelecteditem(Item){
     $(child).addClass('in');
     $(child).attr('aria-expanded',true);
 }
+
+function Toast(data){
+
+    $context = data.action;
+    $message = data.message;
+    $position = data.position;
+    if ($context === '') {
+        $context = 'info';
+    }
+    if ($position === '') {
+        $positionClass = 'toast-left-top';
+    } else {
+        $positionClass = 'toast-' + $position;
+    }
+    toastr.remove();
+    toastr[$context]($message, '', { positionClass: $positionClass });
+}
