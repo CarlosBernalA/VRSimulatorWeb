@@ -144,13 +144,16 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Bussines\B_Area.cs" />
+    <Compile Include="Models\Bussines\B_Local.cs" />
     <Compile Include="Models\Bussines\B_Rol.cs" />
     <Compile Include="Models\Bussines\B_TipoSimulacion.cs" />
     <Compile Include="Models\Entities\Area.cs" />
+    <Compile Include="Models\Entities\Local.cs" />
     <Compile Include="Models\Entities\Rol.cs" />
     <Compile Include="Models\Entities\TipoSimulacion.cs" />
     <Compile Include="Models\Persistent\Connection.cs" />
     <Compile Include="Models\Persistent\P_Area.cs" />
+    <Compile Include="Models\Persistent\P_Local.cs" />
     <Compile Include="Models\Persistent\P_Rol.cs" />
     <Compile Include="Models\Persistent\P_TipoSimulacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
