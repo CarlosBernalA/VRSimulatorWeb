@@ -58,6 +58,7 @@ $(document).ready(function () {
 		$("#txt_desc").val($(this).attr("data-desc"));
 		$("#agregararea").modal("show");
 	});
+
 	$(document).on("click", ".btn_remove", function () {
 		var btn=$(this);
 		swal({
