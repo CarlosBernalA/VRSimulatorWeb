@@ -5,8 +5,8 @@
 }
 
 @section Stylesheet{
-    <link rel="stylesheet" href="~/Content/assets/vendor/bootstrap-slider/slider.css">
     <link rel="stylesheet" href="~/Content/assets/vendor/nouislider/css/nouislider.min.css">
+    <link rel="stylesheet" href="~/Content/assets/vendor/bootstrap-slider/slider.css">
 }
 
 @section Scripts{
@@ -106,23 +106,29 @@
                         <label class="control-label">Puntuación maxima permitida:</label>
                         <div class="slider-has-label">
                             <div class="left-slider">
-                                <div class="slider slider-horizontal" style="width: 163px;"><div class="slider-track"><div class="slider-selection" style="left: 0%; width: 0%;"></div><div class="slider-handle" style="left: 0%;"></div><div class="slider-handle hide" style="left: 0%;"></div></div><div class="tooltip top hide" style="top: -30px; left: 0px;"><div class="tooltip-arrow"></div><div class="tooltip-inner">0</div></div><input id="slider" type="text" class="bootstrap-slider" value="" style="display: none;"></div>
+                                <div class="slider slider-horizontal" style="width: 163px;">
+                                    <div class="slider-track">
+                                        <div class="slider-selection" style="left: 0%; width: 24%;"></div>
+                                        <div class="slider-handle hide" style="left: 0%;"></div>
+                                    </div>
+                                    <div class="tooltip top hide" style="top: -30px; left: 214.08px;">
+                                        <div class="tooltip-arrow"></div><div class="tooltip-inner">120</div>
+                                    </div>
+                                    <input type="text" class="bootstrap-slider" value="" style="display: none;">
+                                </div>
                             </div>
                             <div class="right-label">
-                                <span class="label label-default label-slider pull-right">0</span>
+                                <span class="label label-default label-slider pull-right">120</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <label class="control-label">Grado de riesgo:</label>
-                        <div class="slider-has-label">
-                            <div class="left-slider">
-                                <div class="slider slider-horizontal" style="width: 163px;"><div class="slider-track"><div class="slider-selection" style="left: 0%; width: 0%;"></div><div class="slider-handle" style="left: 0%;"></div><div class="slider-handle hide" style="left: 0%;"></div></div><div class="tooltip top hide" style="top: -30px; left: 0px;"><div class="tooltip-arrow"></div><div class="tooltip-inner">0</div></div><input type="text" class="bootstrap-slider" value="" style="display: none;"></div>
-                            </div>
-                            <div class="right-label">
-                                <span class="label label-default label-slider pull-right">0</span>
-                            </div>
-                        </div>
+                        <select class="form-control">
+                            <option value="cheese">Bajo</option>
+                            <option value="cheese">Medio</option>
+                            <option value="cheese">Alto</option>
+                        </select>
                     </div>
                 </div>
             </div>

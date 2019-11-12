@@ -75,16 +75,19 @@ namespace SimulacionVRWeb
             defaults: new { controller = "Simulacion", action = "TipoSimulacion" }
         );
 
-        routes.MapRoute(
+        /*routes.MapRoute(
             name: "",
             url: "",
             defaults: new { controller = "Home", action = "Login" }
+        );*/
+
+        routes.MapRoute(
+            name: "Default",
+            url: "{controller}/{action}/{id}",
+            defaults: new { controller = "Home", action = "Login", id = UrlParameter.Optional }
         );
-            routes.MapRoute(
-               name: "Default",
-               url: "{controller}/{action}/{id}",
-               defaults: new { controller = "Home", action = "Login", id = UrlParameter.Optional }
-           );
+
         }
+
     }
 }
