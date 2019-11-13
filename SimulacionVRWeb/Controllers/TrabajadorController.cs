@@ -17,7 +17,15 @@ namespace SimulacionVRWeb.Controllers
         {
             return View();
         }
-        public String login(Trabajador_S _Trabajador)
+        public String list_trabajador()
+        {
+            B_Trabajador b_Trabajador = new B_Trabajador();
+            List<Trabajador> _list = b_Trabajador.list_trabajador();
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(_list);
+            return json;
+        }
+        public String login(Trabajador_S_login _Trabajador)
         {
             B_Trabajador b_Trabajador = new B_Trabajador();
             Trabajador_Result a = b_Trabajador.login(new Trabajador(_Trabajador.UserName, _Trabajador.Password));
