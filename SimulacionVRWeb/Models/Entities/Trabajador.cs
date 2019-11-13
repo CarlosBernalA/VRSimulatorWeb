@@ -42,6 +42,23 @@ namespace SimulacionVRWeb.Models.Entities
             this.UserName = UserName;
             this.Password = Password;
         }
+        public class Trabajador_S
+        {
+            public int TrabajadorId { get; set; }
+            public int AreaId { get; set; }
+            public String tr_DNI { get; set; }
+            public String tr_Nombre { get; set; }
+            public String tr_Apellidos { get; set; }
+            public String tr_FechaNacimiento { get; set; }
+            public String tr_Direccion { get; set; }
+            public String tr_Sexo { get; set; }
+            public String tr_InicioTrabajo { get; set; }
+            public int tr_Estado { get; set; }
+            public String are_Nombre { get; set; }
+            public String UserName { get; set; }
+            public String Password { get; set; }
+            public int Action { get; set; }
+        }
         public class Trabajador_S_login
         {
             public String UserName { get; set; }

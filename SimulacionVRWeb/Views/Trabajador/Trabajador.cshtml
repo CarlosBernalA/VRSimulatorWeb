@@ -5,6 +5,7 @@
 }
 
 @section Scripts{
+    <script src="~/Content/assets/vendor/hideshowpassword/hideShowPassword.min.js"></script>
     <script src="~/Content/assets/scripts/Script_Trabajador.js"></script>
 }
 
@@ -59,15 +60,13 @@
                         <div class="row">
                             <div class="col-md-7">
                                 <legend><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Area</font></font></legend>
-                                <select class="form-control">
-                                    <option value="cheese">Contabilidad</option>
-                                    <option value="cheese">Largos</option>
-                                    <option value="cheese">TI</option>
+                                <select id="area" class="form-control">
+                                    
                                 </select>
                             </div>
                             <div class="col-md-5">
                                 <legend><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Inico de trabajo</font></font></legend>
-                                <input data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy">
+                                <input id="txt_itra" data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy">
                             </div>
                         </div>
                     </div>
@@ -80,15 +79,15 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <label class="control-label">DNI:</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input id="txt_dni" type="text" class="form-control" placeholder="">
                             </div>
                             <div class="col-md-4">
                                 <label class="control-label">Nombre:</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input id="txt_nombre" type="text" class="form-control" placeholder="">
                             </div>
                             <div class="col-md-5">
                                 <label class="control-label">Apellidos:</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input id="txt_ape" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -100,7 +99,7 @@
                                 <label class="control-label">Sexo:</label>
                                 <div class="fancy-radio">
                                     <label>
-                                        <input name="gender" value="male" type="radio">
+                                        <input name="txt_sexo" value="M" type="radio">
                                         <span>
                                             <i></i>
                                             <font style="vertical-align: inherit;">
@@ -111,7 +110,7 @@
                                 </div>
                                 <div class="fancy-radio">
                                     <label>
-                                        <input name="gender" value="female" type="radio">
+                                        <input name="txt_sexo" value="F" type="radio">
                                         <span>
                                             <i></i>
                                             <font style="vertical-align: inherit;">
@@ -123,11 +122,11 @@
                             </div>
                             <div class="col-md-4">
                                 <label class="control-label">Fecha de Nacimiento:</label>
-                                <input data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy">
+                                <input id="txt_nac" data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy">
                             </div>
                             <div class="col-md-5">
                                 <label class="control-label">Dirección:</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input id="txt_dir" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -143,15 +142,12 @@
                             </div>
                             <div class="col-md-4">
                                 <label class="control-label">Usuario:</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input id="txt_user" type="text" class="form-control" placeholder="">
                             </div>
                             <div class="col-md-4">
                                 <label class="control-label">Contraseña:</label>
                                 <div class="hideShowPassword-wrapper" style="position: relative; display: block; vertical-align: baseline; margin: 0px;">
-                                    <input type="password" class="form-control hideShowPassword-field hideShowPassword-hidden" id="password-showhide2" autocapitalize="off" autocomplete="off" spellcheck="true" style="margin: 0px; padding-right: 26px;">
-                                    <button type="button" role="button" aria-label="Show Password" title="Show Password" tabindex="0" class="hideShowPassword-toggle toggle-eye hideShowPassword-toggle-show" aria-pressed="false" style="position: absolute; right: 0px; top: 50%; margin-top: -10.5px;">
-                                        <i class="fa fa-eye"></i>
-                                    </button>
+                                    <input type="password" class="form-control hideShowPassword-field hideShowPassword-hidden" id="password-showhide2" autocapitalize="off" autocomplete="off" spellcheck="true" style="width: 260px">
                                 </div>
                             </div>
                         </div>
@@ -161,13 +157,13 @@
             </div>
             <div class="modal-footer" style="padding: 10px;">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Calcelar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button id="btn_guardar" type="button" class="btn btn-primary">Guardar</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-<!--modal editar trabajador-->
+<!--modal editar trabajador
 <div class="modal fade" id="editartrabajador" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content" style="border: 1px solid;">
@@ -287,5 +283,5 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-</div>
+</div>-->
 <!-- /.modal -->
