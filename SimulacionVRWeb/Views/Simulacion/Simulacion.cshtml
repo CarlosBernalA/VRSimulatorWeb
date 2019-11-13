@@ -5,8 +5,8 @@
 }
 
 @section Stylesheet{
-    <link rel="stylesheet" href="~/Content/assets/vendor/bootstrap-slider/slider.css">
     <link rel="stylesheet" href="~/Content/assets/vendor/nouislider/css/nouislider.min.css">
+    <link rel="stylesheet" href="~/Content/assets/vendor/bootstrap-slider/slider.css">
 }
 
 @section Scripts{
@@ -37,7 +37,7 @@
     </div>
     <div class="panel-body">
 
-        <table id="datatable-persons" class="table table-striped table-hover table-bordered">
+        <table id="datatable-simulacion" class="table table-striped table-hover table-bordered">
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -49,21 +49,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr role="row">
-                    <td>Protocolo de Mantenimiento</td>
-                    <td>Capacitación</td>
-                    <td>Listado de tareas a realizar en un tipo concreto de equipo.</td>
-                    <td>90</td>
-                    <td>5</td>
-                    <td>
-                        <center>
-                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#editarsimulacion">
-                                <i class="fa fa-edit"></i>
-                            </button>
-                            <button type='button' class='borrar btn btn-danger btn-sm'><i class='fa fa-trash-o'></i></button>
-                        </center>
-                    </td>
-                </tr>
+                
             </tbody>
         </table>
     </div>
@@ -82,14 +68,12 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label class="control-label">Nombre:</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input id="txt_nombre" type="text" class="form-control" placeholder="">
                             </div>
                             <div class="col-md-6">
                                 <label class="control-label">Tipo de Simulación:</label>
-                                <select class="form-control">
-                                    <option value="cheese">Capacitación</option>
-                                    <option value="cheese">Largos</option>
-                                    <option value="cheese">TI</option>
+                                <select class="form-control" id="tiposimulacion">
+                                    
                                 </select>
                             </div>
                         </div>
@@ -98,7 +82,7 @@
                 <div class="row mb1">
                     <div class="col-md-12">
                         <label class="control-label">Descripción:</label>
-                        <textarea class="form-control" rows="4" cols="30" required=""></textarea>
+                        <textarea id="txt_desc" class="form-control" rows="4" cols="30" required=""></textarea>
                     </div>
                 </div>
                 <div class="row mb1">
@@ -106,29 +90,35 @@
                         <label class="control-label">Puntuación maxima permitida:</label>
                         <div class="slider-has-label">
                             <div class="left-slider">
-                                <div class="slider slider-horizontal" style="width: 163px;"><div class="slider-track"><div class="slider-selection" style="left: 0%; width: 0%;"></div><div class="slider-handle" style="left: 0%;"></div><div class="slider-handle hide" style="left: 0%;"></div></div><div class="tooltip top hide" style="top: -30px; left: 0px;"><div class="tooltip-arrow"></div><div class="tooltip-inner">0</div></div><input id="slider" type="text" class="bootstrap-slider" value="" style="display: none;"></div>
+                                <div class="slider slider-horizontal" style="width: 163px;">
+                                    <div class="slider-track">
+                                        <div class="slider-selection" style="left: 0%; width: 24%;"></div>
+                                        <div class="slider-handle hide" style="left: 0%;"></div>
+                                    </div>
+                                    <div class="tooltip top hide" style="top: -30px; left: 214.08px;">
+                                        <div class="tooltip-arrow"></div><div class="tooltip-inner">120</div>
+                                    </div>
+                                    <input id="p_max" type="text" class="bootstrap-slider" value="" style="display: none;">
+                                </div>
                             </div>
                             <div class="right-label">
-                                <span class="label label-default label-slider pull-right">0</span>
+                                <span class="label label-default label-slider pull-right">120</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <label class="control-label">Grado de riesgo:</label>
-                        <div class="slider-has-label">
-                            <div class="left-slider">
-                                <div class="slider slider-horizontal" style="width: 163px;"><div class="slider-track"><div class="slider-selection" style="left: 0%; width: 0%;"></div><div class="slider-handle" style="left: 0%;"></div><div class="slider-handle hide" style="left: 0%;"></div></div><div class="tooltip top hide" style="top: -30px; left: 0px;"><div class="tooltip-arrow"></div><div class="tooltip-inner">0</div></div><input type="text" class="bootstrap-slider" value="" style="display: none;"></div>
-                            </div>
-                            <div class="right-label">
-                                <span class="label label-default label-slider pull-right">0</span>
-                            </div>
-                        </div>
+                        <select class="form-control" id="gradoriesgo">
+                            <option value="1">Bajo</option>
+                            <option value="2">Medio</option>
+                            <option value="3">Alto</option>
+                        </select>
                     </div>
                 </div>
             </div>
             <div class="modal-footer" style="padding: 10px;">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Calcelar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button id="btn_guardar" type="button" class="btn btn-primary">Guardar</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

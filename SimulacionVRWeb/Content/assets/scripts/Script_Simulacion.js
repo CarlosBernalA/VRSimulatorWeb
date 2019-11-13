@@ -1,6 +1,244 @@
-﻿$(document).ready(function () {
+﻿var exportTable = $('#datatable-data-export').DataTable(
+	{
+	    sDom: "T<'clearfix'>" +
+			"<'row'<'col-sm-6'l><'col-sm-6'f>r>" +
+			"t" +
+			"<'row'<'col-sm-6'i><'col-sm-6'p>>",
+	    "tableTools":
+		{
+		    "sSwfPath": "assets/vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf"
+		}
+	});
+
+var ID = 0;
+
+$(document).ready(function () {
 
     CurrectSelecteditem('#li_simulacion');
-    $('.slider-has-label').slide();
+    
+    var sliderChanged = function () {
+        $('.label-slider').text(theSlider.getValue());
+    };
 
+    var theSlider = $('.bootstrap-slider')
+		.slider({
+		    min: 0,
+		    max: 20,
+		    value:0,
+		    tooltip: 'hide',
+		    handle: 'square'
+		}).on('slide', sliderChanged).data('slider');
+
+    $('.label-slider').text(theSlider.getValue());
+
+    Load_Simulacion();
+    Load_TipoSimulacion();
+
+    $("#btn_guardar").on("click", function () {
+
+        if ($("#txt_nombre").val() != "" && $("#txt_desc").val() != "" && $("#p_max").val() != "") {
+            if (ID == 0) {
+                Managment_Simulacion({
+                    SimulacionId: 0,
+                    Nombre: $("#txt_nombre").val(),
+                    TipoSimulacionId: $("#tiposimulacion").val(),
+                    si_descripcion: $("#txt_desc").val(),
+                    si_maxpuntaje: $("#p_max").val(),
+                    si_GradoRiesgo: $("#gradoriesgo").val(),
+                    si_Estado: 1,
+                    Action: 1
+                });
+            } else {
+                Managment_Simulacion({
+                    SimulacionId: ID,
+                    Nombre: $("#txt_nombre").val(),
+                    TipoSimulacionId: $("#tiposimulacion").val(),
+                    si_descripcion: $("#txt_desc").val(),
+                    si_maxpuntaje: $("#p_max").val(),
+                    si_GradoRiesgo: $("#gradoriesgo").val(),
+                    si_Estado: 1,
+                    Action: 2
+                });
+                ID = 0;
+            }
+        } else {
+            Toast({
+                action: "error",
+                message: "Rellene los campos correctamente",
+                position: "top-right",
+            });
+        }
+    });
+
+    $(document).on("click", ".btn_edit", function () {
+        ID = $(this).attr("data-id");
+        $("#txt_nombre").val($(this).attr("data-name"));
+        $("#tiposimulacion").val($(this).attr("data-tsimu"));
+        $("#txt_desc").val($(this).attr("data-desc"));
+
+        $("#gradoriesgo").val($(this).attr("data-riesgo"));
+        $("#agregarsimulacion").modal("show");
+    });
+
+    $(document).on("click", ".btn_remove", function () {
+        var btn = $(this);
+        swal({
+            title: 'Eliminar',
+            text: "¿Esta seguro de eliminar esta simulacion?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#F9354C',
+            cancelButtonColor: '#41B314',
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then(function () {
+            Managment_Simulacion({
+                SimulacionId: btn.attr("data-id"),
+                Nombre: "e",
+                TipoSimulacionId: 1,
+                si_descripcion: "e",
+                si_maxpuntaje: 1,
+                si_GradoRiesgo: 1,
+                si_Estado: 1,
+                Action: 3
+            });
+        }).catch(swal.noop);
+
+    });
 });
+
+
+function Load_Simulacion() {
+    var data = {};
+    var _data;
+    var resultTable = "";
+    $.ajax({
+        type: "POST",
+        url: "Simulacion/list_simulacion",
+        data: data,
+        async: false,
+        datatype: "JSON",
+        success: function (response) {
+            _data = JSON.parse(response);
+
+        },
+        complete: function () {
+            $.each(_data, function (i, item) {
+                resultTable += "<tr>";
+                resultTable += "<td>" + item.Nombre + "</td>";
+                resultTable += "<td>" + item.ts_Nombre + "</td>";
+                resultTable += "<td>" + item.si_descripcion + "</td>";
+                resultTable += "<td>" + item.si_maxpuntaje + "</td>";
+                resultTable += "<td>" + gradoR(item.si_GradoRiesgo) + "</td>";
+                resultTable += "<td><center>";
+                resultTable += "<button data-id='" + item.SimulacionId + "' data-name='" + item.Nombre + "' data-tsimu='" + item.TipoSimulacionId + "' data-desc='" + item.si_descripcion + "' data-pmax='" + item.si_maxpuntaje + "' data-riesgo='" + item.si_GradoRiesgo + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-edit'></i></button>";
+                resultTable += "<button data-id='" + item.SimulacionId + "' type='button' class='btn_remove btn btn-danger btn-sm'><i class='fa fa-trash-o'></i></button>";
+                resultTable += "</center></td>";
+                resultTable += "</tr>";
+            });
+            $('#datatable-simulacion').find('tbody').html(resultTable);
+            $('#datatable-simulacion').DataTable();
+        }
+
+
+    });
+}
+
+function Load_TipoSimulacion() {
+    var data = {};
+    var _data;
+    var resultTable = "";
+    $.ajax({
+        type: "POST",
+        url: "Simulacion/list_tiposimulacion",
+        data: data,
+        async: false,
+        datatype: "JSON",
+        success: function (response) {
+            //console.log(response);
+            _data = JSON.parse(response);
+
+        },
+        complete: function () {
+            $.each(_data, function (i, item) {
+                resultTable += "<option value='" + item.TipoSimulacionId + "'>" + item.ts_Nombre + "</option>";
+            });
+            $('#tiposimulacion').html(resultTable);
+        }
+
+
+    });
+}
+function gradoR(grado) {
+    var html = "";
+    var gr = "";
+    var color = "";
+    
+    switch (grado) {
+        case 1:
+            gr = "Bajo";
+            color = "default";
+            break;
+        case 2:
+            gr = "Medio";
+            color = "warning";
+            break;
+        case 3:
+            gr = "Alto";
+            color = "danger";
+            break;
+        
+    }
+
+    html = "<span class='label label-" + color + " status'><font style='vertical-align: inherit;'>" + gr + "</font></span>";
+    return html;
+}
+
+function Managment_Simulacion(data) {
+    var _data;
+  
+    $.ajax({
+        type: "POST",
+        url: "Simulacion/Managment_Simulacion",
+        data: data,
+        async: false,
+        datatype: "JSON",
+        success: function (response) {
+            _data = JSON.parse(response);
+        },
+        complete: function () {
+            if (_data.Result == 1) {
+                $("#agregarsimulacion").modal("hide");
+                if (data.Action == 1) {
+                    Load_Simulacion();
+                    Toast({
+                        action: "success",
+                        message: "La simulacion se ha registrado correctamente",
+                        position: "top-right",
+                    });
+                } else if (data.Action == 2) {
+                    Load_Simulacion();
+                    Toast({
+                        action: "success",
+                        message: "La simulacion se ha actualizado correctamente",
+                        position: "top-right",
+                    });
+                } else {
+                    Load_Simulacion();
+                    Toast({
+                        action: "success",
+                        message: "La simulacion se ha eliminado correctamente",
+                        position: "top-right",
+                    });
+                }
+            } else {
+                Toast({
+                    action: "error",
+                    message: _data.Message,
+                    position: "top-right",
+                });
+            }
+
+        }
+    });
+}

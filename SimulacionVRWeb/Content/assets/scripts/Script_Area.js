@@ -96,7 +96,7 @@ function Load_Colaboradores() {
 		async: false,
 		datatype: "JSON",
 		success: function (response) {
-			console.log(response);
+			//console.log(response);
 			_data = JSON.parse(response);
 
 		},

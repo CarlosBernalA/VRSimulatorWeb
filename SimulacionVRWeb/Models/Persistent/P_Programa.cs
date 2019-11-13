@@ -27,6 +27,7 @@ namespace SimulacionVRWeb.Models.Persistent
                     while (reader.Read())
                     {
                         entidad = new ProgramaApi(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), reader.GetValue(3).ToString(), reader.GetValue(4).ToString(), reader.GetValue(5).ToString(), reader.GetString(6), reader.GetValue(7).ToString(), reader.GetValue(8).ToString(), reader.GetString(9));
+                       
                         listEntidad.Add(entidad);
                     }
                 }

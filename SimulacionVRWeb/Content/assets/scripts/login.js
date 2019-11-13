@@ -6,39 +6,27 @@ $(document).ready(function () {
      //   Loginin();
    // });
     $('#btn_login').on('click', function (s, e) {
-        var username = $('#username').val();
+        var username = $.trim($('#username').val());
         var pass = $('#password').val();
         if (username != "" && pass != "") {
             Loginin({
                 UserName: username,
                 Password: pass
             });
-            /*
-            if (ID == 0) {
-                Managment_Area({
-                    AreaId: 0,
-                    are_Nombre: $("#txt_nombre").val(),
-                    are_Descripcion: $("#txt_desc").val(),
-                    are_Estado: 1,
-                    Action: 1
-                });
-            } else {
-                Managment_Area({
-                    AreaId: ID,
-                    are_Nombre: $("#txt_nombre").val(),
-                    are_Descripcion: $("#txt_desc").val(),
-                    are_Estado: 1,
-                    Action: 2
-                });
-                ID = 0;
-            }*/
+           
         } else {
-            console.log("vacio");
-            /*Toast({
-                action: "error",
-                message: "Rellene los campos correctamente",
-                position: "top-right",
-            });*/
+            swal({
+                title: 'ADVERTENCIA',
+                text: "Complete los campos!",
+                type: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#ff9800',
+                cancelButtonColor: '#41B314',
+                confirmButtonText: 'OK'
+            }).then(function () {
+
+            }).catch(swal.noop);
+            
         }
     });
 });
@@ -61,7 +49,7 @@ function Loginin(data) {
 				swal({
 					title: 'ERROR',
 					text: "Datos incorrectos!",
-					type: 'warning',
+					type: 'error',
 					showCancelButton: false,
 					confirmButtonColor: '#F9354C',
 					cancelButtonColor: '#41B314',
@@ -69,12 +57,7 @@ function Loginin(data) {
 				}).then(function () {
 					
 				}).catch(swal.noop);
-				//Toast({
-				//	action: "error",
-				//	message: "Datos incorrectos",
-				//	position: "top-right",
-				//});
-                //console.log("no");
+
             }
 			
         }

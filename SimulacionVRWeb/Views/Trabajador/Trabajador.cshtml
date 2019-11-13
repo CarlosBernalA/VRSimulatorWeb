@@ -5,10 +5,10 @@
 }
 
 @section Scripts{
+    <script src="~/Content/assets/vendor/hideshowpassword/hideShowPassword.min.js"></script>
     <script src="~/Content/assets/scripts/Script_Trabajador.js"></script>
 }
 
-End Section
 <div class="content-heading clearfix">
     <div class="heading-left">
         <h1 class="page-title" id="view-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Trabajador</font></font></h1>
@@ -29,35 +29,19 @@ End Section
     </div>
     <div class="panel-body">
 
-        <table id="datatable-persons" class="table table-striped table-hover table-bordered">
+        <table id="datatable-trabajador" class="table table-striped table-hover table-bordered">
             <thead>
                 <tr>
-                    <th id="PersonName">DNI</th>
-                    <th id="DNI">Apellidos</th>
-                    <th id="Sex">Nombres</th>
-                    <th id="Age">Area</th>
-                    <th id="DistrictName">Sexo</th>
-                    <th id="CommunityName">Direccion</th>
+                    <th>DNI</th>
+                    <th>Apellidos</th>
+                    <th>Nombres</th>
+                    <th>Area</th>
+                    <th>Direccion</th>
                     <th>OPCIONES</th>
                 </tr>
             </thead>
             <tbody>
-                <tr role="row">
-                    <td>465374626</td>
-                    <td>Salazar Mejia</td>
-                    <td>Maickol</td>
-                    <td>Tecnologia de la información</td>
-                    <td>Masculino</td>
-                    <td>Casma</td>
-                    <td>
-                        <center>
-                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#editartrabajador">
-                                <i class="fa fa-edit"></i>
-                            </button>
-                            <button type='button' class='borrar btn btn-danger btn-sm'><i class='fa fa-trash-o'></i></button>
-                        </center>
-                    </td>
-                </tr>
+                
             </tbody>
         </table>
     </div>
@@ -76,15 +60,13 @@ End Section
                         <div class="row">
                             <div class="col-md-7">
                                 <legend><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Area</font></font></legend>
-                                <select class="form-control">
-                                    <option value="cheese">Contabilidad</option>
-                                    <option value="cheese">Largos</option>
-                                    <option value="cheese">TI</option>
+                                <select id="area" class="form-control">
+                                    
                                 </select>
                             </div>
                             <div class="col-md-5">
                                 <legend><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Inico de trabajo</font></font></legend>
-                                <input data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy">
+                                <input id="txt_itra" data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy">
                             </div>
                         </div>
                     </div>
@@ -97,15 +79,15 @@ End Section
                         <div class="row">
                             <div class="col-md-3">
                                 <label class="control-label">DNI:</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input id="txt_dni" type="text" class="form-control" placeholder="">
                             </div>
                             <div class="col-md-4">
                                 <label class="control-label">Nombre:</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input id="txt_nombre" type="text" class="form-control" placeholder="">
                             </div>
                             <div class="col-md-5">
                                 <label class="control-label">Apellidos:</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input id="txt_ape" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -117,7 +99,7 @@ End Section
                                 <label class="control-label">Sexo:</label>
                                 <div class="fancy-radio">
                                     <label>
-                                        <input name="gender" value="male" type="radio">
+                                        <input name="txt_sexo" value="M" type="radio">
                                         <span>
                                             <i></i>
                                             <font style="vertical-align: inherit;">
@@ -128,7 +110,7 @@ End Section
                                 </div>
                                 <div class="fancy-radio">
                                     <label>
-                                        <input name="gender" value="female" type="radio">
+                                        <input name="txt_sexo" value="F" type="radio">
                                         <span>
                                             <i></i>
                                             <font style="vertical-align: inherit;">
@@ -140,11 +122,11 @@ End Section
                             </div>
                             <div class="col-md-4">
                                 <label class="control-label">Fecha de Nacimiento:</label>
-                                <input data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy">
+                                <input id="txt_nac" data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy">
                             </div>
                             <div class="col-md-5">
                                 <label class="control-label">Dirección:</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input id="txt_dir" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -160,15 +142,12 @@ End Section
                             </div>
                             <div class="col-md-4">
                                 <label class="control-label">Usuario:</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input id="txt_user" type="text" class="form-control" placeholder="">
                             </div>
                             <div class="col-md-4">
                                 <label class="control-label">Contraseña:</label>
                                 <div class="hideShowPassword-wrapper" style="position: relative; display: block; vertical-align: baseline; margin: 0px;">
-                                    <input type="password" class="form-control hideShowPassword-field hideShowPassword-hidden" id="password-showhide2" autocapitalize="off" autocomplete="off" spellcheck="true" style="margin: 0px; padding-right: 26px;">
-                                    <button type="button" role="button" aria-label="Show Password" title="Show Password" tabindex="0" class="hideShowPassword-toggle toggle-eye hideShowPassword-toggle-show" aria-pressed="false" style="position: absolute; right: 0px; top: 50%; margin-top: -10.5px;">
-                                        <i class="fa fa-eye"></i>
-                                    </button>
+                                    <input type="password" class="form-control hideShowPassword-field hideShowPassword-hidden" id="password-showhide2" autocapitalize="off" autocomplete="off" spellcheck="true" style="width: 260px">
                                 </div>
                             </div>
                         </div>
@@ -178,13 +157,13 @@ End Section
             </div>
             <div class="modal-footer" style="padding: 10px;">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Calcelar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button id="btn_guardar" type="button" class="btn btn-primary">Guardar</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-<!--modal editar trabajador-->
+<!--modal editar trabajador
 <div class="modal fade" id="editartrabajador" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content" style="border: 1px solid;">
@@ -304,5 +283,5 @@ End Section
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-</div>
+</div>-->
 <!-- /.modal -->

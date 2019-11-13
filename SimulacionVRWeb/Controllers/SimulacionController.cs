@@ -38,5 +38,23 @@ namespace SimulacionVRWeb.Controllers
             var json = jsonSerialiser.Serialize(a);
             return json;
         }
+
+        public String list_simulacion()
+        {
+            B_Simulacion b_Simulacio = new B_Simulacion();
+            List<Simulacion> _list = b_Simulacio.list_simulacion();
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(_list);
+            return json;
+        }
+
+        public String Managment_Simulacion(Simulacion_S _Simulacion)
+        {
+            B_Simulacion b_Simulacion = new B_Simulacion();
+            Simulacion_Result a = b_Simulacion.Managment_Simulacion(new Simulacion(_Simulacion.SimulacionId, _Simulacion.Nombre, _Simulacion.TipoSimulacionId, _Simulacion.si_descripcion, _Simulacion.si_maxpuntaje, _Simulacion.si_GradoRiesgo, _Simulacion.si_Estado), _Simulacion.Action);
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(a);
+            return json;
+        }
     }
 }
