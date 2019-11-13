@@ -49,5 +49,42 @@ namespace SimulacionVRWeb.Models.Persistent
             }
             return resu;
         }
+
+        public TrabajadorApi LoginApi(String UserName,String Password)
+        {
+            TrabajadorApi resu=null;
+            using (SqlConnection connection = new SqlConnection(cadena))
+            {
+
+                try
+                {
+                    
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("VR_Login_Participante", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@UserName", SqlDbType.VarChar).Value = UserName;
+                    command.Parameters.Add("@Password", SqlDbType.VarChar).Value = Password;
+                    SqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleResult);
+                    if (reader.HasRows)
+                    {
+
+                        if (reader.Read())
+                        {
+                            resu = new TrabajadorApi(reader.GetInt32(0), reader.GetString(1),reader.GetString(2),reader.GetString(3));
+                            
+                        }
+                    }
+                    reader.Close();
+                    connection.Close();
+                }
+                catch (Exception e)
+                {
+                    connection.Close();
+                }
+            }
+            return resu;
+        }
+
     }
 }
