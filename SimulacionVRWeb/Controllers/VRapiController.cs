@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace SimulacionVRWeb.Controllers
 {
+    /*
     public class VRapiController : ApiController
     {
         [HttpGet]
@@ -125,4 +126,5 @@ namespace SimulacionVRWeb.Controllers
             SimulacionName = simulacionName;
         }
     }
+    */
 }

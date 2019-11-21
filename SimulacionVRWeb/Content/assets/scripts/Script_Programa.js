@@ -18,10 +18,6 @@ $(document).ready(function () {
         placeholder: 'Selecciona un trabajador',
         allowClear: true
     });
-    $('#select-placeholder-single2').select2({
-        placeholder: 'Selecciona un trabajador',
-        allowClear: true
-    });
     $('.slimScrollDiv').slimScroll({
         //size: '8px',
         //width: '100%',
@@ -46,11 +42,21 @@ $(document).ready(function () {
     });
 
     $(document).on("click", ".btn_edit", function () {
+        Load_Local();
+        Load_Simulacion();
+        console.log($(this).attr("data-local") + " - " + $(this).attr("data-simu"));
         ID = $(this).attr("data-id");
+        $("#txt_fecha").val($(this).attr("data-fech"));
+        $("#txt_inicio").val($(this).attr("data-ini"));
+        $("#txt_fin").val($(this).attr("data-fin"));
+        $("#txt_local").val($(this).attr("data-local"));
+        $("#txt_simulacion").val($(this).attr("data-simu"));
+        $("#txt_descripcion").val($(this).attr("data-desc"));
+
         $("#listaprograma").hide();
         $("#editarprograma").show({ direction: "right" }, 5000);
     });
-    
+
 
     $("#editprograma").click(function () {
         $("#listaprograma").hide();
@@ -60,9 +66,7 @@ $(document).ready(function () {
         $("#editarprograma").hide();
         $("#listaprograma").show({ direction: "right" }, 5000);
     });
-    
 
-    
 });
 
 function Load_Programa(data) {
@@ -85,7 +89,7 @@ function Load_Programa(data) {
                 resultTable += "<td>" + item.HoraInicio + "</td>";
                 resultTable += "<td>" + item.HoraFin + "</td>";
                 resultTable += "<td><center>";
-                resultTable += "<button data-id='" + item.ProgramaId + "'  type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-clipboard'></i></button>";
+                resultTable += "<button data-desc='" + item.pr_Descripcion + "' data-simu='" + item.SimulacionId + "' data-local='" + item.LocalId + "' data-fin='" + item.HoraFin + "' data-ini='" + item.HoraInicio + "' data-fech='" + item.FechaPrograma + "' data-id='" + item.ProgramaId + "'  type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-clipboard'></i></button>";
                 resultTable += "<button data-id='" + item.ProgramaId + "' type='button' class='btn_remove btn btn-danger btn-sm'><i class='fa fa-trash-o'></i></button>";
                 resultTable += "</center></td>";
                 resultTable += "</tr>";
@@ -108,7 +112,6 @@ function Load_Local() {
         async: false,
         datatype: "JSON",
         success: function (response) {
-            console.log(response);
             _data = JSON.parse(response);
 
         },
@@ -116,7 +119,7 @@ function Load_Local() {
             $.each(_data, function (i, item) {
                 resultTable += "<option value='" + item.LocalId + "'>" + item.Lc_nombre + "</option>";
             });
-            $('#local').html(resultTable);
+            $('.localAll').html(resultTable);
         }
 
 
@@ -140,9 +143,9 @@ function Load_Simulacion() {
         complete: function () {
             $.each(_data, function (i, item) {
                 resultTable += "<option value='" + item.SimulacionId + "'>" + item.Nombre + "</option>";
-               
+
             });
-            $('#simulacion').html(resultTable);
+            $('.simulacionALL').html(resultTable);
         }
 
 

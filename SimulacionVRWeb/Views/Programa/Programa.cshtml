@@ -39,9 +39,7 @@
                     <th>OPCIONES</th>
                 </tr>
             </thead>
-            <tbody>
-                
-            </tbody>
+            <tbody></tbody>
         </table>
     </div>
 </div>
@@ -62,12 +60,12 @@
                     </div>
                     <div class="col-md-4">
                         <label class="control-label">Fecha del Programa:</label>
-                        <input data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy">
+                        <input id="txt_fecha" data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy">
                     </div>
                     <div class="col-md-4">
                         <label class="control-label">Inicio:</label>
                         <div class="input-group basic-clockpicker" data-placement="top" data-autoclose="true">
-                            <input type="text" class="form-control" value="09:30">
+                            <input id="txt_inicio" type="text" class="form-control" value="">
                             <span class="input-group-addon">
                                 <span class="fa fa-clock-o"></span>
                             </span>
@@ -76,7 +74,7 @@
                     <div class="col-md-4">
                         <label class="control-label">Fin:</label>
                         <div class="input-group basic-clockpicker" data-placement="top" data-autoclose="true">
-                            <input type="text" class="form-control" value="09:30">
+                            <input id="txt_fin" type="text" class="form-control" value="">
                             <span class="input-group-addon">
                                 <span class="fa fa-clock-o"></span>
                             </span>
@@ -87,26 +85,18 @@
                 <div class="row">
                     <div class="col-md-6">
                         <legend><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Local</font></font></legend>
-                        <select class="form-control">
-                            <option value="cheese">Industrial A</option>
-                            <option value="cheese">Largos</option>
-                            <option value="cheese">TI</option>
-                        </select>
+                        <select id="txt_local" class="form-control localAll"></select>
                     </div>
                     <div class="col-md-6">
                         <legend><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Simulacion</font></font></legend>
-                        <select class="form-control">
-                            <option value="cheese">Protocolo de Mantenimiento</option>
-                            <option value="cheese">Largos</option>
-                            <option value="cheese">TI</option>
-                        </select>
+                        <select id="txt_simulacion" class="form-control simulacionALL"></select>
                     </div>
                     <div class="col-md-12 mt2">
                         <legend><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Descripción</font></font></legend>
-                        <textarea class="form-control" rows="3" cols="30" required=""></textarea>
+                        <textarea id="txt_descripcion" class="form-control" rows="3" cols="30" required=""></textarea>
                     </div>
                 </div>
-                
+
             </div>
             <div class="col-md-4">
                 <div class="row">
@@ -117,7 +107,6 @@
                     <div class="col-md-12" style="padding-right: 85px;">
 
                         <select id="select-placeholder-single" style="width: 100%;" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true">
-                            <option value="AK"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Alaska</font></font></option>
                             <option value="HI"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Hawai</font></font></option>
                             <option value="CA"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">California</font></font></option>
                             <option value="NV"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Nevada</font></font></option>
@@ -136,7 +125,7 @@
                             <option value="FL"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Florida</font></font></option>
                         </select>
 
-                        
+
                         <button type="button" class="btn btn-primary btn-sm" style="float:right;margin-right:-58px;">
                             <i class="fa fa-plus-square"></i>
                         </button>
@@ -166,8 +155,8 @@
                                         <span>Largos</span>
                                         <i data-id="1" class="fa fa-trash-o btn_remove" style="float: right;color: red;font-size: 2rem;margin-top: -11px;margin-right: 5px;cursor: pointer;"></i>
                                     </li>
-                                    
-                                    
+
+
                                 </ul>
                             </div>
                         </div>
@@ -192,15 +181,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <legend><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Local</font></font></legend>
-                        <select id="local" class="form-control">
-                            
-                        </select>
+                        <select class="form-control localAll"></select>
                     </div>
                     <div class="col-md-6">
                         <legend><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Simulacion</font></font></legend>
-                        <select id="simulacion" class="form-control">
-                            
-                        </select>
+                        <select class="form-control simulacionALL"></select>
                     </div>
                     <div class="col-md-12 mt1 pt1">
                         <legend><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Descripción</font></font></legend>
@@ -236,69 +221,69 @@
 
                 </div>
                 <!--
-                <div class="row mt1">
-                    <div class="col-md-12">
-                        <legend><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Participantes</font></font></legend>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: auto;">
-                            <div id="list-message-scrollable" style="overflow: hidden; width: auto; height: auto;">
-                                <ul class="inbox-list-message">
-                                    <li class="active" style="padding-left: 21px;padding-top: 12px;padding-bottom: 12px;">
-                                        <span>Salazar Mejia Maickol</span><br />
-                                        <span>Largos</span>
-                                        <i data-id="1" class="fa fa-trash-o btn_remove" style="float: right;color: red;font-size: 2rem;margin-top: -11px;margin-right: 5px;cursor: pointer;"></i>
-                                    </li>
-                                    <li class="unread" style="padding-left: 21px;padding-top: 12px;padding-bottom: 12px;">
-                                        <span>Salazar Mejia Maickol</span><br />
-                                        <span>Largos</span>
-                                        <i data-id="1" class="fa fa-trash-o btn_remove" style="float: right;color: red;font-size: 2rem;margin-top: -11px;margin-right: 5px;cursor: pointer;"></i>
-                                    </li>
-                                    <li class="active" style="padding-left: 21px;padding-top: 12px;padding-bottom: 12px;">
-                                        <span>Salazar Mejia Maickol</span><br />
-                                        <span>Largos</span>
-                                        <i data-id="1" class="fa fa-trash-o btn_remove" style="float: right;color: red;font-size: 2rem;margin-top: -11px;margin-right: 5px;cursor: pointer;"></i>
-                                    </li>
-                                    <li class="unread" style="padding-left: 21px;padding-top: 12px;padding-bottom: 12px;">
-                                        <span>Salazar Mejia Maickol</span><br />
-                                        <span>Largos</span>
-                                        <i data-id="1" class="fa fa-trash-o btn_remove" style="float: right;color: red;font-size: 2rem;margin-top: -11px;margin-right: 5px;cursor: pointer;"></i>
-                                    </li>
+                                <div class="row mt1">
+                                    <div class="col-md-12">
+                                        <legend><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Participantes</font></font></legend>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: auto;">
+                                            <div id="list-message-scrollable" style="overflow: hidden; width: auto; height: auto;">
+                                                <ul class="inbox-list-message">
+                                                    <li class="active" style="padding-left: 21px;padding-top: 12px;padding-bottom: 12px;">
+                                                        <span>Salazar Mejia Maickol</span><br />
+                                                        <span>Largos</span>
+                                                        <i data-id="1" class="fa fa-trash-o btn_remove" style="float: right;color: red;font-size: 2rem;margin-top: -11px;margin-right: 5px;cursor: pointer;"></i>
+                                                    </li>
+                                                    <li class="unread" style="padding-left: 21px;padding-top: 12px;padding-bottom: 12px;">
+                                                        <span>Salazar Mejia Maickol</span><br />
+                                                        <span>Largos</span>
+                                                        <i data-id="1" class="fa fa-trash-o btn_remove" style="float: right;color: red;font-size: 2rem;margin-top: -11px;margin-right: 5px;cursor: pointer;"></i>
+                                                    </li>
+                                                    <li class="active" style="padding-left: 21px;padding-top: 12px;padding-bottom: 12px;">
+                                                        <span>Salazar Mejia Maickol</span><br />
+                                                        <span>Largos</span>
+                                                        <i data-id="1" class="fa fa-trash-o btn_remove" style="float: right;color: red;font-size: 2rem;margin-top: -11px;margin-right: 5px;cursor: pointer;"></i>
+                                                    </li>
+                                                    <li class="unread" style="padding-left: 21px;padding-top: 12px;padding-bottom: 12px;">
+                                                        <span>Salazar Mejia Maickol</span><br />
+                                                        <span>Largos</span>
+                                                        <i data-id="1" class="fa fa-trash-o btn_remove" style="float: right;color: red;font-size: 2rem;margin-top: -11px;margin-right: 5px;cursor: pointer;"></i>
+                                                    </li>
 
 
-                                </ul>
-                            </div>
-                        </div>
+                                                </ul>
+                                            </div>
+                                        </div>
 
-                    </div>
-                    <div class="col-md-4" style="padding-right: 85px;">
-                        <select id="select-placeholder-single2" style="width: 100%;" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true">
-                            <option value="AK"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Alaska</font></font></option>
-                            <option value="HI"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Hawai</font></font></option>
-                            <option value="CA"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">California</font></font></option>
-                            <option value="NV"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Nevada</font></font></option>
-                            <option value="OR"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Oregón</font></font></option>
-                            <option value="WA"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Washington</font></font></option>
-                            <option value="AZ"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Arizona</font></font></option>
-                            <option value="CO"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Colorado</font></font></option>
-                            <option value="ID"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Idaho</font></font></option>
-                            <option value="MT"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Montana</font></font></option>
-                            <option value="AL"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Alabama</font></font></option>
-                            <option value="AR"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Arkansas</font></font></option>
-                            <option value="IL"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Illinois</font></font></option>
-                            <option value="IA"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Iowa</font></font></option>
-                            <option value="CT"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Connecticut</font></font></option>
-                            <option value="DE"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Delaware</font></font></option>
-                            <option value="FL"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Florida</font></font></option>
-                        </select>
-                        <button type="button" class="btn btn-primary btn-sm" style="float:right;margin-right:-58px;">
-                            <i class="fa fa-plus-square"></i>
-                        </button>
-                    </div>
+                                    </div>
+                                    <div class="col-md-4" style="padding-right: 85px;">
+                                        <select id="select-placeholder-single2" style="width: 100%;" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true">
+                                            <option value="AK"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Alaska</font></font></option>
+                                            <option value="HI"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Hawai</font></font></option>
+                                            <option value="CA"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">California</font></font></option>
+                                            <option value="NV"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Nevada</font></font></option>
+                                            <option value="OR"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Oregón</font></font></option>
+                                            <option value="WA"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Washington</font></font></option>
+                                            <option value="AZ"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Arizona</font></font></option>
+                                            <option value="CO"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Colorado</font></font></option>
+                                            <option value="ID"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Idaho</font></font></option>
+                                            <option value="MT"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Montana</font></font></option>
+                                            <option value="AL"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Alabama</font></font></option>
+                                            <option value="AR"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Arkansas</font></font></option>
+                                            <option value="IL"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Illinois</font></font></option>
+                                            <option value="IA"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Iowa</font></font></option>
+                                            <option value="CT"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Connecticut</font></font></option>
+                                            <option value="DE"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Delaware</font></font></option>
+                                            <option value="FL"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Florida</font></font></option>
+                                        </select>
+                                        <button type="button" class="btn btn-primary btn-sm" style="float:right;margin-right:-58px;">
+                                            <i class="fa fa-plus-square"></i>
+                                        </button>
+                                    </div>
 
 
-                </div>
--->
+                                </div>
+                -->
             </div>
             <div class="modal-footer" style="padding: 10px;">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Calcelar</button>
