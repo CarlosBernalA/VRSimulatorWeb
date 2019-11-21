@@ -20,7 +20,9 @@ namespace SimulacionVRWeb.Models.Entities
         public String si_descripcion { get; set; }
         public String si_GradoRiesgo { get; set; }
         public String si_maxpuntaje { get; set; }
+        public String tr_Nombre { get; set; }
         public String Nombre { get; set; }
+        public int SimulacionId { get; set; }
 
         public ProgramaApi(int programaId, string pr_Descripcion, int participanteId, string fechaPrograma, string horaInicio, string horaFin, string si_descripcion, string si_GradoRiesgo, string si_maxpuntaje, string nombre)
         {

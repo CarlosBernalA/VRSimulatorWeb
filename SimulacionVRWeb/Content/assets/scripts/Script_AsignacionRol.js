@@ -17,6 +17,16 @@ $(document).ready(function () {
     CurrectSelecteditem('#li_asignacionrol');
     Load_Trabajador();
 
+    $("#btn_guardar").on("click", function () {
+
+        Managment_trabajadorRol({
+            tr_Nombre: "trabajadores con roles",
+            TrabajadorRolId: ID,
+            RolId: $("#rolid").val(),
+            Action: 1
+        });
+    });
+
     $(document).on("click", ".btn_edit", function () {
         ID = $(this).attr("data-id");
         roles_trabajador({ TrabajadorId: ID });
@@ -45,7 +55,7 @@ $(document).ready(function () {
                 Action: 2
             });
         }).catch(swal.noop);
-        Load_Trabajador();
+        
     });
    
 });
@@ -129,6 +139,7 @@ function Managment_trabajadorRol(data) {
             if (_data.Result == 1) {
                 if (data.Action == 1) {
                     roles_trabajador({ TrabajadorId: ID });
+                    Load_Trabajador();
                     Toast({
                         action: "success",
                         message: "EL rol se ha agregado correctamente",
@@ -136,6 +147,7 @@ function Managment_trabajadorRol(data) {
                     });
                 } else {
                     roles_trabajador({ TrabajadorId: ID });
+                    Load_Trabajador();
                     Toast({
                         action: "success",
                         message: "EL rol se ha eliminado correctamente",
