@@ -44,7 +44,6 @@ $(document).ready(function () {
     $(document).on("click", ".btn_edit", function () {
         Load_Local();
         Load_Simulacion();
-        console.log($(this).attr("data-local") + " - " + $(this).attr("data-simu"));
         ID = $(this).attr("data-id");
         $("#txt_fecha").val($(this).attr("data-fech"));
         $("#txt_inicio").val($(this).attr("data-ini"));
