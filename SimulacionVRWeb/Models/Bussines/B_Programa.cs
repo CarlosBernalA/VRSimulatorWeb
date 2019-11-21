@@ -16,5 +16,12 @@ namespace SimulacionVRWeb.Models.Bussines
             listEntidad = dao.list_ProgramaApi(TrabajadorID);
             return listEntidad;
         }
+        public List<Programa> list_programa(Programa _Programa)
+        {
+            List<Programa> listEntidad = null;
+            P_Programa dao = new P_Programa();
+            listEntidad = dao.list_programa(_Programa);
+            return listEntidad;
+        }
     }
 }

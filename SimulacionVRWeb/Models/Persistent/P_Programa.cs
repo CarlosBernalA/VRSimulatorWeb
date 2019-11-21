@@ -36,5 +36,35 @@ namespace SimulacionVRWeb.Models.Persistent
             }
             return listEntidad;
         }
+
+        public List<Programa> list_programa(Programa _Programa)
+        {
+            List<Programa> listEntidad = null;
+            using (SqlConnection connection = new SqlConnection(cadena))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("VR_Get_Programa", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@FechaInicio", SqlDbType.Date).Value = _Programa.FechaInicio;
+                command.Parameters.Add("@FechaFin", SqlDbType.Date).Value = _Programa.FechaFin;
+
+                SqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleResult);
+                if (reader.HasRows)
+                {
+                    Programa entidad = null;
+                    listEntidad = new List<Programa>();
+                    while (reader.Read())
+                    {
+                        entidad = new Programa(reader.GetInt32(0), reader.GetString(1), Convert.ToString(reader.GetDateTime(2)), Convert.ToString(reader.GetTimeSpan(3)), Convert.ToString(reader.GetTimeSpan(4)), reader.GetString(5), reader.GetString(6), reader.GetInt32(7), reader.GetInt32(8));
+                        listEntidad.Add(entidad);
+                    }
+                }
+                reader.Close();
+                connection.Close();
+            }
+            return listEntidad;
+        }
     }
+
+
 }
