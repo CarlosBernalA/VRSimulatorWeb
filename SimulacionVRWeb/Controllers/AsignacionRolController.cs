@@ -46,5 +46,13 @@ namespace SimulacionVRWeb.Controllers
             var json = jsonSerialiser.Serialize(_list);
             return json;
         }
+        public String roler_trabajador(TrabajadorRol_S _TrabajadorRol)
+        {
+            B_TrabajadorRol b_TrabajadorRol = new B_TrabajadorRol();
+            List<TrabajadorRol> _list = b_TrabajadorRol.roler_trabajador(new TrabajadorRol(_TrabajadorRol.TrabajadorId));
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(_list);
+            return json;
+        }
     }
 }

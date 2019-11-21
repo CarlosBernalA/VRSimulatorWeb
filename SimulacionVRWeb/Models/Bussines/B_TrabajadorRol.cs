@@ -16,5 +16,12 @@ namespace SimulacionVRWeb.Models.Bussines
             listEntidad = dao.list_trabajadorrol();
             return listEntidad;
         }
+        public List<TrabajadorRol> roler_trabajador(TrabajadorRol _TrabajadorRol)
+        {
+            List<TrabajadorRol> listEntidad = null;
+            P_TrabajadorRol dao = new P_TrabajadorRol();
+            listEntidad = dao.roler_trabajador(_TrabajadorRol);
+            return listEntidad;
+        }
     }
 }

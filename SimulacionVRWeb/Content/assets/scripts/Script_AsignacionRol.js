@@ -16,7 +16,54 @@ $(document).ready(function () {
 
     CurrectSelecteditem('#li_asignacionrol');
     Load_Trabajador();
+
+    $(document).on("click", ".btn_edit", function () {
+        ID = $(this).attr("data-id");
+        roles_trabajador({ TrabajadorId: ID });
+        /*
+        $("#area").val($(this).attr("data-area"));
+        $("#txt_dni").val($(this).attr("data-dni"));
+        $("#txt_nombre").val($(this).attr("data-name"));
+        $("#txt_ape").val($(this).attr("data-ape"));
+        $("#txt_nac").val($(this).attr("data-naci"));
+        $("#txt_dir").val($(this).attr("data-dire"));
+        $('input:radio[name=txt_sexo]:checked').val($(this).attr("data-sexo"));
+        $("#txt_itra").val($(this).attr("data-itra"));
+        $("#txt_user").val($(this).attr("data-user"));
+        $("#password-showhide2").val($(this).attr("data-pass"));
+        */
+        $("#trabajadorrol").modal("show");
+    });
 });
+function roles_trabajador(data) {
+    var _data;
+    var resultTable = "";
+    $.ajax({
+        type: "POST",
+        url: "AsignacionRol/roler_trabajador",
+        data: data,
+        async: false,
+        datatype: "JSON",
+        success: function (response) {
+            _data = JSON.parse(response);
+            
+        },
+        complete: function () {
+            
+            $.each(_data, function (i, item) {
+                                            
+                resultTable += "<div class='widget widget-metric_6 mb1' style='padding:1rem;box-shadow: 2px 2px 4px #cccccc;'>";
+                resultTable += "<span>" + item.tr_Nombre + "</span>";
+                resultTable += "<i data-id='" + item.RolId + "' class='fa fa-trash-o btn_remove' style='float: right;color: red;font-size: 2rem;margin-top: -1px;margin-right: 5px;cursor: pointer;'></i></div>";
+                
+            });
+            $('#rolesdeltrabajador').html(resultTable);
+            
+        }
+
+
+    });
+}
 
 function Load_Trabajador() {
     var data = {};
