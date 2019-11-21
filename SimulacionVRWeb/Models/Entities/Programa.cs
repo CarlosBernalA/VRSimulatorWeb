@@ -21,8 +21,9 @@ namespace SimulacionVRWeb.Models.Entities
         public String si_GradoRiesgo { get; set; }
         public String si_maxpuntaje { get; set; }
         public String Nombre { get; set; }
+        public int SimulacionId { get; set; }
 
-        public ProgramaApi(int programaId, string pr_Descripcion, int participanteId, string fechaPrograma, string horaInicio, string horaFin, string si_descripcion, string si_GradoRiesgo, string si_maxpuntaje, string nombre)
+        public ProgramaApi(int programaId, string pr_Descripcion, int participanteId, string fechaPrograma, string horaInicio, string horaFin, string si_descripcion, string si_GradoRiesgo, string si_maxpuntaje, string nombre, int simulacionId)
         {
             ProgramaId = programaId;
             this.pr_Descripcion = pr_Descripcion;
@@ -34,6 +35,8 @@ namespace SimulacionVRWeb.Models.Entities
             this.si_GradoRiesgo = si_GradoRiesgo;
             this.si_maxpuntaje = si_maxpuntaje;
             Nombre = nombre;
+            SimulacionId = simulacionId;
+
         }
     }
 }

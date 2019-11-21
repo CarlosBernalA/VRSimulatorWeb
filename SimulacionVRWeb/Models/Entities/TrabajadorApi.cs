@@ -20,6 +20,8 @@ namespace SimulacionVRWeb.Models.Entities
             this.tr_Apellidos = tr_Apellidos;
         }
 
-
+        public TrabajadorApi()
+        {
+        }
     }
 }

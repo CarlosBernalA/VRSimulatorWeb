@@ -125,7 +125,7 @@ namespace SimulacionVRWeb.Models.Persistent
 
         public TrabajadorApi LoginApi(String UserName,String Password)
         {
-            TrabajadorApi resu=null;
+            TrabajadorApi resu=new TrabajadorApi();
             using (SqlConnection connection = new SqlConnection(cadena))
             {
 
@@ -153,6 +153,7 @@ namespace SimulacionVRWeb.Models.Persistent
                 }
                 catch (Exception e)
                 {
+                    resu.tr_Apellidos = e.Message;
                     connection.Close();
                 }
             }
