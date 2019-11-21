@@ -61,5 +61,45 @@ namespace SimulacionVRWeb.Models.Persistent
             }
             return listEntidad;
         }
+        public TrabajadorRol_Result Managment_TrabajadorRol(TrabajadorRol _TrabajadorRol, int Action)
+        {
+            TrabajadorRol_Result resu = new TrabajadorRol_Result();
+            using (SqlConnection connection = new SqlConnection(cadena))
+            {
+
+                try
+                {
+                    String id = "";
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("VR_Managment_TrabajadorRol", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@ad_descripcion", SqlDbType.VarChar).Value = _TrabajadorRol.tr_Nombre;
+                    command.Parameters.Add("@ad_TrabajadorId", SqlDbType.Int).Value = _TrabajadorRol.TrabajadorRolId;
+                    command.Parameters.Add("@RolId", SqlDbType.Int).Value = _TrabajadorRol.RolId;
+                    command.Parameters.Add("@Action", SqlDbType.Int).Value = Action;
+                    SqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleResult);
+                    if (reader.HasRows)
+                    {
+
+                        if (reader.Read())
+                        {
+                            id = reader.GetValue(0).ToString();
+                        }
+                    }
+                    reader.Close();
+                    connection.Close();
+                    resu.Result = 1;
+                    resu.Message = id;
+                }
+                catch (Exception e)
+                {
+                    connection.Close();
+                    resu.Result = 0;
+                    resu.Message = e.Message;
+                }
+            }
+            return resu;
+        }
     }
 }
