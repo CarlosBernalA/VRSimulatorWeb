@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Principal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script src="~/Content/assets/scripts/Script_Reporte.js"></script>
+}
+<style>
+#chartdiv {
+  width: 100%;
+  max-height: 450px;
+  height: 100vh;
+}
+
+#chartdiv2 {
+  width: 100%;
+  max-height: 400px;
+  height: 100vh;
+}
+</style>
+<div class="row sortable-grid pt2">
+    <div class="col-md-7 sortable-item ui-sortable">
+        <!-- SALES STATISTIC -->
+        <div class="panel" id="tour-sales-stat">
+            <div class="panel-heading ui-sortable-handle">
+                <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Estadística de ventas</font></font></h3>
+            </div>
+            <div class="panel-body">
+
+                <div id="chartdiv"></div>
+
+            </div>
+        </div>
+        <!-- END SALES STATISTIC -->
+    </div>
+    <div class="col-md-5 sortable-item ui-sortable">
+        <!-- SHARES GOAL -->
+        <div class="panel">
+            <div class="panel-heading ui-sortable-handle">
+                <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Objetivo de acciones</font></font></h3>
+            </div>
+            <div class="panel-body">
+                
+                <div id="chartdiv2"></div>
+
+            </div>
+        </div>
+        <!-- END SHARES GOAL -->
+    </div>
+</div>
+

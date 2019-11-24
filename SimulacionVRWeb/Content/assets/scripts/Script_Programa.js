@@ -14,10 +14,6 @@ var ID = 0;
 
 $(document).ready(function () {
 
-    $('#select-placeholder-single').select2({
-        placeholder: 'Selecciona un trabajador',
-        allowClear: true
-    });
     $('.slimScrollDiv').slimScroll({
         //size: '8px',
         //width: '100%',
@@ -44,6 +40,7 @@ $(document).ready(function () {
     $(document).on("click", ".btn_edit", function () {
         Load_Local();
         Load_Simulacion();
+        Load_Trabajador();
         ID = $(this).attr("data-id");
         $("#txt_fecha").val($(this).attr("data-fech"));
         $("#txt_inicio").val($(this).attr("data-ini"));
@@ -95,6 +92,7 @@ function Load_Programa(data) {
             });
             $('#datatable-programa').find('tbody').html(resultTable);
             $('#datatable-programa').DataTable();
+
         }
 
 
@@ -145,6 +143,36 @@ function Load_Simulacion() {
 
             });
             $('.simulacionALL').html(resultTable);
+        }
+
+
+    });
+}
+function Load_Trabajador() {
+    var data = {};
+    var _data;
+    var resultTable = "";
+    $.ajax({
+        type: "POST",
+        url: "Trabajador/list_trabajador",
+        data: data,
+        async: false,
+        datatype: "JSON",
+        success: function (response) {
+            _data = JSON.parse(response);
+
+        },
+        complete: function () {
+            resultTable += "<option></option>";
+            $.each(_data, function (i, item) {
+                resultTable += "<option value='" + item.TrabajadorId + "'><font style='vertical-align: inherit;'><font style='vertical-align: inherit;'>"+item.tr_Apellidos +" "+ item.tr_Nombre + "</font></font></option>";
+
+            });
+            $('#select-placeholder-single').html(resultTable);
+            $('#select-placeholder-single').select2({
+                placeholder: 'Selecciona un trabajador',
+                allowClear: true
+            });
         }
 
 
