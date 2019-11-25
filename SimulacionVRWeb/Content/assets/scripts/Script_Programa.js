@@ -57,6 +57,35 @@ $(document).ready(function () {
         });
     });
 
+    $(document).on("click", ".btn_remove", function () {
+        var btn = $(this);
+        swal({
+            title: 'Eliminar',
+            text: "¿Esta seguro de eliminar este programa?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#F9354C',
+            cancelButtonColor: '#41B314',
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then(function () {
+            
+            Managment_Programa({
+                ProgramaId: btn.attr("data-id"),
+                TrabajadorRolId: 38,
+                pr_Descripcion: " ",
+                SimulacionId: 1,
+                LocalId: 1,
+                FechaPrograma: '2019-10-11',
+                HoraInicio: '15:00',
+                HoraFin: '15:00',
+                Estado: 1,
+                Action: 3
+            });
+        }).catch(swal.noop);
+
+    });
+
     $("#btn_guardar").on("click", function () {
         
 
