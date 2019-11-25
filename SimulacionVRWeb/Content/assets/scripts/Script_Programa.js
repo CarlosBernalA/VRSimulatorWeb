@@ -26,9 +26,13 @@ $(document).ready(function () {
 
     CurrectSelecteditem('#li_programa');
 
-    Load_Programa({
-        FechaInicio: '2019-10-11',
-        FechaFin: '2019-11-20'
+    $("#filtro_fechas").on("click", function () {
+        
+        Load_Programa({
+            FechaInicio: $("#fech_ini_fil").val(),
+            FechaFin: $("#fech_fin_fil").val()
+        });
+        
     });
 
     $(".agregarCiudadano").on("click", function () {

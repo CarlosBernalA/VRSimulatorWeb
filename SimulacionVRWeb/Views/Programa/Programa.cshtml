@@ -27,8 +27,23 @@
             <i class="fa fa-plus-square"></i> <span>Agregar Programa</span>
         </button>
     </div>
-    <div class="panel-body">
-
+    <div class="panel-body" style="padding-top:5px">
+        <div class="row bg-gris pt1 pb1 mb1">
+            <div class="col-md-3">
+                <label class="control-label">Fecha inicio:</label>
+                <input id="fech_ini_fil" data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy">
+            </div>
+            <div class="col-md-3">
+                <label class="control-label">Fecha fin:</label>
+                <input id="fech_fin_fil" data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy">
+            </div>
+            <div class="col-md-1">
+                <button id="filtro_fechas" type="button" style="margin-top:24px;width:50px;padding-left:15px;" class="btn btn-primary">
+                    <i class="fa fa-search fa-lg"></i>
+                </button>
+            </div>
+        </div>
+        
         <table id="datatable-programa" class="table table-striped table-hover table-bordered">
             <thead>
                 <tr>
