@@ -180,15 +180,15 @@
                 <div class="row">
                     <div class="col-md-6">
                         <legend><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Local</font></font></legend>
-                        <select class="form-control localAll"></select>
+                        <select id="txt_local_add" class="form-control localAll"></select>
                     </div>
                     <div class="col-md-6">
                         <legend><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Simulacion</font></font></legend>
-                        <select class="form-control simulacionALL"></select>
+                        <select id="txt_simulacion_add" class="form-control simulacionALL"></select>
                     </div>
                     <div class="col-md-12 mt1 pt1">
                         <legend><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Descripción</font></font></legend>
-                        <textarea class="form-control" rows="2" cols="30" required=""></textarea>
+                        <textarea id="txt_descripcion_add" class="form-control" rows="3" cols="30" required=""></textarea>
                     </div>
                 </div>
                 <div class="row bg-gris mt1 pt1 pb1">
@@ -197,12 +197,12 @@
                     </div>
                     <div class="col-md-4">
                         <label class="control-label">Fecha del Programa:</label>
-                        <input data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy">
+                        <input id="txt_fecha_add" data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy">
                     </div>
                     <div class="col-md-4">
                         <label class="control-label">Inicio:</label>
                         <div class="input-group basic-clockpicker" data-placement="top" data-autoclose="true">
-                            <input type="text" class="form-control" value="09:30">
+                            <input id="txt_h_ini_add" type="text" class="form-control" value="09:30">
                             <span class="input-group-addon">
                                 <span class="fa fa-clock-o"></span>
                             </span>
@@ -211,7 +211,7 @@
                     <div class="col-md-4">
                         <label class="control-label">Fin:</label>
                         <div class="input-group basic-clockpicker" data-placement="top" data-autoclose="true">
-                            <input type="text" class="form-control" value="09:30">
+                            <input id="txt_h_fin_add" type="text" class="form-control" value="09:30">
                             <span class="input-group-addon">
                                 <span class="fa fa-clock-o"></span>
                             </span>
@@ -223,7 +223,7 @@
             </div>
             <div class="modal-footer" style="padding: 10px;">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Calcelar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button id="btn_guardar" type="button" class="btn btn-primary">Guardar</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

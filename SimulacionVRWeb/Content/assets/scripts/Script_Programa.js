@@ -11,26 +11,24 @@
 	});
 
 var ID = 0;
+var fecha_ini;
+var fecha_fin;
 
 $(document).ready(function () {
 
-    $('.slimScrollDiv').slimScroll({
-        //size: '8px',
-        //width: '100%',
-        //height: '80%',
-        //color: '#ff4800',
-        //allowPageScroll: true,
-        //alwaysVisible: true
-    });
+    $('.slimScrollDiv').slimScroll();
     $('.basic-clockpicker').clockpicker();
 
     CurrectSelecteditem('#li_programa');
 
     $("#filtro_fechas").on("click", function () {
         
+        fecha_ini = $("#fech_ini_fil").val();
+        fecha_fin = $("#fech_fin_fil").val();
+
         Load_Programa({
-            FechaInicio: $("#fech_ini_fil").val(),
-            FechaFin: $("#fech_fin_fil").val()
+            FechaInicio: fecha_ini,
+            FechaFin: fecha_fin
         });
         
     });
@@ -39,6 +37,36 @@ $(document).ready(function () {
         ID = 0;
         Load_Local();
         Load_Simulacion();
+        $("#txt_descripcion_add").val("");
+        $("#txt_fecha_add").val("");
+    });
+
+    $("#btn_guardar").on("click", function () {
+        
+
+        if ($("#txt_descripcion_add").val() != "" && $("#txt_fecha_add").val() != "") {
+            
+            if (ID == 0) {
+                Managment_Programa({
+                    ProgramaId: 0,
+                    TrabajadorRolId: 38,
+                    pr_Descripcion: $("#txt_descripcion_add").val(),
+                    SimulacionId: $("#txt_simulacion_add").val(),
+                    LocalId: $("#txt_local_add").val(),
+                    FechaPrograma: $("#txt_fecha_add").val(),
+                    HoraInicio: $("#txt_h_ini_add").val(),
+                    HoraFin: $("#txt_h_fin_add").val(),
+                    Estado: 1,
+                    Action: 1
+                });
+            }
+        } else {
+            Toast({
+                action: "error",
+                message: "Llene los campos correctamente",
+                position: "top-right",
+            });
+        }
     });
 
     $(document).on("click", ".btn_edit", function () {
@@ -180,5 +208,71 @@ function Load_Trabajador() {
         }
 
 
+    });
+}
+
+function Managment_Programa(data) {
+    var _data;
+    $.ajax({
+        type: "POST",
+        url: "Programa/Managment_Programa",
+        data: data,
+        async: false,
+        datatype: "JSON",
+        success: function (response) {
+            _data = JSON.parse(response);
+        },
+        complete: function () {
+            if (_data.Result == 1) {
+                $("#agregarprograma").modal("hide");
+                if (data.Action == 1) {
+                    Load_Programa({
+                        FechaInicio: fecha_ini,
+                        FechaFin: fecha_fin
+                    });
+                    $("#fech_ini_fil").val(fecha_ini);
+                    $("#fech_fin_fil").val(fecha_fin);
+
+                    Toast({
+                        action: "success",
+                        message: "EL programa se ha registrado correctamente",
+                        position: "top-right",
+                    });
+                } else if (data.Action == 2) {
+                    Load_Programa({
+                        FechaInicio: fecha_ini,
+                        FechaFin: fecha_fin
+                    });
+                    $("#fech_ini_fil").val(fecha_ini);
+                    $("#fech_fin_fil").val(fecha_fin);
+
+                    Toast({
+                        action: "success",
+                        message: "EL programa se ha actualizado correctamente",
+                        position: "top-right",
+                    });
+                } else {
+                    Load_Programa({
+                        FechaInicio: fecha_ini,
+                        FechaFin: fecha_fin
+                    });
+                    $("#fech_ini_fil").val(fecha_ini);
+                    $("#fech_fin_fil").val(fecha_fin);
+
+                    Toast({
+                        action: "success",
+                        message: "EL programa se ha eliminado correctamente",
+                        position: "top-right",
+                    });
+                }
+            } else {
+                Toast({
+                    action: "error",
+                    message: _data.Message,
+                    position: "top-right",
+                });
+            }
+
+        }
     });
 }
