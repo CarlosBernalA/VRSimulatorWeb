@@ -41,5 +41,13 @@ namespace SimulacionVRWeb.Controllers
             var json = jsonSerialiser.Serialize(a);
             return json;
         }
+        public String list_participante(Participante_S _Participante)
+        {
+            B_Participante b_Participante = new B_Participante();
+            List<Participante> _list = b_Participante.list_participante(new Participante(_Participante.ProgramaId));
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(_list);
+            return json;
+        }
     }
 }

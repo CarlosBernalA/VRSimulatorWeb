@@ -147,6 +147,7 @@
     </Compile>
     <Compile Include="Models\Bussines\B_Area.cs" />
     <Compile Include="Models\Bussines\B_Local.cs" />
+    <Compile Include="Models\Bussines\B_Participante.cs" />
     <Compile Include="Models\Bussines\B_Programa.cs" />
     <Compile Include="Models\Bussines\B_Resultado.cs" />
     <Compile Include="Models\Bussines\B_Rol.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Models\Bussines\B_TrabajadorRol.cs" />
     <Compile Include="Models\Entities\Area.cs" />
     <Compile Include="Models\Entities\Local.cs" />
+    <Compile Include="Models\Entities\Participante.cs" />
     <Compile Include="Models\Entities\Programa.cs" />
     <Compile Include="Models\Entities\Resultado.cs" />
     <Compile Include="Models\Entities\Rol.cs" />
@@ -167,6 +169,7 @@
     <Compile Include="Models\Persistent\Connection.cs" />
     <Compile Include="Models\Persistent\P_Area.cs" />
     <Compile Include="Models\Persistent\P_Local.cs" />
+    <Compile Include="Models\Persistent\P_Participante.cs" />
     <Compile Include="Models\Persistent\P_Programa.cs" />
     <Compile Include="Models\Persistent\P_Resultado.cs" />
     <Compile Include="Models\Persistent\P_Rol.cs" />
@@ -258,6 +261,7 @@
     <Content Include="Content\assets\css\style.css" />
     <Content Include="Content\assets\css\vendor\animate\animate.min.css" />
     <Content Include="Content\assets\img\logo.png" />
+    <Content Include="Content\assets\img\realidad_virtual.jpg" />
     <Content Include="Content\assets\scripts\appviews-projects.js" />
     <Content Include="Content\assets\scripts\demo-mock.js" />
     <Content Include="Content\assets\scripts\Estadisticas.js" />
@@ -561,6 +565,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Participante\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -97,7 +97,6 @@ function Load_Roles() {
         async: false,
         datatype: "JSON",
         success: function (response) {
-            console.log(response);
             _data = JSON.parse(response);
 
         },

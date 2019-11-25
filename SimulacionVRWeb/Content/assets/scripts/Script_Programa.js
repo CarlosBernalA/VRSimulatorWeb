@@ -119,6 +119,7 @@ $(document).ready(function () {
         Load_Simulacion();
         Load_Trabajador();
         ID = $(this).attr("data-id");
+        Load_Participante({ ProgramaId: ID });
         $("#txt_fecha").val($(this).attr("data-fech"));
         $("#txt_inicio").val($(this).attr("data-ini"));
         $("#txt_fin").val($(this).attr("data-fin"));
@@ -312,6 +313,42 @@ function Managment_Programa(data) {
                 });
             }
 
+        }
+    });
+}
+function Load_Participante(data) {
+    var _data;
+    var resultTable = "";
+    $.ajax({
+        type: "POST",
+        url: "Trabajador/list_participante",
+        data: data,
+        async: false,
+        datatype: "JSON",
+        success: function (response) {
+            _data = JSON.parse(response);
+        },
+        complete: function () {
+            var par = true;
+            var li_clas = "active";
+            $.each(_data, function (i, item) {
+                                                    
+                resultTable += "<li class='"+li_clas+"' style='padding-left: 21px;padding-top: 12px;padding-bottom: 12px;'>";
+                resultTable += "<span>" + item.tr_Apellidos + " " + item.tr_Nombre + "</span><br/>";
+                resultTable += "<span>" + item.are_Nombre + "</span>";
+                resultTable += "<i data-id='" + item.TrabajadorId + "' class='fa fa-trash-o' style='float: right;color: red;font-size: 2rem;margin-top: -11px;margin-right: 5px;cursor: pointer;'></i>";
+                resultTable += "</li>";
+
+                if (par) {
+                    par = false;
+                    li_clas = "unread";
+                } else {
+                    par = true;
+                    li_clas = "active";
+                }
+            });
+
+            $('#participatesAll').html(resultTable);
         }
     });
 }
