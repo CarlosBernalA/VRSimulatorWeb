@@ -33,12 +33,28 @@ $(document).ready(function () {
         
     });
 
-    $(".agregarCiudadano").on("click", function () {
+    $("#programa_add").on("click", function () {
         ID = 0;
         Load_Local();
         Load_Simulacion();
         $("#txt_descripcion_add").val("");
         $("#txt_fecha_add").val("");
+    });
+
+    $("#programa_save_edit").on("click", function () {
+
+        Managment_Programa({
+            ProgramaId: ID,
+            TrabajadorRolId: 38,
+            pr_Descripcion: $("#txt_descripcion").val(),
+            SimulacionId: $("#txt_simulacion").val(),
+            LocalId: $("#txt_local").val(),
+            FechaPrograma: $("#txt_fecha").val(),
+            HoraInicio: $("#txt_inicio").val(),
+            HoraFin: $("#txt_fin").val(),
+            Estado: 1,
+            Action: 2
+        });
     });
 
     $("#btn_guardar").on("click", function () {
@@ -230,8 +246,6 @@ function Managment_Programa(data) {
                         FechaInicio: fecha_ini,
                         FechaFin: fecha_fin
                     });
-                    $("#fech_ini_fil").val(fecha_ini);
-                    $("#fech_fin_fil").val(fecha_fin);
 
                     Toast({
                         action: "success",
@@ -243,8 +257,6 @@ function Managment_Programa(data) {
                         FechaInicio: fecha_ini,
                         FechaFin: fecha_fin
                     });
-                    $("#fech_ini_fil").val(fecha_ini);
-                    $("#fech_fin_fil").val(fecha_fin);
 
                     Toast({
                         action: "success",
@@ -256,8 +268,6 @@ function Managment_Programa(data) {
                         FechaInicio: fecha_ini,
                         FechaFin: fecha_fin
                     });
-                    $("#fech_ini_fil").val(fecha_ini);
-                    $("#fech_fin_fil").val(fecha_fin);
 
                     Toast({
                         action: "success",
