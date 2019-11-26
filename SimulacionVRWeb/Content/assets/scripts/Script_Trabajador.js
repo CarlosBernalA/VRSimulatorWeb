@@ -126,7 +126,7 @@ $(document).ready(function () {
         $("#txt_ape").val($(this).attr("data-ape"));
         $("#txt_nac").val($(this).attr("data-naci"));
         $("#txt_dir").val($(this).attr("data-dire"));
-        $('input:radio[name=txt_sexo]:checked').val($(this).attr("data-sexo"));
+        sexoTrabajador($(this).attr("data-sexo"));
         $("#txt_itra").val($(this).attr("data-itra"));
         $("#txt_user").val($(this).attr("data-user"));
         $("#password-showhide2").val($(this).attr("data-pass"));
@@ -159,7 +159,7 @@ function Load_Trabajador() {
                 resultTable += "<td>" + item.tr_Direccion + "</td>";
                 resultTable += "<td><center>";
                 resultTable += "<button data-id='" + item.TrabajadorId + "' data-pass='" + item.Password + "' data-user='" + item.UserName + "' data-itra='" + item.tr_InicioTrabajo + "' data-sexo='" + item.tr_Sexo + "' data-dire='" + item.tr_Direccion + "' data-naci='" + item.tr_FechaNacimiento + "' data-ape='" + item.tr_Apellidos + "' data-dni='" + item.tr_DNI + "' data-area='" + item.AreaId + "' data-name='" + item.tr_Nombre + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-edit'></i></button>";
-                resultTable += "<button data-id='" + item.TrabajadorId + "' type='button' class='btn_remove btn btn-danger btn-sm'><i class='fa fa-trash-o'></i></button>";
+                resultTable += "<button data-id='" + item.TrabajadorId + "' type='button' class='btn_remove btn btn-danger btn-sm ml1'><i class='fa fa-trash-o'></i></button>";
                 resultTable += "</center></td>";
                 resultTable += "</tr>";
             });
@@ -241,4 +241,15 @@ function Managment_Trabajador(data) {
 
         }
     });
+}
+function sexoTrabajador(sexo) {
+    
+    if (sexo == "M") {
+        $('input:radio[name=txt_sexo]').val("M");
+        //$("#txt_masculino").val("M");
+    } else {
+
+    }
+    //$('input:radio[name=txt_sexo]:checked').val($(this).attr("data-sexo"));
+
 }

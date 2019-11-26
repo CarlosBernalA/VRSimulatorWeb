@@ -108,7 +108,7 @@ function Load_Colaboradores() {
 				resultTable += "<td>" + item.are_Descripcion + "</td>";
 				resultTable += "<td><center>";
 				resultTable += "<button data-id='" + item.AreaId + "' data-name='" + item.are_Nombre + "' data-desc='" + item.are_Descripcion + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-edit'></i></button>";
-				resultTable += "<button data-id='" + item.AreaId + "' type='button' class='btn_remove btn btn-danger btn-sm'><i class='fa fa-trash-o'></i></button>";
+				resultTable += "<button data-id='" + item.AreaId + "' type='button' class='btn_remove btn btn-danger btn-sm ml1'><i class='fa fa-trash-o'></i></button>";
 				resultTable += "</center></td>";
 				resultTable += "</tr>";
 			});

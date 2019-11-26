@@ -11,8 +11,11 @@
 	});
 
 var ID = 0;
+var arrayParticipanteID;
 var fecha_ini;
 var fecha_fin;
+var existe = false;
+var actualizado = false;
 
 $(document).ready(function () {
 
@@ -55,6 +58,8 @@ $(document).ready(function () {
             Estado: 1,
             Action: 2
         });
+        $("#editarprograma").hide();
+        $("#listaprograma").show({ direction: "right" }, 5000);
     });
 
     $(document).on("click", ".btn_remove", function () {
@@ -131,16 +136,91 @@ $(document).ready(function () {
         $("#editarprograma").show({ direction: "right" }, 5000);
     });
 
-
-    $("#editprograma").click(function () {
-        $("#listaprograma").hide();
-        $("#editarprograma").show({ direction: "right" }, 5000);
-    });
     $("#listprograma").click(function () {
         $("#editarprograma").hide();
         $("#listaprograma").show({ direction: "right" }, 5000);
     });
 
+    $("#add_participante").on("click", function () {
+        
+        if ($("#select-placeholder-single").val() != "") {
+
+            existe = false;
+            actualizado = false;
+            if (arrayParticipanteID == null) {
+
+            } else {
+                $.each(arrayParticipanteID, function (i, item) {
+
+                    if ($("#select-placeholder-single").val() == item.TrabajadorId) {
+                        existe = true;
+                        if (item.Estado == 0) {
+                            Managment_Participante({
+                                ParticipanteId: item.ParticipanteId,
+                                TrabajadorId: 1,
+                                ProgramaId: 1,
+                                Estado: 1,
+                                Action: 2
+                            });
+                            actualizado = true;
+                        } 
+                        
+                    }
+
+                });
+            }
+            if (!actualizado) {
+                if (!existe) {
+                    Managment_Participante({
+                        ParticipanteId: 1,
+                        TrabajadorId: $("#select-placeholder-single").val(),
+                        ProgramaId: ID,
+                        Estado: 1,
+                        Action: 1
+                    });
+                } else {
+                    Toast({
+                        action: "error",
+                        message: "El trabajador ya esta registrado",
+                        position: "top-right",
+                    });
+                }
+            }
+
+           
+
+        } else {
+            Toast({
+                action: "error",
+                message: "Seleccione un trabajador",
+                position: "top-right",
+            });
+        }
+    });
+
+    $(document).on("click", "#remove_participante", function () {
+
+        var btn = $(this);
+        swal({
+            title: 'Eliminar',
+            text: "¿Esta seguro de eliminar este participante?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#F9354C',
+            cancelButtonColor: '#41B314',
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then(function () {
+            Managment_Participante({
+                ParticipanteId: btn.attr("data-id-par"),
+                TrabajadorId: btn.attr("data-id"),
+                ProgramaId: ID,
+                Estado: 1,
+                Action: 3
+            });
+
+        }).catch(swal.noop);
+    });
 });
 
 function Load_Programa(data) {
@@ -164,7 +244,7 @@ function Load_Programa(data) {
                 resultTable += "<td>" + item.HoraFin + "</td>";
                 resultTable += "<td><center>";
                 resultTable += "<button data-desc='" + item.pr_Descripcion + "' data-simu='" + item.SimulacionId + "' data-local='" + item.LocalId + "' data-fin='" + item.HoraFin + "' data-ini='" + item.HoraInicio + "' data-fech='" + item.FechaPrograma + "' data-id='" + item.ProgramaId + "'  type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-clipboard'></i></button>";
-                resultTable += "<button data-id='" + item.ProgramaId + "' type='button' class='btn_remove btn btn-danger btn-sm'><i class='fa fa-trash-o'></i></button>";
+                resultTable += "<button data-id='" + item.ProgramaId + "' type='button' class='btn_remove btn btn-danger btn-sm ml1'><i class='fa fa-trash-o'></i></button>";
                 resultTable += "</center></td>";
                 resultTable += "</tr>";
             });
@@ -316,6 +396,7 @@ function Managment_Programa(data) {
         }
     });
 }
+
 function Load_Participante(data) {
     var _data;
     var resultTable = "";
@@ -331,24 +412,84 @@ function Load_Participante(data) {
         complete: function () {
             var par = true;
             var li_clas = "active";
+            arrayParticipanteID = _data;
             $.each(_data, function (i, item) {
                                                     
-                resultTable += "<li class='"+li_clas+"' style='padding-left: 21px;padding-top: 12px;padding-bottom: 12px;'>";
+                resultTable += "<li class='" + li_clas + " " + hide_participante(item.Estado) + "' style='padding-left: 21px;padding-top: 12px;padding-bottom: 12px;'>";
                 resultTable += "<span>" + item.tr_Apellidos + " " + item.tr_Nombre + "</span><br/>";
                 resultTable += "<span>" + item.are_Nombre + "</span>";
-                resultTable += "<i data-id='" + item.TrabajadorId + "' class='fa fa-trash-o' style='float: right;color: red;font-size: 2rem;margin-top: -11px;margin-right: 5px;cursor: pointer;'></i>";
+                resultTable += "<i id='remove_participante' data-id-par='" + item.ParticipanteId + "' data-id='" + item.TrabajadorId + "' class='fa fa-trash-o' style='float: right;color: red;font-size: 2rem;margin-top: -11px;margin-right: 5px;cursor: pointer;'></i>";
                 resultTable += "</li>";
-
-                if (par) {
-                    par = false;
-                    li_clas = "unread";
-                } else {
-                    par = true;
-                    li_clas = "active";
+                if (item.Estado != 0) {
+                    if (par) {
+                        par = false;
+                        li_clas = "unread";
+                    } else {
+                        par = true;
+                        li_clas = "active";
+                    }
                 }
+                
             });
 
             $('#participatesAll').html(resultTable);
         }
     });
+}
+
+function Managment_Participante(data) {
+    var _data;
+    $.ajax({
+        type: "POST",
+        url: "Trabajador/Managment_Participante",
+        data: data,
+        async: false,
+        datatype: "JSON",
+        success: function (response) {
+            _data = JSON.parse(response);
+        },
+        complete: function () {
+            if (_data.Result == 1) {
+                if (data.Action == 1) {
+                   
+                    Load_Participante({ ProgramaId: ID });
+                    Toast({
+                        action: "success",
+                        message: "EL participante se ha registrado correctamente",
+                        position: "top-right",
+                    });
+                } else if (data.Action == 2) {
+                    Load_Participante({ ProgramaId: ID });
+                    Toast({
+                        action: "success",
+                        message: "EL participante se ha registrado correctamente",
+                        position: "top-right",
+                    });
+                } else {
+                    Load_Participante({ ProgramaId: ID });
+
+                    Toast({
+                        action: "success",
+                        message: "EL participante se ha eliminado correctamente",
+                        position: "top-right",
+                    });
+                }
+            } else {
+                Toast({
+                    action: "error",
+                    message: _data.Message,
+                    position: "top-right",
+                });
+            }
+
+        }
+    });
+}
+
+function hide_participante(estado) {
+    var hide = "";
+    if (estado == 0) {
+        hide = "hide";
+    }
+    return hide
 }

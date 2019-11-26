@@ -28,7 +28,7 @@ namespace SimulacionVRWeb.Models.Persistent
                     listEntidad = new List<Participante>();
                     while (reader.Read())
                     {
-                        entidad = new Participante(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3));
+                        entidad = new Participante(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetString(3), reader.GetString(4), reader.GetString(5));
                         listEntidad.Add(entidad);
                     }
                 }
@@ -36,6 +36,47 @@ namespace SimulacionVRWeb.Models.Persistent
                 connection.Close();
             }
             return listEntidad;
+        }
+        public Participante_Result Managment_Participante(Participante _Participante, int Action)
+        {
+            Participante_Result resu = new Participante_Result();
+            using (SqlConnection connection = new SqlConnection(cadena))
+            {
+
+                try
+                {
+                    String id = "";
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("VR_Managment_Participante", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@ParticipanteId", SqlDbType.Int).Value = _Participante.ParticipanteId;
+                    command.Parameters.Add("@TrabajadorId", SqlDbType.Int).Value = _Participante.TrabajadorId;
+                    command.Parameters.Add("@ProgramaId", SqlDbType.Int).Value = _Participante.@ProgramaId;
+                    command.Parameters.Add("@Estado", SqlDbType.Int).Value = _Participante.@Estado;
+                    command.Parameters.Add("@Action", SqlDbType.Int).Value = Action;
+                    SqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleResult);
+                    if (reader.HasRows)
+                    {
+
+                        if (reader.Read())
+                        {
+                            id = reader.GetValue(0).ToString();
+                        }
+                    }
+                    reader.Close();
+                    connection.Close();
+                    resu.Result = 1;
+                    resu.Message = id;
+                }
+                catch (Exception e)
+                {
+                    connection.Close();
+                    resu.Result = 0;
+                    resu.Message = e.Message;
+                }
+            }
+            return resu;
         }
     }
 }

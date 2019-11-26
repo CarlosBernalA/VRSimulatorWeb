@@ -17,5 +17,11 @@ namespace SimulacionVRWeb.Models.Bussines
             listEntidad = dao.list_participante(_Participante);
             return listEntidad;
         }
+        public Participante_Result Managment_Participante(Participante _Participante, int Action)
+        {
+            P_Participante dao = new P_Participante();
+            Participante_Result ar = dao.Managment_Participante(_Participante, Action);
+            return ar;
+        }
     }
 }

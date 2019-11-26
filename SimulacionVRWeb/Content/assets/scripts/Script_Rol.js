@@ -107,7 +107,7 @@ function Load_Roles() {
                 resultTable += "<td>" + item.rol_Descripcion + "</td>";
                 resultTable += "<td><center>";
                 resultTable += "<button data-id='" + item.rol_RolId + "' data-name='" + item.rol_Nombre + "' data-desc='" + item.rol_Descripcion + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-edit'></i></button>";
-                resultTable += "<button data-id='" + item.rol_RolId + "' type='button' class='btn_remove btn btn-danger btn-sm'><i class='fa fa-trash-o'></i></button>";
+                resultTable += "<button data-id='" + item.rol_RolId + "' type='button' class='btn_remove btn btn-danger btn-sm ml1'><i class='fa fa-trash-o'></i></button>";
                 resultTable += "</center></td>";
                 resultTable += "</tr>";
             });

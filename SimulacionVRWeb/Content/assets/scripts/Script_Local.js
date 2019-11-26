@@ -117,7 +117,7 @@ function Load_Local() {
                 resultTable += "<td>" + item.LC_Descripcion + "</td>";
                 resultTable += "<td><center>";
                 resultTable += "<button data-id='" + item.LocalId + "' data-name='" + item.Lc_nombre + "' data-dir='" + item.Lc_Direccion + "' data-afo='" + item.Lc_Aforo + "' data-desc='" + item.LC_Descripcion + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-edit'></i></button>";
-                resultTable += "<button data-id='" + item.LocalId + "' type='button' class='btn_remove btn btn-danger btn-sm'><i class='fa fa-trash-o'></i></button>";
+                resultTable += "<button data-id='" + item.LocalId + "' type='button' class='btn_remove btn btn-danger btn-sm ml1'><i class='fa fa-trash-o'></i></button>";
                 resultTable += "</center></td>";
                 resultTable += "</tr>";
             });

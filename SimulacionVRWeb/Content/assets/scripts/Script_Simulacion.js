@@ -132,7 +132,7 @@ function Load_Simulacion() {
                 resultTable += "<td>" + gradoR(item.si_GradoRiesgo) + "</td>";
                 resultTable += "<td><center>";
                 resultTable += "<button data-id='" + item.SimulacionId + "' data-name='" + item.Nombre + "' data-tsimu='" + item.TipoSimulacionId + "' data-desc='" + item.si_descripcion + "' data-pmax='" + item.si_maxpuntaje + "' data-riesgo='" + item.si_GradoRiesgo + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-edit'></i></button>";
-                resultTable += "<button data-id='" + item.SimulacionId + "' type='button' class='btn_remove btn btn-danger btn-sm'><i class='fa fa-trash-o'></i></button>";
+                resultTable += "<button data-id='" + item.SimulacionId + "' type='button' class='btn_remove btn btn-danger btn-sm ml1'><i class='fa fa-trash-o'></i></button>";
                 resultTable += "</center></td>";
                 resultTable += "</tr>";
             });

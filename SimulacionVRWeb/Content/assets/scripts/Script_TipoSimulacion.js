@@ -105,7 +105,7 @@ function Load_TipoSimulacion() {
                 resultTable += "<td>" + item.ts_Descripticion + "</td>";
                 resultTable += "<td><center>";
                 resultTable += "<button data-id='" + item.TipoSimulacionId + "' data-name='" + item.ts_Nombre + "' data-desc='" + item.ts_Descripticion + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-edit'></i></button>";
-                resultTable += "<button data-id='" + item.TipoSimulacionId + "' type='button' class='btn_remove btn btn-danger btn-sm'><i class='fa fa-trash-o'></i></button>";
+                resultTable += "<button data-id='" + item.TipoSimulacionId + "' type='button' class='btn_remove btn btn-danger btn-sm ml1'><i class='fa fa-trash-o'></i></button>";
                 resultTable += "</center></td>";
                 resultTable += "</tr>";
             });
