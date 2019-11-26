@@ -35,7 +35,20 @@ $(document).ready(function () {
 
     CurrectSelecteditem('#li_trabajador');
     Load_Trabajador();
-    Load_Area();
+
+    $(".agregarCiudadano").on("click", function () {
+        
+        Load_Area();
+        $("#txt_itra").val("");
+        $("#txt_dni").val("");
+        $("#txt_nombre").val("");
+        $("#txt_ape").val("");
+        $('input:radio[name=txt_sexo]').attr('checked', false);
+        $("#txt_nac").val("");
+        $("#txt_dir").val("");
+        $("#txt_user").val("");
+        $("#password-showhide2").val("");
+    });
 
     $("#btn_guardar").on("click", function () {
         var sexo_val=$('input:radio[name=txt_sexo]:checked').val();
@@ -119,6 +132,7 @@ $(document).ready(function () {
     });
 
     $(document).on("click", ".btn_edit", function () {
+        Load_Area();
         ID = $(this).attr("data-id");
         $("#area").val($(this).attr("data-area"));
         $("#txt_dni").val($(this).attr("data-dni"));
@@ -243,13 +257,11 @@ function Managment_Trabajador(data) {
     });
 }
 function sexoTrabajador(sexo) {
-    
     if (sexo == "M") {
-        $('input:radio[name=txt_sexo]').val("M");
-        //$("#txt_masculino").val("M");
-    } else {
+        $('input:radio[name=txt_sexo]')[0].checked = true;
 
+    } else {
+        $('input:radio[name=txt_sexo]')[1].checked = true;
     }
-    //$('input:radio[name=txt_sexo]:checked').val($(this).attr("data-sexo"));
 
 }

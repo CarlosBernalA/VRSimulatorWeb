@@ -20,26 +20,43 @@ $(document).ready(function () {
     Load_Roles();
 
     $("#btn_guardar").on("click", function () {
-
-        $.each(arrayRol, function (i, item) {
-            console.log(item.TrabajadorId + " - " + item.RolId + " - " + item.ad_Estado);
-            if (item.TrabajadorId == ID) {
-                if (item.RolId == $("#rolid").val()) {
-                    if (item.ad_Estado==0) {
-                         Managment_trabajadorRol({
+        console.log(arrayRol);
+        if (arrayRol == null) {
+            Managment_trabajadorRol({
+                tr_Nombre: "Sin descripcion",
+                TrabajadorRolId: ID,
+                RolId: $("#rolid").val(),
+                Action: 1
+            });
+        } else {
+            $.each(arrayRol, function (i, item) {
+            
+                if (item.TrabajadorId == ID) {
+                    if (item.RolId == $("#rolid").val()) {
+                        if (item.ad_Estado==0) {
+                             Managment_trabajadorRol({
+                                tr_Nombre: "Sin descripcion",
+                                TrabajadorRolId: ID,
+                                RolId: $("#rolid").val(),
+                                Action: 3
+                            });
+                        } else {
+                            Toast({
+                                action: "error",
+                                message: "El rol ya esta asignado",
+                                position: "top-right",
+                            });
+                        }
+                    
+                    } else {
+                        Managment_trabajadorRol({
                             tr_Nombre: "Sin descripcion",
                             TrabajadorRolId: ID,
                             RolId: $("#rolid").val(),
-                            Action: 3
-                        });
-                    } else {
-                        Toast({
-                            action: "error",
-                            message: "El rol ya esta asignado",
-                            position: "top-right",
+                            Action: 1
                         });
                     }
-                    
+
                 } else {
                     Managment_trabajadorRol({
                         tr_Nombre: "Sin descripcion",
@@ -49,16 +66,9 @@ $(document).ready(function () {
                     });
                 }
 
-            } else {
-                Managment_trabajadorRol({
-                    tr_Nombre: "Sin descripcion",
-                    TrabajadorRolId: ID,
-                    RolId: $("#rolid").val(),
-                    Action: 1
-                });
-            }
-
-        });
+            });
+        }
+        
     });
 
     $("#cuargarmodal").on("click", function () {
