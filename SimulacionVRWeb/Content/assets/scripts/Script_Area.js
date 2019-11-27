@@ -11,42 +11,104 @@
 	});
 
 var ID = 0;
+var arrayArea;
+var cambiado = false;
+var txt_nombre = "";
+
 $(document).ready(function () {
 
 	CurrectSelecteditem('#li_area');
 
-	Load_Colaboradores();
+	Load_Areas();
 
 	$(".agregarCiudadano").on("click", function () {
 		ID = 0;
 		$("#txt_nombre").val("");
 		$("#txt_desc").val("");
+		$(".modal-title").text("Agregar Area");
 	});
 
 	$("#btn_guardar").on("click", function () {
-		if($("#txt_nombre").val()!=""&&$("#txt_desc").val()!=""){
-			if(ID==0){
-				Managment_Area({
-					AreaId:0,
-					are_Nombre:$("#txt_nombre").val(),
-					are_Descripcion:$("#txt_desc").val(),
-					are_Estado:1,
-					Action:1
-				});
-			}else{
-				Managment_Area({
-					AreaId:ID,
-					are_Nombre:$("#txt_nombre").val(),
-					are_Descripcion:$("#txt_desc").val(),
-					are_Estado:1,
-					Action:2
-				});
-				ID=0;
+	    if ($("#txt_nombre").val() != "" && $("#txt_desc").val() != "") {
+	        cambiado = false;
+	        if (ID == 0) {
+	            if (arrayArea == null) {
+	                Managment_Area({
+	                    AreaId: 0,
+	                    are_Nombre: $("#txt_nombre").val(),
+	                    are_Descripcion: $("#txt_desc").val(),
+	                    are_Estado: 1,
+	                    Action: 1
+	                });
+	            } else {
+	                $.each(arrayArea, function (i, item) {
+	                    if (item.are_Nombre == $("#txt_nombre").val()) {
+	                        if (item.are_Estado == 0) {
+	                            cambiado = true;
+	                            Managment_Area({
+	                                AreaId: item.AreaId,
+	                                are_Nombre: item.are_Nombre,
+	                                are_Descripcion: $("#txt_desc").val(),
+	                                are_Estado: 1,
+	                                Action: 2
+	                            });
+	                            ID = 0;
+
+	                        } else {
+	                            Toast({
+	                                action: "warning",
+	                                message: "El area ya existe",
+	                                position: "top-right",
+	                            });
+	                            cambiado = true;
+	                        }
+	                    }
+	                });
+	                if (!cambiado) {
+	                    Managment_Area({
+	                        AreaId: 0,
+	                        are_Nombre: $("#txt_nombre").val(),
+	                        are_Descripcion: $("#txt_desc").val(),
+	                        are_Estado: 1,
+	                        Action: 1
+	                    });
+	                    ID = 0;
+	                }
+	            }
+
+	        } else {
+	            var existe_edit = false;
+	            if (txt_nombre == $("#txt_nombre").val()) {
+	                existe_edit = false;
+	            } else {
+	                $.each(arrayArea, function (i, item) {
+	                    if (item.are_Nombre == $("#txt_nombre").val()) {
+	                        existe_edit = true;
+	                    }
+	                });
+	            }
+
+	            if (existe_edit) {
+	                Toast({
+	                    action: "warning",
+	                    message: "El area ya existe",
+	                    position: "top-right",
+	                });
+	            } else {
+	                Managment_Area({
+	                    AreaId: ID,
+	                    are_Nombre: $("#txt_nombre").val(),
+	                    are_Descripcion: $("#txt_desc").val(),
+	                    are_Estado: 1,
+	                    Action: 2
+	                });
+	                ID = 0;
+	            }
 			}
 		}else{
 			Toast({
 				action:"error",
-				message:"Rellene los campos correctamente",
+				message:"Llene los campos correctamente",
 				position:"top-right",					
 			});
 		}
@@ -57,6 +119,8 @@ $(document).ready(function () {
 		$("#txt_nombre").val($(this).attr("data-name"));
 		$("#txt_desc").val($(this).attr("data-desc"));
 		$("#agregararea").modal("show");
+		txt_nombre = $(this).attr("data-name");
+		$(".modal-title").text("Editar Area");
 	});
 
 	$(document).on("click", ".btn_remove", function () {
@@ -85,7 +149,7 @@ $(document).ready(function () {
 
 });
 
-function Load_Colaboradores() {
+function Load_Areas() {
 	var data = {};
 	var _data;
 	var resultTable = "";
@@ -101,23 +165,22 @@ function Load_Colaboradores() {
 
 		},
 		complete: function () {
-			$.each(_data, function (i, item) {
-				var sexo = (item.Sex == "f") ? "Femenino" : "Masculino";
-				resultTable += "<tr>";
-				resultTable += "<td>" + item.are_Nombre + "</td>";
-				resultTable += "<td>" + item.are_Descripcion + "</td>";
-				resultTable += "<td><center>";
-				resultTable += "<button data-id='" + item.AreaId + "' data-name='" + item.are_Nombre + "' data-desc='" + item.are_Descripcion + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-edit'></i></button>";
-				resultTable += "<button data-id='" + item.AreaId + "' type='button' class='btn_remove btn btn-danger btn-sm ml1'><i class='fa fa-trash-o'></i></button>";
-				resultTable += "</center></td>";
-				resultTable += "</tr>";
+		    arrayArea = _data;
+		    $.each(_data, function (i, item) {
+		        if (item.are_Estado != 0) {
+                    var sexo = (item.Sex == "f") ? "Femenino" : "Masculino";
+				    resultTable += "<tr>";
+				    resultTable += "<td>" + item.are_Nombre + "</td>";
+				    resultTable += "<td>" + item.are_Descripcion + "</td>";
+				    resultTable += "<td><center>";
+				    resultTable += "<button data-id='" + item.AreaId + "' data-name='" + item.are_Nombre + "' data-desc='" + item.are_Descripcion + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-edit'></i></button>";
+				    resultTable += "<button data-id='" + item.AreaId + "' type='button' class='btn_remove btn btn-danger btn-sm ml1'><i class='fa fa-trash-o'></i></button>";
+				    resultTable += "</center></td>";
+				    resultTable += "</tr>";
+		        }
 			});
 			$('#datatable-area').find('tbody').html(resultTable);
-			$('#datatable-area').DataTable({
-			    "language": {
-			        "url": "Content/assets/scripts/language.json"
-			    }
-			});
+			$('#datatable-area').DataTable();
 		}
 
 
@@ -140,24 +203,33 @@ function Managment_Area(data) {
 			if(_data.Result==1){
 				$("#agregararea").modal("hide");
 				if(data.Action==1){
-					Load_Colaboradores();
+				    Load_Areas();
 					Toast({
 						action:"success",
-						message:"EL colaborador se ha registrado correctamente",
+						message:"EL area se ha registrado correctamente",
 						position:"top-right",					
 					});
 				}else if(data.Action==2){
-					Load_Colaboradores();
-					Toast({
-						action:"success",
-						message:"EL colaborador se ha actualizado correctamente",
-						position:"top-right",					
-					});
+				    Load_Areas();
+				    if (cambiado) {
+				        Toast({
+				            action: "success",
+				            message: "EL area se ha recuperado correctamente",
+				            position: "top-right",
+				        });
+				    } else {
+				        Toast({
+				            action: "success",
+				            message: "EL area se ha actualizado correctamente",
+				            position: "top-right",
+				        });
+				    }
+					
 				}else{
-					Load_Colaboradores();
+				    Load_Areas();
 					Toast({
 						action:"success",
-						message:"EL colaborador se ha eliminado correctamente",
+						message: "EL area se ha eliminado correctamente",
 						position:"top-right",					
 					});
 				}

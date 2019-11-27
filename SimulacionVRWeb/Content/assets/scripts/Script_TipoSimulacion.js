@@ -26,14 +26,13 @@ $(document).ready(function () {
         ID = 0;
         $("#txt_nombre").val("");
         $("#txt_desc").val("");
+        $(".modal-title").text("Agregar Tipo de Simulación");
     });
 
     $("#btn_guardar").on("click", function () {
 
         if ($("#txt_nombre").val() != "" && $("#txt_desc").val() != "") {
             cambiado = false;
-            console.log(arrayTipoSimulacion);
-            console.log(ID);
             if (ID == 0) {
                 if (arrayTipoSimulacion == null) {
                     Managment_TipoSimulacion({
@@ -59,8 +58,8 @@ $(document).ready(function () {
                                 
                             } else {
                                 Toast({
-                                    action: "error",
-                                    message: "Ya existe ese tipo de simulacion",
+                                    action: "warning",
+                                    message: "El tipo de simulacion ya existe",
                                     position: "top-right",
                                 });
                                 cambiado = true;
@@ -113,7 +112,7 @@ $(document).ready(function () {
         } else {
             Toast({
                 action: "error",
-                message: "Rellene los campos correctamente",
+                message: "Llene los campos correctamente",
                 position: "top-right",
             });
         }
@@ -125,6 +124,7 @@ $(document).ready(function () {
         $("#txt_desc").val($(this).attr("data-desc"));
         $("#agregartiposimulacion").modal("show");
         txt_nombre = $(this).attr("data-name");
+        $(".modal-title").text("Editar Tipo de Simulación");
     });
 
     $(document).on("click", ".btn_remove", function () {
