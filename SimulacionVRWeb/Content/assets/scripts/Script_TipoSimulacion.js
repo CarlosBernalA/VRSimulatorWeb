@@ -14,6 +14,7 @@ var exportTable = $('#datatable-data-export').DataTable(
 var ID = 0;
 var arrayTipoSimulacion;
 var cambiado = false;
+var txt_nombre = "";
 
 $(document).ready(function () {
 
@@ -32,6 +33,7 @@ $(document).ready(function () {
         if ($("#txt_nombre").val() != "" && $("#txt_desc").val() != "") {
             cambiado = false;
             console.log(arrayTipoSimulacion);
+            console.log(ID);
             if (ID == 0) {
                 if (arrayTipoSimulacion == null) {
                     Managment_TipoSimulacion({
@@ -78,14 +80,34 @@ $(document).ready(function () {
                 }
                 
             } else {
-                Managment_TipoSimulacion({
-                    TipoSimulacionId: ID,
-                    ts_Nombre: $("#txt_nombre").val(),
-                    ts_Descripticion: $("#txt_desc").val(),
-                    ts_Estado: 1,
-                    Action: 2
-                });
-                ID = 0;
+                var existe_edit = false;
+                if (txt_nombre == $("#txt_nombre").val()) {
+                    existe_edit = false;
+                } else {
+                    $.each(arrayTipoSimulacion, function (i, item) {
+                        if (item.ts_Nombre == $("#txt_nombre").val()) {
+                                existe_edit = true;
+                        }                    
+                    });
+                }
+                
+                if (existe_edit) {
+                    Toast({
+                        action: "warning",
+                        message: "El tipo de simulacion ya existe",
+                        position: "top-right",
+                    });
+                } else {
+                    Managment_TipoSimulacion({
+                        TipoSimulacionId: ID,
+                        ts_Nombre: $("#txt_nombre").val(),
+                        ts_Descripticion: $("#txt_desc").val(),
+                        ts_Estado: 1,
+                        Action: 2
+                    });
+                    ID = 0;
+                }
+                
             }
             
         } else {
@@ -102,6 +124,7 @@ $(document).ready(function () {
         $("#txt_nombre").val($(this).attr("data-name"));
         $("#txt_desc").val($(this).attr("data-desc"));
         $("#agregartiposimulacion").modal("show");
+        txt_nombre = $(this).attr("data-name");
     });
 
     $(document).on("click", ".btn_remove", function () {
@@ -145,21 +168,27 @@ function Load_TipoSimulacion() {
         complete: function () {
             arrayTipoSimulacion = _data;
             $.each(_data, function (i, item) {
-                resultTable += "<tr class='" + hide_tiposim(item.ts_Estado) + "'>";
-                resultTable += "<td>" + item.ts_Nombre + "</td>";
-                resultTable += "<td>" + item.ts_Descripticion + "</td>";
-                resultTable += "<td><center>";
-                resultTable += "<button data-id='" + item.TipoSimulacionId + "' data-name='" + item.ts_Nombre + "' data-desc='" + item.ts_Descripticion + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-edit'></i></button>";
-                resultTable += "<button data-id='" + item.TipoSimulacionId + "' type='button' class='btn_remove btn btn-danger btn-sm ml1'><i class='fa fa-trash-o'></i></button>";
-                resultTable += "</center></td>";
-                resultTable += "</tr>";
+                if (item.ts_Estado!=0) {
+                    resultTable += "<tr>";
+                    resultTable += "<td>" + item.ts_Nombre + "</td>";
+                    resultTable += "<td>" + item.ts_Descripticion + "</td>";
+                    resultTable += "<td><center>";
+                    resultTable += "<button data-id='" + item.TipoSimulacionId + "' data-name='" + item.ts_Nombre + "' data-desc='" + item.ts_Descripticion + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-edit'></i></button>";
+                    resultTable += "<button data-id='" + item.TipoSimulacionId + "' type='button' class='btn_remove btn btn-danger btn-sm ml1'><i class='fa fa-trash-o'></i></button>";
+                    resultTable += "</center></td>";
+                    resultTable += "</tr>";
+                } 
+                
             });
             $('#datatable-tiposimulacion').find('tbody').html(resultTable);
+            $('#datatable-tiposimulacion').DataTable();
+            /*
             $('#datatable-tiposimulacion').DataTable({
                 "language": {
                     "url": "Content/assets/scripts/language.json"
                 }
             });
+            */
         }
 
 
@@ -221,11 +250,4 @@ function Managment_TipoSimulacion(data) {
 
         }
     });
-}
-function hide_tiposim(estado) {
-    var hide = "";
-    if (estado == 0) {
-        hide = "hide";
-    }
-    return hide
 }
