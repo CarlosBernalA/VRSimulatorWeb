@@ -64,6 +64,7 @@ namespace SimulacionVRWeb.Models.Persistent
             }
             return listEntidad;
         }
+
         public Programa_Result Managment_Programa(Programa _Programa, int Action)
         {
             Programa_Result resu = new Programa_Result();
@@ -109,6 +110,32 @@ namespace SimulacionVRWeb.Models.Persistent
                 }
             }
             return resu;
+        }
+
+        public List<Programa_Report_Cantidad_Participantes> report_programa_cantidad_participantes()
+        {
+            List<Programa_Report_Cantidad_Participantes> listEntidad = new List<Programa_Report_Cantidad_Participantes>();
+            using (SqlConnection connection = new SqlConnection(cadena))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("VR_Report_Cantidad_Participante_Programa", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                SqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleResult);
+                if (reader.HasRows)
+                {
+                    Programa_Report_Cantidad_Participantes entidad = null;
+                    listEntidad = new List<Programa_Report_Cantidad_Participantes>();
+                    while (reader.Read())
+                    {
+                        entidad = new Programa_Report_Cantidad_Participantes(reader.GetInt32(0), reader.GetInt32(1));
+
+                        listEntidad.Add(entidad);
+                    }
+                }
+                reader.Close();
+                connection.Close();
+            }
+            return listEntidad;
         }
     }
 
