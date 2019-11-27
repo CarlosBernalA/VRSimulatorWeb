@@ -11,6 +11,9 @@
 	});
 
 var ID = 0;
+var arrayRol;
+var cambiado = false;
+var txt_nombre = "";
 
 $(document).ready(function () {
 
@@ -22,32 +25,90 @@ $(document).ready(function () {
         ID = 0;
         $("#txt_nombre").val("");
         $("#txt_desc").val("");
+        $(".modal-title").text("Agregar Rol");
     });
 
     $("#btn_guardar").on("click", function () {
         if ($("#txt_nombre").val() != "" && $("#txt_desc").val() != "") {
+            cambiado = false;
             if (ID == 0) {
-                Managment_Rol({
-                    rol_RolId: 0,
-                    rol_Nombre: $("#txt_nombre").val(),
-                    rol_Descripcion: $("#txt_desc").val(),
-                    rol_Estado: 1,
-                    Action: 1
-                });
+                if (arrayRol == null) {
+                    Managment_Rol({
+                        rol_RolId: 0,
+                        rol_Nombre: $("#txt_nombre").val(),
+                        rol_Descripcion: $("#txt_desc").val(),
+                        rol_Estado: 1,
+                        Action: 1
+                    });
+                } else {
+                    $.each(arrayRol, function (i, item) {
+                        if (item.rol_Nombre == $("#txt_nombre").val()) {
+                            if (item.rol_Estado == 0) {
+                                cambiado = true;
+                                Managment_Rol({
+                                    rol_RolId: item.rol_RolId,
+                                    rol_Nombre: item.rol_Nombre,
+                                    rol_Descripcion: $("#txt_desc").val(),
+                                    rol_Estado: 1,
+                                    Action: 2
+                                });
+                                ID = 0;
+
+                            } else {
+                                Toast({
+                                    action: "warning",
+                                    message: "El rol ya existe",
+                                    position: "top-right",
+                                });
+                                cambiado = true;
+                            }
+                        }
+                    });
+                    if (!cambiado) {
+                        Managment_Rol({
+                            rol_RolId: 0,
+                            rol_Nombre: $("#txt_nombre").val(),
+                            rol_Descripcion: $("#txt_desc").val(),
+                            rol_Estado: 1,
+                            Action: 1
+                        });
+                        ID = 0;
+                    }
+                }
+   
             } else {
-                Managment_Rol({
-                    rol_RolId: ID,
-                    rol_Nombre: $("#txt_nombre").val(),
-                    rol_Descripcion: $("#txt_desc").val(),
-                    rol_Estado: 1,
-                    Action: 2
-                });
-                ID = 0;
+                var existe_edit = false;
+                if (txt_nombre == $("#txt_nombre").val()) {
+                    existe_edit = false;
+                } else {
+                    $.each(arrayRol, function (i, item) {
+                        if (item.rol_Nombre == $("#txt_nombre").val()) {
+                            existe_edit = true;
+                        }
+                    });
+                }
+
+                if (existe_edit) {
+                    Toast({
+                        action: "warning",
+                        message: "El rol ya existe",
+                        position: "top-right",
+                    });
+                } else {
+                    Managment_Rol({
+                        rol_RolId: ID,
+                        rol_Nombre: $("#txt_nombre").val(),
+                        rol_Descripcion: $("#txt_desc").val(),
+                        rol_Estado: 1,
+                        Action: 2
+                    });
+                    ID = 0;
+                }
             }
         } else {
             Toast({
                 action: "error",
-                message: "Rellene los campos correctamente",
+                message: "Llene los campos correctamente",
                 position: "top-right",
             });
         }
@@ -58,6 +119,8 @@ $(document).ready(function () {
         $("#txt_nombre").val($(this).attr("data-name"));
         $("#txt_desc").val($(this).attr("data-desc"));
         $("#agregarrol").modal("show");
+        txt_nombre = $(this).attr("data-name");
+        $(".modal-title").text("Editar Rol");
     });
 
     $(document).on("click", ".btn_remove", function () {
@@ -101,15 +164,19 @@ function Load_Roles() {
 
         },
         complete: function () {
+            arrayRol = _data;
             $.each(_data, function (i, item) {
-                resultTable += "<tr>";
-                resultTable += "<td>" + item.rol_Nombre + "</td>";
-                resultTable += "<td>" + item.rol_Descripcion + "</td>";
-                resultTable += "<td><center>";
-                resultTable += "<button data-id='" + item.rol_RolId + "' data-name='" + item.rol_Nombre + "' data-desc='" + item.rol_Descripcion + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-edit'></i></button>";
-                resultTable += "<button data-id='" + item.rol_RolId + "' type='button' class='btn_remove btn btn-danger btn-sm ml1'><i class='fa fa-trash-o'></i></button>";
-                resultTable += "</center></td>";
-                resultTable += "</tr>";
+                if (item.rol_Estado != 0) {
+                    resultTable += "<tr>";
+                    resultTable += "<td>" + item.rol_Nombre + "</td>";
+                    resultTable += "<td>" + item.rol_Descripcion + "</td>";
+                    resultTable += "<td><center>";
+                    resultTable += "<button data-id='" + item.rol_RolId + "' data-name='" + item.rol_Nombre + "' data-desc='" + item.rol_Descripcion + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-edit'></i></button>";
+                    resultTable += "<button data-id='" + item.rol_RolId + "' type='button' class='btn_remove btn btn-danger btn-sm ml1'><i class='fa fa-trash-o'></i></button>";
+                    resultTable += "</center></td>";
+                    resultTable += "</tr>";
+                }
+                
             });
             $('#datatable-rol').find('tbody').html(resultTable);
             $('#datatable-rol').DataTable();
@@ -143,11 +210,21 @@ function Managment_Rol(data) {
                     });
                 } else if (data.Action == 2) {
                     Load_Roles();
-                    Toast({
-                        action: "success",
-                        message: "EL rol se ha actualizado correctamente",
-                        position: "top-right",
-                    });
+                    if (cambiado) {
+                        Toast({
+                            action: "success",
+                            message: "EL rol se ha recuperado correctamente",
+                            position: "top-right",
+                        });
+                    } else {
+                        Toast({
+                            action: "success",
+                            message: "EL rol se ha actualizado correctamente",
+                            position: "top-right",
+                        });
+                    }
+
+                   
                 } else {
                     Load_Roles();
                     Toast({
