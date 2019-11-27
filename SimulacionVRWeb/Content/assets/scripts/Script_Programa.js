@@ -249,11 +249,7 @@ function Load_Programa(data) {
                 resultTable += "</tr>";
             });
             $('#datatable-programa').find('tbody').html(resultTable);
-            $('#datatable-programa').DataTable({
-                "language": {
-                    "url": "Content/assets/scripts/language.json"
-                }
-            });
+            $('#datatable-programa').DataTable();
 
         }
 

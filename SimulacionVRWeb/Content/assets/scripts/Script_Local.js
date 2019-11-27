@@ -122,11 +122,7 @@ function Load_Local() {
                 resultTable += "</tr>";
             });
             $('#datatable-local').find('tbody').html(resultTable);
-            $('#datatable-local').DataTable({
-                "language": {
-                    "url": "Content/assets/scripts/language.json"
-                }
-            });
+            $('#datatable-local').DataTable();
         }
 
 

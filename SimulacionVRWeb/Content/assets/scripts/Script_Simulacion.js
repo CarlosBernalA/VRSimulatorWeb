@@ -151,11 +151,7 @@ function Load_Simulacion() {
                 resultTable += "</tr>";
             });
             $('#datatable-simulacion').find('tbody').html(resultTable);
-            $('#datatable-simulacion').DataTable({
-                "language": {
-                    "url": "Content/assets/scripts/language.json"
-                }
-            });
+            $('#datatable-simulacion').DataTable();
         }
 
 

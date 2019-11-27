@@ -163,11 +163,7 @@ function Load_Trabajador() {
                 resultTable += "</tr>";
             });
             $('#datatable-trabajadorrol').find('tbody').html(resultTable);
-            $('#datatable-trabajadorrol').DataTable({
-                "language": {
-                    "url": "Content/assets/scripts/language.json"
-                }
-            });
+            $('#datatable-trabajadorrol').DataTable();
         }
 
 

@@ -112,11 +112,7 @@ function Load_Roles() {
                 resultTable += "</tr>";
             });
             $('#datatable-rol').find('tbody').html(resultTable);
-            $('#datatable-rol').DataTable({
-                "language": {
-                    "url": "Content/assets/scripts/language.json"
-                }
-            });
+            $('#datatable-rol').DataTable();
         }
 
 
