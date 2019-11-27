@@ -1,4 +1,5 @@
-﻿var exportTable = $('#datatable-data-export').DataTable(
+﻿
+var exportTable = $('#datatable-data-export').DataTable(
 	{
 	    sDom: "T<'clearfix'>" +
 			"<'row'<'col-sm-6'l><'col-sm-6'f>r>" +
@@ -11,8 +12,11 @@
 	});
 
 var ID = 0;
+var arrayTipoSimulacion;
+var cambiado = false;
 
 $(document).ready(function () {
+
 
     CurrectSelecteditem('#li_tiposimulacion');
     Load_TipoSimulacion();
@@ -24,15 +28,55 @@ $(document).ready(function () {
     });
 
     $("#btn_guardar").on("click", function () {
+
         if ($("#txt_nombre").val() != "" && $("#txt_desc").val() != "") {
+            cambiado = false;
+            console.log(arrayTipoSimulacion);
             if (ID == 0) {
-                Managment_TipoSimulacion({
-                    TipoSimulacionId: 0,
-                    ts_Nombre: $("#txt_nombre").val(),
-                    ts_Descripticion: $("#txt_desc").val(),
-                    ts_Estado: 1,
-                    Action: 1
-                });
+                if (arrayTipoSimulacion == null) {
+                    Managment_TipoSimulacion({
+                        TipoSimulacionId: 0,
+                        ts_Nombre: $("#txt_nombre").val(),
+                        ts_Descripticion: $("#txt_desc").val(),
+                        ts_Estado: 1,
+                        Action: 1
+                    });
+                } else {
+                    $.each(arrayTipoSimulacion, function (i, item) {
+                        if (item.ts_Nombre == $("#txt_nombre").val()) {
+                            if (item.ts_Estado == 0) {
+                                cambiado = true;
+                                Managment_TipoSimulacion({
+                                    TipoSimulacionId: item.TipoSimulacionId,
+                                    ts_Nombre: item.ts_Nombre,
+                                    ts_Descripticion: $("#txt_desc").val(),
+                                    ts_Estado: 1,
+                                    Action: 2
+                                });
+                                ID = 0;
+                                
+                            } else {
+                                Toast({
+                                    action: "error",
+                                    message: "Ya existe ese tipo de simulacion",
+                                    position: "top-right",
+                                });
+                                cambiado = true;
+                            }
+                        }
+                    });
+                    if (!cambiado) {
+                        Managment_TipoSimulacion({
+                            TipoSimulacionId: 0,
+                            ts_Nombre: $("#txt_nombre").val(),
+                            ts_Descripticion: $("#txt_desc").val(),
+                            ts_Estado: 1,
+                            Action: 1
+                        });
+                        ID = 0;
+                    }
+                }
+                
             } else {
                 Managment_TipoSimulacion({
                     TipoSimulacionId: ID,
@@ -43,6 +87,7 @@ $(document).ready(function () {
                 });
                 ID = 0;
             }
+            
         } else {
             Toast({
                 action: "error",
@@ -94,13 +139,13 @@ function Load_TipoSimulacion() {
         async: false,
         datatype: "JSON",
         success: function (response) {
-            console.log(response);
             _data = JSON.parse(response);
 
         },
         complete: function () {
+            arrayTipoSimulacion = _data;
             $.each(_data, function (i, item) {
-                resultTable += "<tr>";
+                resultTable += "<tr class='" + hide_tiposim(item.ts_Estado) + "'>";
                 resultTable += "<td>" + item.ts_Nombre + "</td>";
                 resultTable += "<td>" + item.ts_Descripticion + "</td>";
                 resultTable += "<td><center>";
@@ -110,7 +155,11 @@ function Load_TipoSimulacion() {
                 resultTable += "</tr>";
             });
             $('#datatable-tiposimulacion').find('tbody').html(resultTable);
-            $('#datatable-tiposimulacion').DataTable();
+            $('#datatable-tiposimulacion').DataTable({
+                "language": {
+                    "url": "Content/assets/scripts/language.json"
+                }
+            });
         }
 
 
@@ -126,7 +175,6 @@ function Managment_TipoSimulacion(data) {
         async: false,
         datatype: "JSON",
         success: function (response) {
-            console.log(response);
             _data = JSON.parse(response);
         },
         complete: function () {
@@ -141,11 +189,20 @@ function Managment_TipoSimulacion(data) {
                     });
                 } else if (data.Action == 2) {
                     Load_TipoSimulacion();
-                    Toast({
-                        action: "success",
-                        message: "EL tipo de simulacion se ha actualizado correctamente",
-                        position: "top-right",
-                    });
+                    if (cambiado) {
+                        Toast({
+                            action: "success",
+                            message: "EL tipo de simulacion se ha recuperado correctamente",
+                            position: "top-right",
+                        });
+                    } else {
+                        Toast({
+                            action: "success",
+                            message: "EL tipo de simulacion se ha actualizado correctamente",
+                            position: "top-right",
+                        });
+                    }
+                    
                 } else {
                     Load_TipoSimulacion();
                     Toast({
@@ -164,4 +221,11 @@ function Managment_TipoSimulacion(data) {
 
         }
     });
+}
+function hide_tiposim(estado) {
+    var hide = "";
+    if (estado == 0) {
+        hide = "hide";
+    }
+    return hide
 }

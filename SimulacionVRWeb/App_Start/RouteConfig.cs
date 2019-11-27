@@ -13,7 +13,6 @@ namespace SimulacionVRWeb
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-           
 
         routes.MapRoute(
             name: "login",

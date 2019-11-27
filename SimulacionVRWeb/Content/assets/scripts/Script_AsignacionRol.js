@@ -20,7 +20,6 @@ $(document).ready(function () {
     Load_Roles();
 
     $("#btn_guardar").on("click", function () {
-        console.log(arrayRol);
         if (arrayRol == null) {
             Managment_trabajadorRol({
                 tr_Nombre: "Sin descripcion",
@@ -164,7 +163,11 @@ function Load_Trabajador() {
                 resultTable += "</tr>";
             });
             $('#datatable-trabajadorrol').find('tbody').html(resultTable);
-            $('#datatable-trabajadorrol').DataTable();
+            $('#datatable-trabajadorrol').DataTable({
+                "language": {
+                    "url": "Content/assets/scripts/language.json"
+                }
+            });
         }
 
 

@@ -113,7 +113,11 @@ function Load_Colaboradores() {
 				resultTable += "</tr>";
 			});
 			$('#datatable-area').find('tbody').html(resultTable);
-			$('#datatable-area').DataTable();
+			$('#datatable-area').DataTable({
+			    "language": {
+			        "url": "Content/assets/scripts/language.json"
+			    }
+			});
 		}
 
 

@@ -178,7 +178,11 @@ function Load_Trabajador() {
                 resultTable += "</tr>";
             });
             $('#datatable-trabajador').find('tbody').html(resultTable);
-            $('#datatable-trabajador').DataTable();
+            $('#datatable-trabajador').DataTable({
+                "language": {
+                    "url": "Content/assets/scripts/language.json"
+                }
+            });
         }
 
 

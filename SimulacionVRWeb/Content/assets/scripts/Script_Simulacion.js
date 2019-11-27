@@ -87,7 +87,6 @@ $(document).ready(function () {
         $("#tiposimulacion").val($(this).attr("data-tsimu"));
         $("#txt_desc").val($(this).attr("data-desc"));
         $("#gradoriesgo").val($(this).attr("data-riesgo"));
-        console.log($(this).attr("data-riesgo"));
 
         theSlider.setValue($(this).attr("data-pmax"));
         $('.label-slider').text(theSlider.getValue());
@@ -152,7 +151,11 @@ function Load_Simulacion() {
                 resultTable += "</tr>";
             });
             $('#datatable-simulacion').find('tbody').html(resultTable);
-            $('#datatable-simulacion').DataTable();
+            $('#datatable-simulacion').DataTable({
+                "language": {
+                    "url": "Content/assets/scripts/language.json"
+                }
+            });
         }
 
 

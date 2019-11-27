@@ -522,6 +522,7 @@
     <Content Include="Content\assets\amcharts4\themes\moonrisekingdom.js.map" />
     <Content Include="Content\assets\amcharts4\themes\patterns.js.map" />
     <Content Include="Content\assets\amcharts4\themes\spiritedaway.js.map" />
+    <Content Include="Content\assets\scripts\language.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
