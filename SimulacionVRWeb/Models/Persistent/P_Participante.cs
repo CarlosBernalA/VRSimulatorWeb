@@ -8,9 +8,9 @@ using System.Web;
 
 namespace SimulacionVRWeb.Models.Persistent
 {
-    public class P_Participante: Connection
+    public class P_Participante : Connection
     {
-       
+
         public List<Participante> list_participante(Participante _Participante)
         {
             List<Participante> listEntidad = null;
@@ -77,6 +77,31 @@ namespace SimulacionVRWeb.Models.Persistent
                 }
             }
             return resu;
+        }
+        public List<Rpt_Participante_Aciertos_Fallos> report_participante_aciertoss_fallos()
+        {
+            List<Rpt_Participante_Aciertos_Fallos> listEntidad = new List<Rpt_Participante_Aciertos_Fallos>();
+            using (SqlConnection connection = new SqlConnection(cadena))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("VR_Report_Participante_Result", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                SqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleResult);
+                if (reader.HasRows)
+                {
+                    Rpt_Participante_Aciertos_Fallos entidad = null;
+                    listEntidad = new List<Rpt_Participante_Aciertos_Fallos>();
+                    while (reader.Read())
+                    {
+                        entidad = new Rpt_Participante_Aciertos_Fallos(reader.GetString(0), reader.GetInt32(3), reader.GetInt32(4));
+
+                        listEntidad.Add(entidad);
+                    }
+                }
+                reader.Close();
+                connection.Close();
+            }
+            return listEntidad;
         }
     }
 }

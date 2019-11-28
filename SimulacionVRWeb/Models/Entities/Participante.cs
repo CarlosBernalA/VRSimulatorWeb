@@ -54,4 +54,17 @@ namespace SimulacionVRWeb.Models.Entities
         public int Result { get; set; }
         public String Message { get; set; }
     }
+    public class Rpt_Participante_Aciertos_Fallos
+    {
+        public String tr_Nombre { get; set; }
+        public int R_Aciertos { get; set; }
+        public int R_Fallos { get; set; }
+        public Rpt_Participante_Aciertos_Fallos(string tr_Nombre, int r_Aciertos, int r_Fallos)
+        {
+            this.tr_Nombre = tr_Nombre;
+            this.R_Aciertos = r_Aciertos;
+            this.R_Fallos = r_Fallos;
+        }
+
+    }
 }

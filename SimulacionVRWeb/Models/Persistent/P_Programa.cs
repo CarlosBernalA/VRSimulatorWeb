@@ -26,8 +26,8 @@ namespace SimulacionVRWeb.Models.Persistent
                     listEntidad = new List<ProgramaApi>();
                     while (reader.Read())
                     {
-                        entidad = new ProgramaApi(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), reader.GetValue(3).ToString(), reader.GetValue(4).ToString(), reader.GetValue(5).ToString(), reader.GetString(6), reader.GetValue(7).ToString(), reader.GetValue(8).ToString(), reader.GetString(9),reader.GetInt32(10));
-                       
+                        entidad = new ProgramaApi(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), reader.GetValue(3).ToString(), reader.GetValue(4).ToString(), reader.GetValue(5).ToString(), reader.GetString(6), reader.GetValue(7).ToString(), reader.GetValue(8).ToString(), reader.GetString(9), reader.GetInt32(10));
+
                         listEntidad.Add(entidad);
                     }
                 }
@@ -112,9 +112,9 @@ namespace SimulacionVRWeb.Models.Persistent
             return resu;
         }
 
-        public List<Programa_Report_Cantidad_Participantes> report_programa_cantidad_participantes()
+        public List<Programa_Report> report_programa_cantidad_participantes()
         {
-            List<Programa_Report_Cantidad_Participantes> listEntidad = new List<Programa_Report_Cantidad_Participantes>();
+            List<Programa_Report> listEntidad = new List<Programa_Report>();
             using (SqlConnection connection = new SqlConnection(cadena))
             {
                 connection.Open();
@@ -123,11 +123,36 @@ namespace SimulacionVRWeb.Models.Persistent
                 SqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleResult);
                 if (reader.HasRows)
                 {
-                    Programa_Report_Cantidad_Participantes entidad = null;
-                    listEntidad = new List<Programa_Report_Cantidad_Participantes>();
+                    Programa_Report entidad = null;
+                    listEntidad = new List<Programa_Report>();
                     while (reader.Read())
                     {
-                        entidad = new Programa_Report_Cantidad_Participantes(reader.GetInt32(0), reader.GetInt32(1));
+                        entidad = new Programa_Report(reader.GetInt32(0), reader.GetInt32(1));
+
+                        listEntidad.Add(entidad);
+                    }
+                }
+                reader.Close();
+                connection.Close();
+            }
+            return listEntidad;
+        }
+        public List<Programa_Report> report_programa_cantidad_aciertos_fallos()
+        {
+            List<Programa_Report> listEntidad = new List<Programa_Report>();
+            using (SqlConnection connection = new SqlConnection(cadena))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("VR_Report_Cantidad_AciertosyFallos_Programa", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                SqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleResult);
+                if (reader.HasRows)
+                {
+                    Programa_Report entidad = null;
+                    listEntidad = new List<Programa_Report>();
+                    while (reader.Read())
+                    {
+                        entidad = new Programa_Report(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2));
 
                         listEntidad.Add(entidad);
                     }

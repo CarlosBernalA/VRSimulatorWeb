@@ -36,5 +36,12 @@ namespace SimulacionVRWeb.Models.Bussines
             TrabajadorApi ar = dao.LoginApi(UserName, Password);
             return ar;
         }
+        public List<Rpt_Trabajador> report_puntaje_trabajador()
+        {
+            List<Rpt_Trabajador> listEntidad = null;
+            P_Trabajador dao = new P_Trabajador();
+            listEntidad = dao.report_puntaje_trabajador();
+            return listEntidad;
+        }
     }
 }

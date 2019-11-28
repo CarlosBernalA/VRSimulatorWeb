@@ -56,5 +56,13 @@ namespace SimulacionVRWeb.Controllers
             var json = jsonSerialiser.Serialize(a);
             return json;
         }
+        public String report_simulacion_aciertoss_fallos()
+        {
+            B_Simulacion b_Simulacion = new B_Simulacion();
+            List<Simulacion_Rpt> _list = b_Simulacion.report_simulacion_aciertoss_fallos();
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(_list);
+            return json;
+        }
     }
 }

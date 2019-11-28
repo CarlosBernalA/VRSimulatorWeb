@@ -5,26 +5,31 @@
 
 @section Scripts{
     <script src="~/Content/assets/scripts/Script_Reporte.js"></script>
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/maps.js"></script>
+    <script src="https://www.amcharts.com/lib/4/geodata/usaAlbersLow.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 }
 <style>
-#chartdiv {
-  width: 100%;
-  max-height: 450px;
-  height: 100vh;
-}
+    #chartdiv {
+        width: 100%;
+        max-height: 450px;
+        height: 100vh;
+    }
 
-#chartdiv2 {
-  width: 100%;
-  max-height: 400px;
-  height: 100vh;
-}
+    #chartdiv2 {
+        width: 100%;
+        max-height: 400px;
+        height: 100vh;
+    }
 </style>
 <div class="row sortable-grid pt2">
     <div class="col-md-7 sortable-item ui-sortable">
         <!-- SALES STATISTIC -->
         <div class="panel" id="tour-sales-stat">
             <div class="panel-heading ui-sortable-handle">
-                <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Estadística de ventas</font></font></h3>
+                <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cantidad de Aciertos y fallos de los participantes</font></font></h3>
             </div>
             <div class="panel-body">
 
@@ -38,15 +43,59 @@
         <!-- SHARES GOAL -->
         <div class="panel">
             <div class="panel-heading ui-sortable-handle">
-                <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Objetivo de acciones</font></font></h3>
+                <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cantidad de aciertos de las simulaciones</font></font></h3>
             </div>
             <div class="panel-body">
-                
+
                 <div id="chartdiv2"></div>
 
             </div>
         </div>
         <!-- END SHARES GOAL -->
     </div>
+</div>
+<div class="row sortable-grid pt2">
+    <div class="col-md-7 sortable-item ui-sortable">
+        <!-- SALES STATISTIC -->
+        <div class="panel" id="tour-sales-stat">
+            <div class="panel-heading ui-sortable-handle">
+                <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cantidad de aciertos y fallos de los programas</font></font></h3>
+            </div>
+            <div class="panel-body">
+
+                <div id="chartdiv3"></div>
+
+            </div>
+        </div>
+        <!-- END SALES STATISTIC -->
+    </div>
+    <div class="col-md-5 sortable-item ui-sortable">
+        <!-- SHARES GOAL -->
+        <div class="panel">
+            <div class="panel-heading ui-sortable-handle">
+                <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cantidad de fallos de las simulaciones</font></font></h3>
+            </div>
+            <div class="panel-body">
+
+                <div id="chartdiv4"></div>
+
+            </div>
+        </div>
+        <!-- END SHARES GOAL -->
+    </div>
+</div>
+<div class="col-md-7 sortable-item ui-sortable">
+    <!-- SALES STATISTIC -->
+    <div class="panel" id="tour-sales-stat">
+        <div class="panel-heading ui-sortable-handle">
+            <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Puntajes de Trabajador</font></font></h3>
+        </div>
+        <div class="panel-body">
+
+            <div id="chartdiv5"></div>
+
+        </div>
+    </div>
+    <!-- END SALES STATISTIC -->
 </div>
 

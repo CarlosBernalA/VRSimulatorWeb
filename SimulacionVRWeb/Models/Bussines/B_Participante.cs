@@ -23,5 +23,12 @@ namespace SimulacionVRWeb.Models.Bussines
             Participante_Result ar = dao.Managment_Participante(_Participante, Action);
             return ar;
         }
+        public List<Rpt_Participante_Aciertos_Fallos> report_participante_aciertos_fallos()
+        {
+            List<Rpt_Participante_Aciertos_Fallos> listEntidad = null;
+            P_Participante dao = new P_Participante();
+            listEntidad = dao.report_participante_aciertoss_fallos();
+            return listEntidad;
+        }
     }
 }

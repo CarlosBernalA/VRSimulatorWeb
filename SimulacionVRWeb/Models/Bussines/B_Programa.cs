@@ -29,11 +29,18 @@ namespace SimulacionVRWeb.Models.Bussines
             Programa_Result ar = dao.Managment_Programa(_Programa, Action);
             return ar;
         }
-        public List<Programa_Report_Cantidad_Participantes> report_programa_cantidad_participantes()
+        public List<Programa_Report> report_programa_cantidad_participantes()
         {
-            List<Programa_Report_Cantidad_Participantes> listEntidad = null;
+            List<Programa_Report> listEntidad = null;
             P_Programa dao = new P_Programa();
             listEntidad = dao.report_programa_cantidad_participantes();
+            return listEntidad;
+        }
+        public List<Programa_Report> report_programa_cantidad_aciertos_fallos()
+        {
+            List<Programa_Report> listEntidad = null;
+            P_Programa dao = new P_Programa();
+            listEntidad = dao.report_programa_cantidad_aciertos_fallos();
             return listEntidad;
         }
     }

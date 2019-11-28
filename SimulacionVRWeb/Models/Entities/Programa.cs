@@ -106,16 +106,24 @@ namespace SimulacionVRWeb.Models.Entities
     }
 
 
-    public class Programa_Report_Cantidad_Participantes
+    public class Programa_Report
     {
         public int ProgramaId { get; set; }
-        public int CantidadParticiapntes { get; set; }
+        public int CantidadParticipantes { get; set; }
+        public int Cantidad_Aciertos { get; set; }
+        public int Cantidad_Fallos { get; set; }
 
 
-        public Programa_Report_Cantidad_Participantes(int programaId, int cantidadParticiapntes)
+        public Programa_Report(int programaId, int cantidadParticiapntes)
         {
             this.ProgramaId = programaId;
-            this.CantidadParticiapntes = cantidadParticiapntes;
+            this.CantidadParticipantes = cantidadParticiapntes;
+        }
+        public Programa_Report(int ProgramaId, int Cantidad_Aciertos, int Cantidad_Fallos)
+        {
+            this.ProgramaId = ProgramaId;
+            this.Cantidad_Aciertos = Cantidad_Aciertos;
+            this.Cantidad_Fallos = Cantidad_Fallos;
         }
 
     }

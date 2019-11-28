@@ -15,7 +15,7 @@ namespace SimulacionVRWeb.Models.Entities
         public int si_GradoRiesgo { get; set; }
         public int si_Estado { get; set; }
         public String ts_Nombre { get; set; }
-        
+
 
         public Simulacion(int SimulacionId, String Nombre, int TipoSimulacionId, String si_descripcion, int si_maxpuntaje, int si_GradoRiesgo, int si_Estado)
         {
@@ -55,5 +55,17 @@ namespace SimulacionVRWeb.Models.Entities
     {
         public int Result { get; set; }
         public String Message { get; set; }
+    }
+    public class Simulacion_Rpt
+    {
+        public String Nombre { get; set; }
+        public int Cantidad_Aciertos { get; set; }
+        public int Cantidad_Fallos { get; set; }
+        public Simulacion_Rpt(String Nombre, int Cantidad_Aciertos, int Cantidad_Fallos)
+        {
+            this.Nombre = Nombre;
+            this.Cantidad_Aciertos = Cantidad_Aciertos;
+            this.Cantidad_Fallos = Cantidad_Fallos;
+        }
     }
 }
