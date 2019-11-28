@@ -5,6 +5,7 @@
 
 @section Scripts{
     <script src="~/Content/assets/scripts/Script_Reporte.js"></script>
+    <script src="~/Content/assets/scripts/ui-panels.js"></script>
     <script src="https://www.amcharts.com/lib/4/core.js"></script>
     <script src="https://www.amcharts.com/lib/4/charts.js"></script>
     <script src="https://www.amcharts.com/lib/4/maps.js"></script>
@@ -24,25 +25,35 @@
         height: 100vh;
     }
 </style>
-<div class="row sortable-grid pt2">
-    <div class="col-md-7 sortable-item ui-sortable">
+<div class="row pt2">
+    <div class="col-md-7">
         <!-- SALES STATISTIC -->
-        <div class="panel" id="tour-sales-stat">
-            <div class="panel-heading ui-sortable-handle">
+        <div class="panel">
+            <div class="panel-heading">
                 <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cantidad de Aciertos y fallos de los participantes</font></font></h3>
+                <div class="right">
+                    <button type="button" class="btn btn-primary btn-xs btn-panel-refresh"><i class="fa fa-refresh"></i> <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Actualizar</font></font></span></button>
+                </div>
             </div>
             <div class="panel-body">
-
+                <div class="overlay-refresh">
+                    <div class="vertical-align-wrap">
+                        <div class="vertical-align-middle">
+                            <i class="fa fa-refresh fa-spin"></i>
+                            <span>Refrescando...</span>
+                        </div>
+                    </div>
+                </div>
                 <div id="chartdiv"></div>
 
             </div>
         </div>
         <!-- END SALES STATISTIC -->
     </div>
-    <div class="col-md-5 sortable-item ui-sortable">
+    <div class="col-md-5">
         <!-- SHARES GOAL -->
         <div class="panel">
-            <div class="panel-heading ui-sortable-handle">
+            <div class="panel-heading">
                 <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cantidad de aciertos de las simulaciones</font></font></h3>
             </div>
             <div class="panel-body">
@@ -54,11 +65,11 @@
         <!-- END SHARES GOAL -->
     </div>
 </div>
-<div class="row sortable-grid pt2">
-    <div class="col-md-7 sortable-item ui-sortable">
+<div class="row  pt2">
+    <div class="col-md-7 ">
         <!-- SALES STATISTIC -->
-        <div class="panel" id="tour-sales-stat">
-            <div class="panel-heading ui-sortable-handle">
+        <div class="panel">
+            <div class="panel-heading">
                 <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cantidad de aciertos y fallos de los programas</font></font></h3>
             </div>
             <div class="panel-body">
@@ -69,10 +80,10 @@
         </div>
         <!-- END SALES STATISTIC -->
     </div>
-    <div class="col-md-5 sortable-item ui-sortable">
+    <div class="col-md-5">
         <!-- SHARES GOAL -->
         <div class="panel">
-            <div class="panel-heading ui-sortable-handle">
+            <div class="panel-heading">
                 <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cantidad de fallos de las simulaciones</font></font></h3>
             </div>
             <div class="panel-body">
@@ -84,10 +95,10 @@
         <!-- END SHARES GOAL -->
     </div>
 </div>
-<div class="col-md-7 sortable-item ui-sortable">
+<div class="col-md-7">
     <!-- SALES STATISTIC -->
-    <div class="panel" id="tour-sales-stat">
-        <div class="panel-heading ui-sortable-handle">
+    <div class="panel">
+        <div class="panel-heading">
             <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Puntajes de Trabajador</font></font></h3>
         </div>
         <div class="panel-body">
@@ -98,4 +109,3 @@
     </div>
     <!-- END SALES STATISTIC -->
 </div>
-

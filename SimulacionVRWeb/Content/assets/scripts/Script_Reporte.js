@@ -9,6 +9,18 @@
     Rpt_Simulacion_cantidad_aciertos_fallos();
     Rpt_Puntaje_Trabajador();
 
+
+    if ($('.btn-panel-refresh').length > 0) {
+        $('.btn-panel-refresh').on('click', function () {
+            $('.overlay-refresh').fadeIn(300);
+
+            setTimeout(function () {
+                $('.overlay-refresh').fadeOut(300);
+                Rpt_Participantes();
+            }, 1500);
+        });
+    }
+
 });
 
 
