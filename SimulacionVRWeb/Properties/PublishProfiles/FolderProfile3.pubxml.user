@@ -193,10 +193,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>05/24/2018 13:38:24</publishTime>
     </File>
     <File Include="bin/SimulacionVRWeb.dll">
-      <publishTime>11/17/2019 22:38:54</publishTime>
+      <publishTime>11/28/2019 10:39:39</publishTime>
     </File>
     <File Include="bin/SimulacionVRWeb.pdb">
-      <publishTime>11/17/2019 22:38:54</publishTime>
+      <publishTime>11/28/2019 10:39:39</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>11/28/2018 13:00:36</publishTime>
@@ -1219,7 +1219,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>11/13/2019 17:43:48</publishTime>
     </File>
     <File Include="Content/assets/scripts/Script_AsignacionRol.js">
-      <publishTime>11/13/2019 17:58:37</publishTime>
+      <publishTime>11/21/2019 14:17:52</publishTime>
     </File>
     <File Include="Content/assets/scripts/Script_function.js">
       <publishTime>11/06/2019 19:29:34</publishTime>
@@ -1228,7 +1228,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>11/07/2019 15:37:56</publishTime>
     </File>
     <File Include="Content/assets/scripts/Script_Programa.js">
-      <publishTime>10/20/2019 16:34:10</publishTime>
+      <publishTime>11/21/2019 14:17:52</publishTime>
     </File>
     <File Include="Content/assets/scripts/Script_Rol.js">
       <publishTime>11/07/2019 09:05:11</publishTime>
@@ -1807,7 +1807,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>11/06/2019 19:17:43</publishTime>
     </File>
     <File Include="Views/AsignacionRol/AsignacionRol.cshtml">
-      <publishTime>11/13/2019 17:58:37</publishTime>
+      <publishTime>11/21/2019 14:17:52</publishTime>
     </File>
     <File Include="Views/AsignacionRol/Rol.cshtml">
       <publishTime>11/07/2019 09:05:11</publishTime>
@@ -1831,13 +1831,13 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>11/07/2019 15:37:56</publishTime>
     </File>
     <File Include="Views/Programa/Programa.cshtml">
-      <publishTime>11/05/2019 22:04:50</publishTime>
+      <publishTime>11/21/2019 14:17:52</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>11/05/2019 21:26:08</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>11/07/2019 16:30:10</publishTime>
+      <publishTime>11/21/2019 14:17:52</publishTime>
     </File>
     <File Include="Views/Simulacion/Simulacion.cshtml">
       <publishTime>11/13/2019 17:43:48</publishTime>
