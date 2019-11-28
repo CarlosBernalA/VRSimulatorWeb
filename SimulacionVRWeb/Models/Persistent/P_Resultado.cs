@@ -38,5 +38,36 @@ namespace SimulacionVRWeb.Models.Persistent
             }
             return dts;
         }
+
+        public String InsertResultado(Resultado data)
+        {
+            if (data!=null)
+            {
+                DataSet dts = new DataSet();
+                List<ResultReport> listEntidad = new List<ResultReport>();
+                using (SqlConnection connection = new SqlConnection(cadena))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("VR_Managment_Resultados", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@ResultadoId", SqlDbType.Int).Value = 0;
+                    command.Parameters.Add("@ProgramaId", SqlDbType.Int).Value = data.ProgramaId;
+                    command.Parameters.Add("@TrabajadorID", SqlDbType.Int).Value = data.ProgramaId;
+                    command.Parameters.Add("@R_Duracion", SqlDbType.Int).Value = data.R_Duraccion;
+                    command.Parameters.Add("@R_NivelConcentracion", SqlDbType.Int).Value = data.R_NivelConcentracion;
+                    command.Parameters.Add("@R_Aciertos", SqlDbType.Int).Value = data.R_Aciertos;
+                    command.Parameters.Add("@R_Fallos", SqlDbType.Int).Value = data.R_Fallos;
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    adapter.Fill(dts);
+                    
+                    connection.Close();
+                }
+                return dts.Tables[0].Rows[0].ItemArray[0].ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
     }
 }
