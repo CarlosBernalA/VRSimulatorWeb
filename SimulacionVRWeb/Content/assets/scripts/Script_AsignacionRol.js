@@ -123,9 +123,11 @@ function roles_trabajador(data) {
         complete: function () {
             arrayRol = _data;
             $.each(_data, function (i, item) {
-                resultTable += "<div class='widget widget-metric_6 mb1 " + hide_rol(item.ad_Estado)+ "' style='padding:1rem;box-shadow: 2px 2px 4px #cccccc;'>";
-                resultTable += "<span>" + item.tr_Nombre + "</span>";
-                resultTable += "<i data-id='" + item.RolId + "' class='fa fa-trash-o btn_remove' style='float: right;color: red;font-size: 2rem;margin-top: -1px;margin-right: 5px;cursor: pointer;'></i></div>";
+                if (item.ad_Estado != 0) {
+                    resultTable += "<div class='widget widget-metric_6 mb1' style='padding:1rem;box-shadow: 2px 2px 4px #cccccc;'>";
+                    resultTable += "<span>" + item.tr_Nombre + "</span>";
+                    resultTable += "<i data-id='" + item.RolId + "' class='fa fa-trash-o btn_remove' style='float: right;color: red;font-size: 2rem;margin-top: -1px;margin-right: 5px;cursor: pointer;'></i></div>";
+                }
             });
             $('#rolesdeltrabajador').html(resultTable);
             
@@ -231,11 +233,4 @@ function Managment_trabajadorRol(data) {
 
         }
     });
-}
-function hide_rol(estado) {
-    var hide = "";
-    if (estado==0) {
-        hide = "hide";
-    }
-    return hide
 }
