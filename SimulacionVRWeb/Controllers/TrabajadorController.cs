@@ -41,5 +41,37 @@ namespace SimulacionVRWeb.Controllers
             var json = jsonSerialiser.Serialize(a);
             return json;
         }
+        public String list_participante(Participante_S _Participante)
+        {
+            B_Participante b_Participante = new B_Participante();
+            List<Participante> _list = b_Participante.list_participante(new Participante(_Participante.ProgramaId));
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(_list);
+            return json;
+        }
+        public String Managment_Participante(Participante_S_C _Participante)
+        {
+            B_Participante b_Participante = new B_Participante();
+            Participante_Result a = b_Participante.Managment_Participante(new Participante(_Participante.ParticipanteId, _Participante.TrabajadorId, _Participante.ProgramaId, _Participante.Estado), _Participante.Action);
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(a);
+            return json;
+        }
+        public String report_participante_aciertos_fallos()
+        {
+            B_Participante b_Participante = new B_Participante();
+            List<Rpt_Participante_Aciertos_Fallos> _list = b_Participante.report_participante_aciertos_fallos();
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(_list);
+            return json;
+        }
+        public String report_puntaje_trabajador()
+        {
+            B_Trabajador b_Participante = new B_Trabajador();
+            List<Rpt_Trabajador> _list = b_Participante.report_puntaje_trabajador();
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(_list);
+            return json;
+        }
     }
 }

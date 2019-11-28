@@ -12,27 +12,37 @@
 
 var ID = 0;
 
+var sliderChanged = function () {
+    $('.label-slider').text(theSlider.getValue());
+};
+
+var theSlider;
+
 $(document).ready(function () {
 
     CurrectSelecteditem('#li_simulacion');
-    
-    var sliderChanged = function () {
-        $('.label-slider').text(theSlider.getValue());
-    };
 
-    var theSlider = $('.bootstrap-slider')
+
+    theSlider = $('.bootstrap-slider')
 		.slider({
 		    min: 0,
 		    max: 20,
-		    value:0,
+		    value: 0,
 		    tooltip: 'hide',
 		    handle: 'square'
 		}).on('slide', sliderChanged).data('slider');
-
     $('.label-slider').text(theSlider.getValue());
 
     Load_Simulacion();
-    Load_TipoSimulacion();
+
+
+    $(".agregarCiudadano").on("click", function () {
+        Load_TipoSimulacion();
+        $("#txt_nombre").val("");
+        $("#txt_desc").val("");
+        theSlider.setValue(0);
+        $('.label-slider').text(theSlider.getValue());
+    });
 
     $("#btn_guardar").on("click", function () {
 
@@ -71,12 +81,16 @@ $(document).ready(function () {
     });
 
     $(document).on("click", ".btn_edit", function () {
+        Load_TipoSimulacion();
         ID = $(this).attr("data-id");
         $("#txt_nombre").val($(this).attr("data-name"));
         $("#tiposimulacion").val($(this).attr("data-tsimu"));
         $("#txt_desc").val($(this).attr("data-desc"));
-
         $("#gradoriesgo").val($(this).attr("data-riesgo"));
+
+        theSlider.setValue($(this).attr("data-pmax"));
+        $('.label-slider').text(theSlider.getValue());
+
         $("#agregarsimulacion").modal("show");
     });
 
@@ -132,7 +146,7 @@ function Load_Simulacion() {
                 resultTable += "<td>" + gradoR(item.si_GradoRiesgo) + "</td>";
                 resultTable += "<td><center>";
                 resultTable += "<button data-id='" + item.SimulacionId + "' data-name='" + item.Nombre + "' data-tsimu='" + item.TipoSimulacionId + "' data-desc='" + item.si_descripcion + "' data-pmax='" + item.si_maxpuntaje + "' data-riesgo='" + item.si_GradoRiesgo + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-edit'></i></button>";
-                resultTable += "<button data-id='" + item.SimulacionId + "' type='button' class='btn_remove btn btn-danger btn-sm'><i class='fa fa-trash-o'></i></button>";
+                resultTable += "<button data-id='" + item.SimulacionId + "' type='button' class='btn_remove btn btn-danger btn-sm ml1'><i class='fa fa-trash-o'></i></button>";
                 resultTable += "</center></td>";
                 resultTable += "</tr>";
             });
@@ -173,7 +187,7 @@ function gradoR(grado) {
     var html = "";
     var gr = "";
     var color = "";
-    
+
     switch (grado) {
         case 1:
             gr = "Bajo";
@@ -187,7 +201,7 @@ function gradoR(grado) {
             gr = "Alto";
             color = "danger";
             break;
-        
+
     }
 
     html = "<span class='label label-" + color + " status'><font style='vertical-align: inherit;'>" + gr + "</font></span>";
@@ -196,7 +210,7 @@ function gradoR(grado) {
 
 function Managment_Simulacion(data) {
     var _data;
-  
+
     $.ajax({
         type: "POST",
         url: "Simulacion/Managment_Simulacion",

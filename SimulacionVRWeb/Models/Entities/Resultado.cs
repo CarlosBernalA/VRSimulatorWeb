@@ -7,7 +7,7 @@ namespace SimulacionVRWeb.Models.Entities
 {
     public class Resultado
     {
-        public int ResultadoId{ get; set; }
+        public int ResultadoId { get; set; }
         public String R_fechacreacion { get; set; }
         public int ProgramaId { get; set; }
         public int ParticipanteId { get; set; }

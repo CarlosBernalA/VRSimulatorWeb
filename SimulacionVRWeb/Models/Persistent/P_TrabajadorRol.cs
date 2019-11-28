@@ -52,7 +52,7 @@ namespace SimulacionVRWeb.Models.Persistent
                     listEntidad = new List<TrabajadorRol>();
                     while (reader.Read())
                     {
-                        entidad = new TrabajadorRol(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2));
+                        entidad = new TrabajadorRol(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetString(3), reader.GetInt32(4));
                         listEntidad.Add(entidad);
                     }
                 }

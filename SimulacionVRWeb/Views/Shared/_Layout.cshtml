@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
@@ -47,7 +47,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="~/Content/assets/img/logo.png">
     <link rel="icon" type="image/png" sizes="96x96" href="~/Content/assets/img/logo.png">
     <!--sortable-->
-    <script type="text/javascript" src="~/Content/assets/scripts/html5sortable.js"></script>
+    <!--<script type="text/javascript" src="~/Content/assets/scripts/html5sortable.js"></script>-->
     @RenderSection("stylesheet", required:false)
    @* @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")*@
@@ -127,7 +127,7 @@
                         </a>
                         <div id="Resultados" class="collapse ">
                             <ul class="submenu">
-                                <li><a href="Area" id="li_resultados">Simulaciones Realizadas</a></li>
+                                <li><a href="Reporte" id="li_reporte">Reportes</a></li>
                             </ul>
                         </div>
                     </li>
@@ -194,13 +194,7 @@
 
     <script src="~/Content/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
     <script src="~/Content/assets/vendor/clockpicker/bootstrap-clockpicker.min.js"></script>
-    <script src="~/Content/assets/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-
-    <script src="~/Content/assets/amcharts/amcharts.js"></script>
-    <script src="~/Content/assets/amcharts/serial.js"></script>
-    <script src="~/Content/assets/amcharts/plugins/export/export.min.js"></script>
-    <link href="~/Content/assets/amcharts/plugins/export/export.css" rel="stylesheet" />
-    <script src="~/Content/assets/amcharts/themes/light.js"></script>
+    <script src="~/Content/assets/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>    
 
     <!-- script de tablas dinamicas -->
     <script src="~/Content/assets/vendor/datatables/js-main/jquery.dataTables.min.js"></script>
@@ -218,6 +212,12 @@
     <link rel="stylesheet" type="text/css" href="~/Content/assets/vendor/nestable2/jquery.nestable.css">
 
     <script src="~/Content/assets/scripts/Script_function.js"></script>
+
+    <!--amcharts4-->
+    <script src="~/Content/assets/amcharts4/core.js"></script>
+    <script src="~/Content/assets/amcharts4/charts.js"></script>
+    <script src="~/Content/assets/amcharts4/plugins/wordCloud.js"></script>
+    <script src="~/Content/assets/amcharts4/themes/animated.js"></script>
 
     @RenderSection("scripts", required: false)
 </body>

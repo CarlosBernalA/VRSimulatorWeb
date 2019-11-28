@@ -1,4 +1,5 @@
-﻿var exportTable = $('#datatable-data-export').DataTable(
+﻿
+var exportTable = $('#datatable-data-export').DataTable(
 	{
 	    sDom: "T<'clearfix'>" +
 			"<'row'<'col-sm-6'l><'col-sm-6'f>r>" +
@@ -11,8 +12,12 @@
 	});
 
 var ID = 0;
+var arrayTipoSimulacion;
+var cambiado = false;
+var txt_nombre = "";
 
 $(document).ready(function () {
+
 
     CurrectSelecteditem('#li_tiposimulacion');
     Load_TipoSimulacion();
@@ -21,32 +26,93 @@ $(document).ready(function () {
         ID = 0;
         $("#txt_nombre").val("");
         $("#txt_desc").val("");
+        $(".modal-title").text("Agregar Tipo de Simulación");
     });
 
     $("#btn_guardar").on("click", function () {
+
         if ($("#txt_nombre").val() != "" && $("#txt_desc").val() != "") {
+            cambiado = false;
             if (ID == 0) {
-                Managment_TipoSimulacion({
-                    TipoSimulacionId: 0,
-                    ts_Nombre: $("#txt_nombre").val(),
-                    ts_Descripticion: $("#txt_desc").val(),
-                    ts_Estado: 1,
-                    Action: 1
-                });
+                if (arrayTipoSimulacion == null) {
+                    Managment_TipoSimulacion({
+                        TipoSimulacionId: 0,
+                        ts_Nombre: $("#txt_nombre").val(),
+                        ts_Descripticion: $("#txt_desc").val(),
+                        ts_Estado: 1,
+                        Action: 1
+                    });
+                } else {
+                    $.each(arrayTipoSimulacion, function (i, item) {
+                        if (item.ts_Nombre == $("#txt_nombre").val()) {
+                            if (item.ts_Estado == 0) {
+                                cambiado = true;
+                                Managment_TipoSimulacion({
+                                    TipoSimulacionId: item.TipoSimulacionId,
+                                    ts_Nombre: item.ts_Nombre,
+                                    ts_Descripticion: $("#txt_desc").val(),
+                                    ts_Estado: 1,
+                                    Action: 2
+                                });
+                                ID = 0;
+                                
+                            } else {
+                                Toast({
+                                    action: "warning",
+                                    message: "El tipo de simulacion ya existe",
+                                    position: "top-right",
+                                });
+                                cambiado = true;
+                            }
+                        }
+                    });
+                    if (!cambiado) {
+                        Managment_TipoSimulacion({
+                            TipoSimulacionId: 0,
+                            ts_Nombre: $("#txt_nombre").val(),
+                            ts_Descripticion: $("#txt_desc").val(),
+                            ts_Estado: 1,
+                            Action: 1
+                        });
+                        ID = 0;
+                    }
+                }
+                
             } else {
-                Managment_TipoSimulacion({
-                    TipoSimulacionId: ID,
-                    ts_Nombre: $("#txt_nombre").val(),
-                    ts_Descripticion: $("#txt_desc").val(),
-                    ts_Estado: 1,
-                    Action: 2
-                });
-                ID = 0;
+                var existe_edit = false;
+                if (txt_nombre == $("#txt_nombre").val()) {
+                    existe_edit = false;
+                } else {
+                    $.each(arrayTipoSimulacion, function (i, item) {
+                        if (item.ts_Nombre == $("#txt_nombre").val()) {
+                                existe_edit = true;
+                        }                    
+                    });
+                }
+                
+                if (existe_edit) {
+                    Toast({
+                        action: "warning",
+                        message: "El tipo de simulacion ya existe",
+                        position: "top-right",
+                    });
+                } else {
+                    Managment_TipoSimulacion({
+                        TipoSimulacionId: ID,
+                        ts_Nombre: $("#txt_nombre").val(),
+                        ts_Descripticion: $("#txt_desc").val(),
+                        ts_Estado: 1,
+                        Action: 2
+                    });
+                    ID = 0;
+                }
+                
             }
+            
         } else {
             Toast({
                 action: "error",
-                message: "Rellene los campos correctamente",
+                message: "Llene los campos correctamente",
                 position: "top-right",
             });
         }
@@ -57,6 +123,8 @@ $(document).ready(function () {
         $("#txt_nombre").val($(this).attr("data-name"));
         $("#txt_desc").val($(this).attr("data-desc"));
         $("#agregartiposimulacion").modal("show");
+        txt_nombre = $(this).attr("data-name");
+        $(".modal-title").text("Editar Tipo de Simulación");
     });
 
     $(document).on("click", ".btn_remove", function () {
@@ -94,23 +162,33 @@ function Load_TipoSimulacion() {
         async: false,
         datatype: "JSON",
         success: function (response) {
-            console.log(response);
             _data = JSON.parse(response);
 
         },
         complete: function () {
+            arrayTipoSimulacion = _data;
             $.each(_data, function (i, item) {
-                resultTable += "<tr>";
-                resultTable += "<td>" + item.ts_Nombre + "</td>";
-                resultTable += "<td>" + item.ts_Descripticion + "</td>";
-                resultTable += "<td><center>";
-                resultTable += "<button data-id='" + item.TipoSimulacionId + "' data-name='" + item.ts_Nombre + "' data-desc='" + item.ts_Descripticion + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-edit'></i></button>";
-                resultTable += "<button data-id='" + item.TipoSimulacionId + "' type='button' class='btn_remove btn btn-danger btn-sm'><i class='fa fa-trash-o'></i></button>";
-                resultTable += "</center></td>";
-                resultTable += "</tr>";
+                if (item.ts_Estado!=0) {
+                    resultTable += "<tr>";
+                    resultTable += "<td>" + item.ts_Nombre + "</td>";
+                    resultTable += "<td>" + item.ts_Descripticion + "</td>";
+                    resultTable += "<td><center>";
+                    resultTable += "<button data-id='" + item.TipoSimulacionId + "' data-name='" + item.ts_Nombre + "' data-desc='" + item.ts_Descripticion + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-edit'></i></button>";
+                    resultTable += "<button data-id='" + item.TipoSimulacionId + "' type='button' class='btn_remove btn btn-danger btn-sm ml1'><i class='fa fa-trash-o'></i></button>";
+                    resultTable += "</center></td>";
+                    resultTable += "</tr>";
+                } 
+                
             });
             $('#datatable-tiposimulacion').find('tbody').html(resultTable);
             $('#datatable-tiposimulacion').DataTable();
+            /*
+            $('#datatable-tiposimulacion').DataTable({
+                "language": {
+                    "url": "Content/assets/scripts/language.json"
+                }
+            });
+            */
         }
 
 
@@ -126,7 +204,6 @@ function Managment_TipoSimulacion(data) {
         async: false,
         datatype: "JSON",
         success: function (response) {
-            console.log(response);
             _data = JSON.parse(response);
         },
         complete: function () {
@@ -141,11 +218,20 @@ function Managment_TipoSimulacion(data) {
                     });
                 } else if (data.Action == 2) {
                     Load_TipoSimulacion();
-                    Toast({
-                        action: "success",
-                        message: "EL tipo de simulacion se ha actualizado correctamente",
-                        position: "top-right",
-                    });
+                    if (cambiado) {
+                        Toast({
+                            action: "success",
+                            message: "EL tipo de simulacion se ha recuperado correctamente",
+                            position: "top-right",
+                        });
+                    } else {
+                        Toast({
+                            action: "success",
+                            message: "EL tipo de simulacion se ha actualizado correctamente",
+                            position: "top-right",
+                        });
+                    }
+                    
                 } else {
                     Load_TipoSimulacion();
                     Toast({

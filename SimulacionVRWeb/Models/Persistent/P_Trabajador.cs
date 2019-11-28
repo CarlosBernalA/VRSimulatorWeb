@@ -9,7 +9,7 @@ using static SimulacionVRWeb.Models.Entities.Trabajador;
 
 namespace SimulacionVRWeb.Models.Persistent
 {
-    public class P_Trabajador:Connection
+    public class P_Trabajador : Connection
     {
         public List<Trabajador> list_trabajador()
         {
@@ -123,15 +123,15 @@ namespace SimulacionVRWeb.Models.Persistent
             return resu;
         }
 
-        public TrabajadorApi LoginApi(String UserName,String Password)
+        public TrabajadorApi LoginApi(String UserName, String Password)
         {
-            TrabajadorApi resu=new TrabajadorApi();
+            TrabajadorApi resu = new TrabajadorApi();
             using (SqlConnection connection = new SqlConnection(cadena))
             {
 
                 try
                 {
-                    
+
                     connection.Open();
                     SqlCommand command = new SqlCommand("VR_Login_Participante", connection);
                     command.CommandType = CommandType.StoredProcedure;
@@ -144,8 +144,8 @@ namespace SimulacionVRWeb.Models.Persistent
 
                         if (reader.Read())
                         {
-                            resu = new TrabajadorApi(reader.GetInt32(0), reader.GetString(1),reader.GetString(2),reader.GetString(3));
-                            
+                            resu = new TrabajadorApi(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3));
+
                         }
                     }
                     reader.Close();
@@ -158,6 +158,31 @@ namespace SimulacionVRWeb.Models.Persistent
                 }
             }
             return resu;
+        }
+        public List<Rpt_Trabajador> report_puntaje_trabajador()
+        {
+            List<Rpt_Trabajador> listEntidad = new List<Rpt_Trabajador>();
+            using (SqlConnection connection = new SqlConnection(cadena))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("VR_Report_Puntaje_Trabajador", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                SqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleResult);
+                if (reader.HasRows)
+                {
+                    Rpt_Trabajador entidad = null;
+                    listEntidad = new List<Rpt_Trabajador>();
+                    while (reader.Read())
+                    {
+                        entidad = new Rpt_Trabajador(reader.GetString(0), reader.GetString(1), reader.GetInt32(2), reader.GetInt32(3), reader.GetInt32(4), reader.GetString(5));
+
+                        listEntidad.Add(entidad);
+                    }
+                }
+                reader.Close();
+                connection.Close();
+            }
+            return listEntidad;
         }
 
     }

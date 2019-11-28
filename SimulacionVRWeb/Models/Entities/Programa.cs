@@ -16,8 +16,10 @@ namespace SimulacionVRWeb.Models.Entities
         public String Nombre { get; set; }
         public int SimulacionId { get; set; }
         public int LocalId { get; set; }
-        public String FechaInicio{ get; set; }
+        public String FechaInicio { get; set; }
         public String FechaFin { get; set; }
+        public int TrabajadorRolId { get; set; }
+        public int Estado { get; set; }
 
         public Programa(int ProgramaId, String pr_Descripcion, String FechaPrograma, String HoraInicio, String HoraFin, String tr_Nombre, String Nombre, int SimulacionId, int LocalId)
         {
@@ -31,6 +33,18 @@ namespace SimulacionVRWeb.Models.Entities
             this.SimulacionId = SimulacionId;
             this.LocalId = LocalId;
         }
+        public Programa(int ProgramaId, int TrabajadorRolId, String pr_Descripcion, int SimulacionId, int LocalId, String FechaPrograma, String HoraInicio, String HoraFin, int Estado)
+        {
+            this.ProgramaId = ProgramaId;
+            this.TrabajadorRolId = TrabajadorRolId;
+            this.pr_Descripcion = pr_Descripcion;
+            this.SimulacionId = SimulacionId;
+            this.LocalId = LocalId;
+            this.FechaPrograma = FechaPrograma;
+            this.HoraInicio = HoraInicio;
+            this.HoraFin = HoraFin;
+            this.Estado = Estado;
+        }
         public Programa(String FechaInicio, String FechaFin)
         {
             this.FechaInicio = FechaInicio;
@@ -40,14 +54,14 @@ namespace SimulacionVRWeb.Models.Entities
     public class Programa_S
     {
         public int ProgramaId { get; set; }
+        public int TrabajadorRolId { get; set; }
         public String pr_Descripcion { get; set; }
+        public int SimulacionId { get; set; }
+        public int LocalId { get; set; }
         public String FechaPrograma { get; set; }
         public String HoraInicio { get; set; }
         public String HoraFin { get; set; }
-        public String tr_Nombre { get; set; }
-        public String Nombre { get; set; }
-        public int SimulacionId { get; set; }
-        public int LocalId { get; set; }
+        public int Estado { get; set; }
         public int Action { get; set; }
     }
     public class Programa_S_C
@@ -89,5 +103,28 @@ namespace SimulacionVRWeb.Models.Entities
             SimulacionId = simulacionId;
 
         }
+    }
+
+
+    public class Programa_Report
+    {
+        public int ProgramaId { get; set; }
+        public int CantidadParticipantes { get; set; }
+        public int Cantidad_Aciertos { get; set; }
+        public int Cantidad_Fallos { get; set; }
+
+
+        public Programa_Report(int programaId, int cantidadParticiapntes)
+        {
+            this.ProgramaId = programaId;
+            this.CantidadParticipantes = cantidadParticiapntes;
+        }
+        public Programa_Report(int ProgramaId, int Cantidad_Aciertos, int Cantidad_Fallos)
+        {
+            this.ProgramaId = ProgramaId;
+            this.Cantidad_Aciertos = Cantidad_Aciertos;
+            this.Cantidad_Fallos = Cantidad_Fallos;
+        }
+
     }
 }

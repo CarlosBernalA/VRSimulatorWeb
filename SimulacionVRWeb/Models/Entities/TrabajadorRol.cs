@@ -26,11 +26,13 @@ namespace SimulacionVRWeb.Models.Entities
             this.roles = roles;
         }
 
-        public TrabajadorRol(int TrabajadorRolId, int RolId, String tr_Nombre)
+        public TrabajadorRol(int TrabajadorRolId, int RolId, int TrabajadorId, String tr_Nombre, int ad_Estado)
         {
             this.TrabajadorRolId = TrabajadorRolId;
             this.RolId = RolId;
+            this.TrabajadorId = TrabajadorId;
             this.tr_Nombre = tr_Nombre;
+            this.ad_Estado = ad_Estado;
         }
         public TrabajadorRol(int TrabajadorId)
         {
@@ -44,6 +46,8 @@ namespace SimulacionVRWeb.Models.Entities
         public int TrabajadorRolId { get; set; }
         public String tr_Nombre { get; set; }
         public int RolId { get; set; }
+        public int ad_TrabajadorId { get; set; }
+        public int ad_Estado { get; set; }
         public int Action { get; set; }
     }
     public class TrabajadorRol_S

@@ -35,7 +35,20 @@ $(document).ready(function () {
 
     CurrectSelecteditem('#li_trabajador');
     Load_Trabajador();
-    Load_Area();
+
+    $(".agregarCiudadano").on("click", function () {
+        
+        Load_Area();
+        $("#txt_itra").val("");
+        $("#txt_dni").val("");
+        $("#txt_nombre").val("");
+        $("#txt_ape").val("");
+        $('input:radio[name=txt_sexo]').attr('checked', false);
+        $("#txt_nac").val("");
+        $("#txt_dir").val("");
+        $("#txt_user").val("");
+        $("#password-showhide2").val("");
+    });
 
     $("#btn_guardar").on("click", function () {
         var sexo_val=$('input:radio[name=txt_sexo]:checked').val();
@@ -105,10 +118,10 @@ $(document).ready(function () {
                 tr_DNI: "e",
                 tr_Nombre: "e",
                 tr_Apellidos: "e",
-                tr_FechaNacimiento: f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear(),
+                tr_FechaNacimiento: '2019-11-25',
                 tr_Direccion: "e",
                 tr_sexo: "e",
-                tr_InicioTrabajo: f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear(),
+                tr_InicioTrabajo: '2019-11-25',
                 tr_Estado: 1,
                 UserName: "e",
                 Password: "e",
@@ -119,6 +132,7 @@ $(document).ready(function () {
     });
 
     $(document).on("click", ".btn_edit", function () {
+        Load_Area();
         ID = $(this).attr("data-id");
         $("#area").val($(this).attr("data-area"));
         $("#txt_dni").val($(this).attr("data-dni"));
@@ -126,7 +140,7 @@ $(document).ready(function () {
         $("#txt_ape").val($(this).attr("data-ape"));
         $("#txt_nac").val($(this).attr("data-naci"));
         $("#txt_dir").val($(this).attr("data-dire"));
-        $('input:radio[name=txt_sexo]:checked').val($(this).attr("data-sexo"));
+        sexoTrabajador($(this).attr("data-sexo"));
         $("#txt_itra").val($(this).attr("data-itra"));
         $("#txt_user").val($(this).attr("data-user"));
         $("#password-showhide2").val($(this).attr("data-pass"));
@@ -159,7 +173,7 @@ function Load_Trabajador() {
                 resultTable += "<td>" + item.tr_Direccion + "</td>";
                 resultTable += "<td><center>";
                 resultTable += "<button data-id='" + item.TrabajadorId + "' data-pass='" + item.Password + "' data-user='" + item.UserName + "' data-itra='" + item.tr_InicioTrabajo + "' data-sexo='" + item.tr_Sexo + "' data-dire='" + item.tr_Direccion + "' data-naci='" + item.tr_FechaNacimiento + "' data-ape='" + item.tr_Apellidos + "' data-dni='" + item.tr_DNI + "' data-area='" + item.AreaId + "' data-name='" + item.tr_Nombre + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-edit'></i></button>";
-                resultTable += "<button data-id='" + item.TrabajadorId + "' type='button' class='btn_remove btn btn-danger btn-sm'><i class='fa fa-trash-o'></i></button>";
+                resultTable += "<button data-id='" + item.TrabajadorId + "' type='button' class='btn_remove btn btn-danger btn-sm ml1'><i class='fa fa-trash-o'></i></button>";
                 resultTable += "</center></td>";
                 resultTable += "</tr>";
             });
@@ -241,4 +255,13 @@ function Managment_Trabajador(data) {
 
         }
     });
+}
+function sexoTrabajador(sexo) {
+    if (sexo == "M") {
+        $('input:radio[name=txt_sexo]')[0].checked = true;
+
+    } else {
+        $('input:radio[name=txt_sexo]')[1].checked = true;
+    }
+
 }
