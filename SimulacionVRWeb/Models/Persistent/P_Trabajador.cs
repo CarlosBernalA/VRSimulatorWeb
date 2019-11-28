@@ -105,7 +105,7 @@ namespace SimulacionVRWeb.Models.Persistent
 
                         if (reader.Read())
                         {
-                            id = reader.GetValue(0).ToString();
+                            id = reader.GetValue(2).ToString();
                         }
                     }
                     reader.Close();
