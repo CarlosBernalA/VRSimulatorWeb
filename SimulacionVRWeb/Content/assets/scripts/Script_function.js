@@ -1,4 +1,14 @@
-function CurrectSelecteditem(Item){
+
+$('#cerrar_sesion').on('click', function () {
+    sessionStorage.clear();
+    window.location = "login";
+    
+    
+});
+
+
+
+function CurrectSelecteditem(Item) {
     $('.father').each(function(){
         $(this).removeClass("active");
     });

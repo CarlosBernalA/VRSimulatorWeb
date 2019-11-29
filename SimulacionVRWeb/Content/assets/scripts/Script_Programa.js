@@ -48,7 +48,7 @@ $(document).ready(function () {
 
         Managment_Programa({
             ProgramaId: ID,
-            TrabajadorRolId: 38,
+            TrabajadorRolId: sessionStorage.getItem("TrabajadorRolId"),
             pr_Descripcion: $("#txt_descripcion").val(),
             SimulacionId: $("#txt_simulacion").val(),
             LocalId: $("#txt_local").val(),
@@ -77,7 +77,7 @@ $(document).ready(function () {
             
             Managment_Programa({
                 ProgramaId: btn.attr("data-id"),
-                TrabajadorRolId: 38,
+                TrabajadorRolId: sessionStorage.getItem("TrabajadorRolId"),
                 pr_Descripcion: " ",
                 SimulacionId: 1,
                 LocalId: 1,
@@ -99,7 +99,7 @@ $(document).ready(function () {
             if (ID == 0) {
                 Managment_Programa({
                     ProgramaId: 0,
-                    TrabajadorRolId: 38,
+                    TrabajadorRolId: sessionStorage.getItem("TrabajadorRolId"),
                     pr_Descripcion: $("#txt_descripcion_add").val(),
                     SimulacionId: $("#txt_simulacion_add").val(),
                     LocalId: $("#txt_local_add").val(),
@@ -414,13 +414,13 @@ function Load_Participante(data) {
             var li_clas = "active";
             arrayParticipanteID = _data;
             $.each(_data, function (i, item) {
-                                                    
-                resultTable += "<li class='" + li_clas + " " + hide_participante(item.Estado) + "' style='padding-left: 21px;padding-top: 12px;padding-bottom: 12px;'>";
-                resultTable += "<span>" + item.tr_Apellidos + " " + item.tr_Nombre + "</span><br/>";
-                resultTable += "<span>" + item.are_Nombre + "</span>";
-                resultTable += "<i id='remove_participante' data-id-par='" + item.ParticipanteId + "' data-id='" + item.TrabajadorId + "' class='fa fa-trash-o' style='float: right;color: red;font-size: 2rem;margin-top: -11px;margin-right: 5px;cursor: pointer;'></i>";
-                resultTable += "</li>";
                 if (item.Estado != 0) {
+                    resultTable += "<li class='" + li_clas + "' style='padding-left: 21px;padding-top: 12px;padding-bottom: 12px;'>";
+                    resultTable += "<span>" + item.tr_Apellidos + " " + item.tr_Nombre + "</span><br/>";
+                    resultTable += "<span>" + item.are_Nombre + "</span>";
+                    resultTable += "<i id='remove_participante' data-id-par='" + item.ParticipanteId + "' data-id='" + item.TrabajadorId + "' class='fa fa-trash-o' style='float: right;color: red;font-size: 2rem;margin-top: -11px;margin-right: 5px;cursor: pointer;'></i>";
+                    resultTable += "</li>";
+
                     if (par) {
                         par = false;
                         li_clas = "unread";
@@ -429,6 +429,8 @@ function Load_Participante(data) {
                         li_clas = "active";
                     }
                 }
+                
+                
                 
             });
 
@@ -484,12 +486,4 @@ function Managment_Participante(data) {
 
         }
     });
-}
-
-function hide_participante(estado) {
-    var hide = "";
-    if (estado == 0) {
-        hide = "hide";
-    }
-    return hide
 }

@@ -44,7 +44,8 @@ function Loginin(data) {
         },
         complete: function () {
             if (_data.Message != "") {
-                principal()
+                sessionStorage.setItem("TrabajadorRolId", _data.Message);
+                principal();
 			} else {
 				swal({
 					title: 'ERROR',

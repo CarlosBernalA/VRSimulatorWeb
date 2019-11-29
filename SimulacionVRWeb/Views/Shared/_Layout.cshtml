@@ -54,6 +54,11 @@
 
 </head>
 <body>
+    <script>
+        if (sessionStorage.getItem("TrabajadorRolId") == null) {
+            window.location = "login";
+        }
+    </script>
     <!-- WRAPPER -->
     <div id="wrapper">
         <!-- NAVBAR -->
@@ -79,7 +84,7 @@
                             <li><a href="#"><i class="ti-user"></i> <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Mi perfil</font></font></span></a></li>
                             <li><a href="#"><i class="ti-email"></i> <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Mensaje</font></font></span></a></li>
                             <li><a href="#"><i class="ti-settings"></i> <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Configuraciones</font></font></span></a></li>
-                            <li><a href="login"><i class="ti-power-off"></i> <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cerrar sesión</font></font></span></a></li>
+                            <li id="cerrar_sesion" style="cursor:pointer"><a><i class="ti-power-off"></i> <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cerrar sesión</font></font></span></a></li>
                         </ul>
                     </li>
                 </ul>
