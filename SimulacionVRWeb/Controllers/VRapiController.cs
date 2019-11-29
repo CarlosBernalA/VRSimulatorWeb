@@ -11,12 +11,12 @@ using System.Web.Http;
 
 namespace SimulacionVRWeb.Controllers
 {
-    /*
+
     public class VRapiController : ApiController
     {
         [HttpGet]
         [Route("api/v1.0/VR/Login")]
-        public HttpResponseMessage Login(String UserName,String Password)
+        public HttpResponseMessage Login(String UserName, String Password)
         {
             B_Trabajador bTR = new B_Trabajador();
             TrabajadorApi tr = bTR.LoginApi(UserName, Password);
@@ -28,9 +28,9 @@ namespace SimulacionVRWeb.Controllers
         public HttpResponseMessage Get_Program(int TrabajadorId)
         {
             B_Programa bTR = new B_Programa();
-            List<ProgramaApi> _list= bTR.list_ProgramaApi(TrabajadorId);
+            List<ProgramaApi> _list = bTR.list_ProgramaApi(TrabajadorId);
             return Request.CreateResponse(HttpStatusCode.OK, _list);
-            
+
         }
 
         [HttpGet]
@@ -70,30 +70,30 @@ namespace SimulacionVRWeb.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
             }
 
-            
-            
-        }        
+
+
+        }
 
         [HttpPost]
         [Route("api/v1.0/VR/Get_Insert_Result")]
-        public HttpResponseMessage Get_Insert_Result([FromBody] Resultado  data)
+        public HttpResponseMessage Get_Insert_Result([FromBody] Resultado data)
         {
             P_Resultado res = new P_Resultado();
-            String resp =res.InsertResultado(data);
+            String resp = res.InsertResultado(data);
             //TrabajadorApi tr = bTR.LoginApi(UserName, Password);
             return Request.CreateResponse(HttpStatusCode.OK, resp);
-            
+
         }
 
         private List<temp> Get_Sumulaciones(DataSet data)
         {
             List<temp> _list = new List<temp>();
             int count = 0;
-            if (data.Tables.Count>0)
+            if (data.Tables.Count > 0)
             {
                 foreach (DataRow item in data.Tables[0].Rows)
                 {
-                    if (IsCorrect(Convert.ToInt32(item.ItemArray[8]))&& count < 3)
+                    if (IsCorrect(Convert.ToInt32(item.ItemArray[8])) && count < 3)
                     {
                         int tempID = Convert.ToInt32(item.ItemArray[8]);
                         _list.Add(new temp(tempID, item.ItemArray[7].ToString()));
@@ -106,7 +106,7 @@ namespace SimulacionVRWeb.Controllers
                 bool s = true;
                 foreach (temp item in _list)
                 {
-                    if (item.SimulacionId==id)
+                    if (item.SimulacionId == id)
                     {
                         s = false;
                     }
@@ -130,7 +130,7 @@ namespace SimulacionVRWeb.Controllers
                 data = bTR.list_ResultsaApi(TrabajadorId);
                 dataNew.DataSetName = "data";
 
-                foreach(DataRow item in data.Tables[0].Rows)
+                foreach (DataRow item in data.Tables[0].Rows)
                 {
                     DataTable table = new DataTable();
                     table.Columns.Add("Aciertos");
@@ -155,7 +155,7 @@ namespace SimulacionVRWeb.Controllers
 
     class temp
     {
-        public int SimulacionId{get;set;}
+        public int SimulacionId { get; set; }
         public String SimulacionName { get; set; }
 
         public temp(int simulacionId, string simulacionName)
@@ -164,5 +164,5 @@ namespace SimulacionVRWeb.Controllers
             SimulacionName = simulacionName;
         }
     }
-    */
+
 }
