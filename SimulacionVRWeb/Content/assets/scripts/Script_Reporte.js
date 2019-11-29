@@ -10,12 +10,12 @@
     Rpt_Puntaje_Trabajador();
 
 
-    if ($('.btn-panel-refresh').length > 0) {
-        $('.btn-panel-refresh').on('click', function () {
-            $('.overlay-refresh').fadeIn(300);
+    if ($('#reporte_1').length > 0) {
+        $('#reporte_1').on('click', function () {
+            $('#reporte_panel1').fadeIn(300);
 
             setTimeout(function () {
-                $('.overlay-refresh').fadeOut(300);
+                $('#reporte_panel1').fadeOut(300);
                 Rpt_Participantes();
             }, 1500);
         });
