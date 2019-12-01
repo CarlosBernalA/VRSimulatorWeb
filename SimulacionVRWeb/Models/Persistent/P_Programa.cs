@@ -85,7 +85,7 @@ namespace SimulacionVRWeb.Models.Persistent
                     command.Parameters.Add("@LocalId", SqlDbType.Int).Value = _Programa.LocalId;
                     command.Parameters.Add("@FechaPrograma", SqlDbType.Date).Value = _Programa.FechaPrograma;
                     command.Parameters.Add("@HoraInicio", SqlDbType.Time).Value = _Programa.HoraInicio;
-                    command.Parameters.Add("@HoraFin", SqlDbType.Time).Value = _Programa.HoraInicio;
+                    command.Parameters.Add("@HoraFin", SqlDbType.Time).Value = _Programa.HoraFin;
                     command.Parameters.Add("@Estado", SqlDbType.Int).Value = _Programa.Estado;
                     command.Parameters.Add("@Action", SqlDbType.Int).Value = Action;
                     SqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleResult);
