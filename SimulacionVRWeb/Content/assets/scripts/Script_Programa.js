@@ -25,14 +25,26 @@ $(document).ready(function () {
     CurrectSelecteditem('#li_programa');
 
     $("#filtro_fechas").on("click", function () {
-        
+
         fecha_ini = $("#fech_ini_fil").val();
         fecha_fin = $("#fech_fin_fil").val();
 
-        Load_Programa({
-            FechaInicio: fecha_ini,
-            FechaFin: fecha_fin
-        });
+        if (fecha_ini != "" && fecha_fin != "") {
+
+            Load_Programa({
+                FechaInicio: fecha_ini,
+                FechaFin: fecha_fin
+            });
+        } else {
+            Toast({
+                action: "error",
+                message: "Llene los campos correctamente",
+                position: "top-right",
+            });
+        }
+        
+
+        
         
     });
 

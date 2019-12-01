@@ -32,7 +32,7 @@ namespace SimulacionVRWeb.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, _list);
 
         }
-
+        /*
         [HttpGet]
         [Route("api/v1.0/VR/Get_Report_Sesiones")]
         public HttpResponseMessage Get_Report_Sesiones(int TrabajadorId)
@@ -73,7 +73,7 @@ namespace SimulacionVRWeb.Controllers
 
 
         }
-
+        */
         [HttpPost]
         [Route("api/v1.0/VR/Get_Insert_Result")]
         public HttpResponseMessage Get_Insert_Result([FromBody] Resultado data)
@@ -84,7 +84,7 @@ namespace SimulacionVRWeb.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, resp);
 
         }
-
+        /*
         private List<temp> Get_Sumulaciones(DataSet data)
         {
             List<temp> _list = new List<temp>();
@@ -116,7 +116,7 @@ namespace SimulacionVRWeb.Controllers
             return _list;
         }
 
-
+    */
         //reporte de participantes por sesion
         [HttpGet]
         [Route("api/v1.0/VR/Get_Report_Sesiones_Values")]
