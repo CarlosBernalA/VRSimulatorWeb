@@ -24,7 +24,36 @@ $(document).ready(function () {
 
     CurrectSelecteditem('#li_programa');
 
+    var getDate = function (input) {
+        return new Date(input.date.valueOf());
+    }
+    $('#fech_ini_fil, #fech_fin_fil').datepicker({
+        language: 'es'
+    });
+
+    $('#fech_ini_fil').datepicker({
+        startDate: '+5d',
+        endDate: '+35d',
+    }).on('changeDate',
+        function (selected) {
+            $('#fech_fin_fil').datepicker('setStartDate', getDate(selected));
+        });
+
+    $('#fech_fin_fil').datepicker({
+        startDate: '+6d',
+        endDate: '+36d',
+    }).on('changeDate',
+        function (selected) {
+            $('#fech_ini_fil').datepicker('setEndDate', getDate(selected));
+        });
+
     $("#filtro_fechas").on("click", function () {
+
+        
+
+
+
+        /*
 
         fecha_ini = $("#fech_ini_fil").val();
         fecha_fin = $("#fech_fin_fil").val();
@@ -42,7 +71,7 @@ $(document).ready(function () {
                 position: "top-right",
             });
         }
-        
+        */
 
         
         
