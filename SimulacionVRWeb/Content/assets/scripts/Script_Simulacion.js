@@ -11,7 +11,7 @@
 	});
 
 var ID = 0;
-
+var nom_existe = false;
 var sliderChanged = function () {
     $('.label-slider').text(theSlider.getValue());
 };
@@ -44,40 +44,97 @@ $(document).ready(function () {
         $('.label-slider').text(theSlider.getValue());
     });
 
-    $("#btn_guardar").on("click", function () {
+    $("#txt_nombre").on("keyup", function () {
 
-        if ($("#txt_nombre").val() != "" && $("#txt_desc").val() != "" && $("#p_max").val() != "") {
-            if (ID == 0) {
-                Managment_Simulacion({
-                    SimulacionId: 0,
-                    Nombre: $("#txt_nombre").val(),
-                    TipoSimulacionId: $("#tiposimulacion").val(),
-                    si_descripcion: $("#txt_desc").val(),
-                    si_maxpuntaje: $("#p_max").val(),
-                    si_GradoRiesgo: $("#gradoriesgo").val(),
-                    si_Estado: 1,
-                    Action: 1
-                });
-            } else {
-                Managment_Simulacion({
-                    SimulacionId: ID,
-                    Nombre: $("#txt_nombre").val(),
-                    TipoSimulacionId: $("#tiposimulacion").val(),
-                    si_descripcion: $("#txt_desc").val(),
-                    si_maxpuntaje: $("#p_max").val(),
-                    si_GradoRiesgo: $("#gradoriesgo").val(),
-                    si_Estado: 1,
-                    Action: 2
-                });
-                ID = 0;
-            }
-        } else {
-            Toast({
-                action: "error",
-                message: "Rellene los campos correctamente",
-                position: "top-right",
+        if ($.trim($("#txt_nombre").val()) != "") {
+            BuscarSimulacion_For_Nombre({
+                Nombre: $("#txt_nombre").val()
             });
         }
+        if (nom_existe) {
+            $('#txt_nombre').parent().addClass('has-error');
+        } else {
+            $('#txt_nombre').parent().removeClass('has-error');
+            if ($('#txt_nombre').val().length > 50) {
+                var cadena = $('#txt_nombre').val();
+                inicio = 0;
+                fin = 50;
+                $('#txt_nombre').val(cadena.substring(inicio, fin))
+                $('#txt_nombre').parent().addClass('has-error');
+            } else {
+                $('#txt_nombre').parent().removeClass('has-error');
+            }
+        }
+        
+    });
+
+    $("#txt_desc").on("keyup", function () {
+
+        if ($('#txt_desc').val().length > 500) {
+            var cadena = $('#txt_desc').val();
+            inicio = 0;
+            fin = 500;
+            $('#txt_desc').val(cadena.substring(inicio, fin))
+            $('#txt_desc').parent().addClass('has-error');
+        } else {
+            $('#txt_desc').parent().removeClass('has-error');
+        }
+
+    });
+
+    $("#btn_guardar").on("click", function () {
+        if (nom_existe) {
+            console.log((parseInt($("#p_max").val()))+1);
+            Toast({
+                action: "error",
+                message: "El nombre de la simulacion ya existe",
+                position: "top-right",
+            });
+        } else {
+            if ($.trim($("#txt_nombre").val()) != "" && $.trim($("#txt_desc").val()) != "" && $("#p_max").val() != "") {
+                if (parseInt($("#p_max").val()) > 4) {
+                    if (ID == 0) {
+                        Managment_Simulacion({
+                            SimulacionId: 0,
+                            Nombre: $("#txt_nombre").val(),
+                            TipoSimulacionId: $("#tiposimulacion").val(),
+                            si_descripcion: $("#txt_desc").val(),
+                            si_maxpuntaje: $("#p_max").val(),
+                            si_GradoRiesgo: $("#gradoriesgo").val(),
+                            si_Estado: 1,
+                            Action: 1
+                        });
+                    } else {
+                        Managment_Simulacion({
+                            SimulacionId: ID,
+                            Nombre: $("#txt_nombre").val(),
+                            TipoSimulacionId: $("#tiposimulacion").val(),
+                            si_descripcion: $("#txt_desc").val(),
+                            si_maxpuntaje: $("#p_max").val(),
+                            si_GradoRiesgo: $("#gradoriesgo").val(),
+                            si_Estado: 1,
+                            Action: 2
+                        });
+                        ID = 0;
+                    }
+                } else {
+                    Toast({
+                        action: "error",
+                        message: "El puntaje minimo permitido es 5",
+                        position: "top-right",
+                    });
+                }
+                
+
+            } else {
+                Toast({
+                    action: "error",
+                    message: "Rellene los campos correctamente",
+                    position: "top-right",
+                });
+            }
+        }
+        
     });
 
     $(document).on("click", ".btn_edit", function () {
@@ -251,6 +308,27 @@ function Managment_Simulacion(data) {
                     message: _data.Message,
                     position: "top-right",
                 });
+            }
+
+        }
+    });
+}
+function BuscarSimulacion_For_Nombre(data) {
+    var _data;
+    $.ajax({
+        type: "POST",
+        url: "Simulacion/BuscarSimulacion_For_Nombre",
+        data: data,
+        async: false,
+        datatype: "JSON",
+        success: function (response) {
+            _data = JSON.parse(response);
+        },
+        complete: function () {
+            if (_data.Message == $("#txt_nombre").val()) {
+                nom_existe = true;
+            } else {
+                nom_existe = false;
             }
 
         }

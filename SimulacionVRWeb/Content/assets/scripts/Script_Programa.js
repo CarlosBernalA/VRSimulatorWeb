@@ -74,7 +74,17 @@ $(document).ready(function () {
         $("#txt_fecha_add").val("");
         
     });
-
+    $("#txt_descripcion").on("keyup", function () {
+        if ($('#txt_descripcion').val().length > 500) {
+            var cadena = $('#txt_descripcion').val();
+            inicio = 0;
+            fin = 500;
+            $('#txt_descripcion').val(cadena.substring(inicio, fin))
+            $('#txt_descripcion').parent().addClass('has-error');
+        } else {
+            $('#txt_descripcion').parent().removeClass('has-error');
+        }
+    });
     $("#programa_save_edit").on("click", function () {
        
         if ($.trim($("#txt_descripcion").val()) != "" && $("#txt_fecha").val() != "") {
