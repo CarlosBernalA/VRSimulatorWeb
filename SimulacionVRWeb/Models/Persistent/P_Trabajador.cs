@@ -122,6 +122,80 @@ namespace SimulacionVRWeb.Models.Persistent
             }
             return resu;
         }
+        public Trabajador_Result BuscarTrabajador_For_DNI(Trabajador _Trabajador)
+        {
+            Trabajador_Result resu = new Trabajador_Result();
+            using (SqlConnection connection = new SqlConnection(cadena))
+            {
+
+                try
+                {
+                    String dni = "";
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("VR_BuscarTrabajador_For_DNI", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@tr_DNI", SqlDbType.VarChar).Value = _Trabajador.UserName;
+                    SqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleResult);
+                    if (reader.HasRows)
+                    {
+
+                        if (reader.Read())
+                        {
+                            dni = reader.GetValue(0).ToString();
+                        }
+                    }
+                    reader.Close();
+                    connection.Close();
+                    resu.Result = 1;
+                    resu.Message = dni;
+                }
+                catch (Exception e)
+                {
+                    connection.Close();
+                    resu.Result = 0;
+                    resu.Message = e.Message;
+                }
+            }
+            return resu;
+        }
+        public Trabajador_Result BuscarTrabajador_For_Usuario(Trabajador _Trabajador)
+        {
+            Trabajador_Result resu = new Trabajador_Result();
+            using (SqlConnection connection = new SqlConnection(cadena))
+            {
+
+                try
+                {
+                    String user = "";
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("VR_BuscarTrabajador_For_Usuario", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@UserName", SqlDbType.VarChar).Value = _Trabajador.UserName;
+                    SqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleResult);
+                    if (reader.HasRows)
+                    {
+
+                        if (reader.Read())
+                        {
+                            user = reader.GetValue(0).ToString();
+                        }
+                    }
+                    reader.Close();
+                    connection.Close();
+                    resu.Result = 1;
+                    resu.Message = user;
+                }
+                catch (Exception e)
+                {
+                    connection.Close();
+                    resu.Result = 0;
+                    resu.Message = e.Message;
+                }
+            }
+            return resu;
+        }
 
         public TrabajadorApi LoginApi(String UserName, String Password)
         {

@@ -42,9 +42,13 @@ $(document).ready(function () {
         $("#txt_desc").val("");
         theSlider.setValue(0);
         $('.label-slider').text(theSlider.getValue());
+        $('#txt_nombre').parent().removeClass('has-error');
+        $('#txt_desc').parent().removeClass('has-error');
     });
 
     $("#txt_nombre").on("keyup", function () {
+        var string = $("#txt_nombre").val();
+        $("#txt_nombre").val(string.trimLeft());
 
         if ($.trim($("#txt_nombre").val()) != "") {
             BuscarSimulacion_For_Nombre({
@@ -69,6 +73,8 @@ $(document).ready(function () {
     });
 
     $("#txt_desc").on("keyup", function () {
+        var string = $("#txt_desc").val();
+        $("#txt_desc").val(string.trimLeft());
 
         if ($('#txt_desc').val().length > 500) {
             var cadena = $('#txt_desc').val();

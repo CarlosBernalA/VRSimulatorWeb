@@ -72,9 +72,12 @@ $(document).ready(function () {
         Load_Simulacion();
         $("#txt_descripcion_add").val("");
         $("#txt_fecha_add").val("");
+        $('#txt_descripcion_add').parent().removeClass('has-error');
         
     });
     $("#txt_descripcion").on("keyup", function () {
+        var string = $("#txt_descripcion").val();
+        $("#txt_descripcion").val(string.trimLeft());
         if ($('#txt_descripcion').val().length > 500) {
             var cadena = $('#txt_descripcion').val();
             inicio = 0;
@@ -159,6 +162,8 @@ $(document).ready(function () {
     });
 
     $("#txt_descripcion_add").on("keyup", function () {
+        var string = $("#txt_descripcion_add").val();
+        $("#txt_descripcion_add").val(string.trimLeft());
         if ($('#txt_descripcion_add').val().length > 500) {
             var cadena = $('#txt_descripcion_add').val();
             inicio = 0;
@@ -224,7 +229,7 @@ $(document).ready(function () {
         $("#txt_local").val($(this).attr("data-local"));
         $("#txt_simulacion").val($(this).attr("data-simu"));
         $("#txt_descripcion").val($(this).attr("data-desc"));
-
+        $('#txt_descripcion').parent().removeClass('has-error');
         $("#listaprograma").hide();
         $("#editarprograma").show({ direction: "right" }, 5000);
     });
