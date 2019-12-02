@@ -27,50 +27,63 @@ $(document).ready(function () {
         $("#txt_aforo").val("");
         $("#txt_desc").val("");
         $(".modal-title").text("Agregar Local");
+        $('#txt_nombre').parent().removeClass('has-error');
+        $('#txt_desc').parent().removeClass('has-error');
+        $('#txt_direccion').parent().removeClass('has-error');
+    });
+
+    $("#txt_nombre").on("keyup", function () {
+        var string = $("#txt_nombre").val();
+        $("#txt_nombre").val(string.trimLeft());
+
+        if ($('#txt_nombre').val().length > 50) {
+            var cadena = $('#txt_nombre').val();
+            inicio = 0;
+            fin = 50;
+            $('#txt_nombre').val(cadena.substring(inicio, fin))
+            $('#txt_nombre').parent().addClass('has-error');
+        } else {
+            $('#txt_nombre').parent().removeClass('has-error');
+        }
+
+    });
+    $("#txt_desc").on("keyup", function () {
+        var string = $("#txt_desc").val();
+        $("#txt_desc").val(string.trimLeft());
+
+        if ($('#txt_desc').val().length > 200) {
+            var cadena = $('#txt_desc').val();
+            inicio = 0;
+            fin = 200;
+            $('#txt_desc').val(cadena.substring(inicio, fin))
+            $('#txt_desc').parent().addClass('has-error');
+        } else {
+            $('#txt_desc').parent().removeClass('has-error');
+        }
+    });
+    $("#txt_direccion").on("keyup", function () {
+        var string = $("#txt_direccion").val();
+        $("#txt_direccion").val(string.trimLeft());
+
+        if ($('#txt_direccion').val().length > 100) {
+            var cadena = $('#txt_direccion').val();
+            inicio = 0;
+            fin = 100;
+            $('#txt_direccion').val(cadena.substring(inicio, fin))
+            $('#txt_direccion').parent().addClass('has-error');
+        } else {
+            $('#txt_direccion').parent().removeClass('has-error');
+        }
+
     });
 
     $("#btn_guardar").on("click", function () {
+        
         if ($("#txt_nombre").val() != "" && $("#txt_direccion").val() != "" && $("#txt_aforo").val() != "" && $("#txt_desc").val() != "") {
             cambiado = false;
-            if (ID == 0) {
-                if (arrayLocal == null) {
-                    Managment_Local({
-                        LocalId: 0,
-                        Lc_nombre: $("#txt_nombre").val(),
-                        Lc_Direccion: $("#txt_direccion").val(),
-                        Lc_Aforo: $("#txt_aforo").val(),
-                        LC_Descripcion: $("#txt_desc").val(),
-                        Lc_Estado: 1,
-                        Action: 1
-                    });
-                } else {
-                    $.each(arrayLocal, function (i, item) {
-                        if (item.Lc_nombre == $("#txt_nombre").val()) {
-                            if (item.Lc_Estado == 0) {
-                                cambiado = true;
-                                Managment_Local({
-                                    LocalId: item.LocalId,
-                                    Lc_nombre: item.Lc_nombre,
-                                    Lc_Direccion: $("#txt_direccion").val(),
-                                    Lc_Aforo: $("#txt_aforo").val(),
-                                    LC_Descripcion: $("#txt_desc").val(),
-                                    Lc_Estado: 1,
-                                    Action: 2
-                                });
-
-                                ID = 0;
-
-                            } else {
-                                Toast({
-                                    action: "warning",
-                                    message: "El local ya existe",
-                                    position: "top-right",
-                                });
-                                cambiado = true;
-                            }
-                        }
-                    });
-                    if (!cambiado) {
+            if ($("#txt_aforo").val() > 0) {
+                if (ID == 0) {
+                    if (arrayLocal == null) {
                         Managment_Local({
                             LocalId: 0,
                             Lc_nombre: $("#txt_nombre").val(),
@@ -80,42 +93,87 @@ $(document).ready(function () {
                             Lc_Estado: 1,
                             Action: 1
                         });
+                    } else {
+                        $.each(arrayLocal, function (i, item) {
+                            if (item.Lc_nombre == $("#txt_nombre").val()) {
+                                if (item.Lc_Estado == 0) {
+                                    cambiado = true;
+                                    Managment_Local({
+                                        LocalId: item.LocalId,
+                                        Lc_nombre: item.Lc_nombre,
+                                        Lc_Direccion: $("#txt_direccion").val(),
+                                        Lc_Aforo: $("#txt_aforo").val(),
+                                        LC_Descripcion: $("#txt_desc").val(),
+                                        Lc_Estado: 1,
+                                        Action: 2
+                                    });
+
+                                    ID = 0;
+
+                                } else {
+                                    Toast({
+                                        action: "warning",
+                                        message: "El local ya existe",
+                                        position: "top-right",
+                                    });
+                                    cambiado = true;
+                                }
+                            }
+                        });
+                        if (!cambiado) {
+                            Managment_Local({
+                                LocalId: 0,
+                                Lc_nombre: $("#txt_nombre").val(),
+                                Lc_Direccion: $("#txt_direccion").val(),
+                                Lc_Aforo: $("#txt_aforo").val(),
+                                LC_Descripcion: $("#txt_desc").val(),
+                                Lc_Estado: 1,
+                                Action: 1
+                            });
+                            ID = 0;
+                        }
+                    }
+
+                } else {
+                    var existe_edit = false;
+                    if (txt_nombre == $("#txt_nombre").val()) {
+                        existe_edit = false;
+                    } else {
+                        $.each(arrayLocal, function (i, item) {
+                            if (item.Lc_nombre == $("#txt_nombre").val()) {
+                                existe_edit = true;
+                            }
+                        });
+                    }
+
+                    if (existe_edit) {
+                        Toast({
+                            action: "warning",
+                            message: "El local ya existe",
+                            position: "top-right",
+                        });
+                    } else {
+                        Managment_Local({
+                            LocalId: ID,
+                            Lc_nombre: $("#txt_nombre").val(),
+                            Lc_Direccion: $("#txt_direccion").val(),
+                            Lc_Aforo: $("#txt_aforo").val(),
+                            LC_Descripcion: $("#txt_desc").val(),
+                            Lc_Estado: 1,
+                            Action: 2
+                        });
                         ID = 0;
                     }
-                }
-
-            } else {
-                var existe_edit = false;
-                if (txt_nombre == $("#txt_nombre").val()) {
-                    existe_edit = false;
-                } else {
-                    $.each(arrayLocal, function (i, item) {
-                        if (item.Lc_nombre == $("#txt_nombre").val()) {
-                            existe_edit = true;
-                        }
-                    });
-                }
-
-                if (existe_edit) {
-                    Toast({
-                        action: "warning",
-                        message: "El local ya existe",
-                        position: "top-right",
-                    });
-                } else {
-                    Managment_Local({
-                        LocalId: ID,
-                        Lc_nombre: $("#txt_nombre").val(),
-                        Lc_Direccion: $("#txt_direccion").val(),
-                        Lc_Aforo: $("#txt_aforo").val(),
-                        LC_Descripcion: $("#txt_desc").val(),
-                        Lc_Estado: 1,
-                        Action: 2
-                    });
-                    ID = 0;
-                }
                 
+                }
+            } else {
+                Toast({
+                    action: "error",
+                    message: "El aforo no es valido",
+                    position: "top-right",
+                });
             }
+
         } else {
             Toast({
                 action: "error",
@@ -133,6 +191,9 @@ $(document).ready(function () {
         $("#txt_desc").val($(this).attr("data-desc"));
         $("#agregarlocal").modal("show");
         txt_nombre = $(this).attr("data-name");
+        $('#txt_nombre').parent().removeClass('has-error');
+        $('#txt_desc').parent().removeClass('has-error');
+        $('#txt_direccion').parent().removeClass('has-error');
         $(".modal-title").text("Editar Local");
     });
 

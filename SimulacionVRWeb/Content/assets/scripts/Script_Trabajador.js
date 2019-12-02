@@ -291,6 +291,9 @@ $(document).ready(function () {
         dni_trabajador = $.trim($(this).attr("data-dni"));
         $('#txt_user').parent().removeClass('has-error');
         user_trabajador = $.trim($(this).attr("data-user"));
+        $('#txt_nombre').parent().removeClass('has-error');
+        $('#txt_ape').parent().removeClass('has-error');
+        $('#txt_dir').parent().removeClass('has-error');
         $("#agregartrabajador").modal("show");
     });
 });

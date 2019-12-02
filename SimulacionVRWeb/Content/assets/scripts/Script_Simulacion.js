@@ -153,7 +153,8 @@ $(document).ready(function () {
 
         theSlider.setValue($(this).attr("data-pmax"));
         $('.label-slider').text(theSlider.getValue());
-
+        $('#txt_nombre').parent().removeClass('has-error');
+        $('#txt_desc').parent().removeClass('has-error');
         $("#agregarsimulacion").modal("show");
     });
 
