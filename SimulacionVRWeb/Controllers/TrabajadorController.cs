@@ -41,6 +41,22 @@ namespace SimulacionVRWeb.Controllers
             var json = jsonSerialiser.Serialize(a);
             return json;
         }
+        public String BuscarTrabajador_For_DNI(Trabajador_S_login _Trabajador)
+        {
+            B_Trabajador b_Trabajador = new B_Trabajador();
+            Trabajador_Result a = b_Trabajador.BuscarTrabajador_For_DNI(new Trabajador(_Trabajador.UserName, _Trabajador.Password));
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(a);
+            return json;
+        }
+        public String BuscarTrabajador_For_Usuario(Trabajador_S_login _Trabajador)
+        {
+            B_Trabajador b_Trabajador = new B_Trabajador();
+            Trabajador_Result a = b_Trabajador.BuscarTrabajador_For_Usuario(new Trabajador(_Trabajador.UserName, _Trabajador.Password));
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(a);
+            return json;
+        }
         public String list_participante(Participante_S _Participante)
         {
             B_Participante b_Participante = new B_Participante();

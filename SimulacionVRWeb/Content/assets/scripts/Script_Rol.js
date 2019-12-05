@@ -26,6 +26,39 @@ $(document).ready(function () {
         $("#txt_nombre").val("");
         $("#txt_desc").val("");
         $(".modal-title").text("Agregar Rol");
+        $('#txt_nombre').parent().removeClass('has-error');
+        $('#txt_desc').parent().removeClass('has-error');
+    });
+
+    $("#txt_nombre").on("keyup", function () {
+        var string = $("#txt_nombre").val();
+        $("#txt_nombre").val(string.trimLeft());
+
+        if ($('#txt_nombre').val().length > 100) {
+            var cadena = $('#txt_nombre').val();
+            inicio = 0;
+            fin = 100;
+            $('#txt_nombre').val(cadena.substring(inicio, fin))
+            $('#txt_nombre').parent().addClass('has-error');
+        } else {
+            $('#txt_nombre').parent().removeClass('has-error');
+        }
+
+    });
+    $("#txt_desc").on("keyup", function () {
+        var string = $("#txt_desc").val();
+        $("#txt_desc").val(string.trimLeft());
+
+        if ($('#txt_desc').val().length > 200) {
+            var cadena = $('#txt_desc').val();
+            inicio = 0;
+            fin = 200;
+            $('#txt_desc').val(cadena.substring(inicio, fin))
+            $('#txt_desc').parent().addClass('has-error');
+        } else {
+            $('#txt_desc').parent().removeClass('has-error');
+        }
+
     });
 
     $("#btn_guardar").on("click", function () {
@@ -120,6 +153,8 @@ $(document).ready(function () {
         $("#txt_desc").val($(this).attr("data-desc"));
         $("#agregarrol").modal("show");
         txt_nombre = $(this).attr("data-name");
+        $('#txt_nombre').parent().removeClass('has-error');
+        $('#txt_desc').parent().removeClass('has-error');
         $(".modal-title").text("Editar Rol");
     });
 

@@ -11,8 +11,14 @@
 	});
 
 var ID = 0;
+var dni_existe = false;
+var dni_trabajador = "";
+var user_existe = false;
+var user_trabajador = "";
 
 $(document).ready(function () {
+
+    $('#txt_dni').mask('99999999');
 
     $('#password-showhide2').hideShowPassword({
         innerToggle: true,
@@ -48,6 +54,107 @@ $(document).ready(function () {
         $("#txt_dir").val("");
         $("#txt_user").val("");
         $("#password-showhide2").val("");
+        $('#txt_dni').parent().removeClass('has-error');
+        $('#txt_user').parent().removeClass('has-error');
+    });
+    $("#txt_nombre").on("keyup", function () {
+        var string = $("#txt_nombre").val();
+        $("#txt_nombre").val($.trim(string));
+        if ($('#txt_nombre').val().length > 200) {
+            var cadena = $('#txt_nombre').val();
+            inicio = 0;
+            fin = 200;
+            $('#txt_nombre').val(cadena.substring(inicio, fin))
+            $('#txt_nombre').parent().addClass('has-error');
+        } else {
+            $('#txt_nombre').parent().removeClass('has-error');
+        }
+    });
+    $("#txt_ape").on("keyup", function () {
+        var string = $("#txt_ape").val();
+        $("#txt_ape").val($.trim(string));
+        if ($('#txt_ape').val().length > 200) {
+            var cadena = $('#txt_ape').val();
+            inicio = 0;
+            fin = 200;
+            $('#txt_ape').val(cadena.substring(inicio, fin))
+            $('#txt_ape').parent().addClass('has-error');
+        } else {
+            $('#txt_ape').parent().removeClass('has-error');
+        }
+    });
+    $("#txt_dir").on("keyup", function () {
+        var string = $("#txt_dir").val();
+        $("#txt_dir").val($.trim(string));
+        if ($('#txt_dir').val().length > 200) {
+            var cadena = $('#txt_dir').val();
+            inicio = 0;
+            fin = 200;
+            $('#txt_dir').val(cadena.substring(inicio, fin))
+            $('#txt_dir').parent().addClass('has-error');
+        } else {
+            $('#txt_dir').parent().removeClass('has-error');
+        }
+    });
+
+    $("#txt_dni").on("keyup", function () {
+        var string = $("#txt_dni").val();
+        $("#txt_dni").val($.trim(string));
+
+        if ($.trim($("#txt_dni").val()) != "") {
+            BuscarTrabajador_For_DNI({
+                UserName: $("#txt_dni").val(),
+                Password: ""
+            });
+        }
+        if (dni_existe) {
+            if (dni_trabajador == $("#txt_dni").val()) {
+                $('#txt_dni').parent().removeClass('has-error');
+                dni_existe = false;
+            } else {
+                $('#txt_dni').parent().addClass('has-error');
+            }
+        } else {
+            $('#txt_dni').parent().removeClass('has-error');
+
+            if ($('#txt_dni').val().length > 12) {
+                var cadena = $('#txt_dni').val();
+                inicio = 0;
+                fin = 12;
+                $('#txt_dni').val(cadena.substring(inicio, fin))
+            }
+        }
+
+    });
+    $("#txt_user").on("keyup", function () {
+       
+        var string = $("#txt_user").val();
+        $("#txt_user").val(string.trimLeft());
+
+        if ($("#txt_user").val() != "") {
+            BuscarTrabajador_For_Usuario({
+                UserName: $("#txt_user").val(),
+                Password: ""
+            });
+        }
+        if (user_existe) {
+            if (user_trabajador == $("#txt_user").val()) {
+                $('#txt_user').parent().removeClass('has-error');
+                user_existe = false;
+            } else {
+                $('#txt_user').parent().addClass('has-error');
+            }
+        } else {
+            $('#txt_user').parent().removeClass('has-error');
+
+            if ($('#txt_user').val().length > 50) {
+                var cadena = $('#txt_user').val();
+                inicio = 0;
+                fin = 50;
+                $('#txt_user').val(cadena.substring(inicio, fin))
+            }
+        }
+
     });
 
     $("#btn_guardar").on("click", function () {
@@ -55,40 +162,76 @@ $(document).ready(function () {
         var sexo = (sexo_val == null) ? "" : sexo_val;
         
         if ($("#txt_dni").val() != "" && $("#txt_user").val() != "" && $("assword-showhide2").val() != "" && $("#txt_dir").val() != "" && $("#txt_itra").val() != "" && $("#txt_nombre").val() != "" && $("#txt_nac").val() != "" && $("#txt_ape").val() != "" && sexo != "") {
+            
             if (ID == 0) {
-                Managment_Trabajador({
-                    TrabajadorId: 0,
-                    AreaId: $("#area").val(),
-                    tr_DNI: $("#txt_dni").val(),
-                    tr_Nombre: $("#txt_nombre").val(),
-                    tr_Apellidos: $("#txt_ape").val(),
-                    tr_FechaNacimiento: $("#txt_nac").val(),
-                    tr_Direccion: $("#txt_dir").val(),
-                    tr_sexo: sexo,
-                    tr_InicioTrabajo: $("#txt_itra").val(),
-                    tr_Estado: 1,
-                    UserName: $("#txt_user").val(),
-                    Password: $("#password-showhide2").val(),
-                    Action: 1
-                });
+                if (dni_existe) {
+                    Toast({
+                        action: "error",
+                        message: "El DNI ya esta registrado",
+                        position: "top-right",
+                    });
+                } else {
+                    if (user_existe) {
+                        Toast({
+                            action: "error",
+                            message: "El usuario ya esta registrado",
+                            position: "top-right",
+                        });
+                    } else {
+                        Managment_Trabajador({
+                            TrabajadorId: 0,
+                            AreaId: $("#area").val(),
+                            tr_DNI: $("#txt_dni").val(),
+                            tr_Nombre: $("#txt_nombre").val(),
+                            tr_Apellidos: $("#txt_ape").val(),
+                            tr_FechaNacimiento: $("#txt_nac").val(),
+                            tr_Direccion: $("#txt_dir").val(),
+                            tr_sexo: sexo,
+                            tr_InicioTrabajo: $("#txt_itra").val(),
+                            tr_Estado: 1,
+                            UserName: $("#txt_user").val(),
+                            Password: $("#password-showhide2").val(),
+                            Action: 1
+                        });
+                        dni_existe = false;
+                        user_existe = false;
+                    }
+                    
+                }
             } else {
-                Managment_Trabajador({
-                    TrabajadorId: ID,
-                    AreaId: $("#area").val(),
-                    tr_DNI: $("#txt_dni").val(),
-                    tr_Nombre: $("#txt_nombre").val(),
-                    tr_Apellidos: $("#txt_ape").val(),
-                    tr_FechaNacimiento: $("#txt_nac").val(),
-                    tr_Direccion: $("#txt_dir").val(),
-                    tr_sexo: sexo,
-                    tr_InicioTrabajo: $("#txt_itra").val(),
-                    tr_Estado: 1,
-                    UserName: $("#txt_user").val(),
-                    Password: $("#password-showhide2").val(),
-                    Action: 2
-                });
-                ID = 0;
-            }
+                if (dni_existe) {
+                    Toast({
+                        action: "error",
+                        message: "El DNI ya esta registrado",
+                        position: "top-right",
+                    });
+                } else {
+                    if (user_existe) {
+                        Toast({
+                            action: "error",
+                            message: "El usuario ya esta registrado",
+                            position: "top-right",
+                        });
+                    } else {
+                        Managment_Trabajador({
+                        TrabajadorId: ID,
+                        AreaId: $("#area").val(),
+                        tr_DNI: $("#txt_dni").val(),
+                        tr_Nombre: $("#txt_nombre").val(),
+                        tr_Apellidos: $("#txt_ape").val(),
+                        tr_FechaNacimiento: $("#txt_nac").val(),
+                        tr_Direccion: $("#txt_dir").val(),
+                        tr_sexo: sexo,
+                        tr_InicioTrabajo: $("#txt_itra").val(),
+                        tr_Estado: 1,
+                        UserName: $("#txt_user").val(),
+                        Password: $("#password-showhide2").val(),
+                        Action: 2
+                        });
+                        ID = 0;
+                    }
+                }
+            }            
         } else {
             Toast({
                 action: "error",
@@ -135,7 +278,7 @@ $(document).ready(function () {
         Load_Area();
         ID = $(this).attr("data-id");
         $("#area").val($(this).attr("data-area"));
-        $("#txt_dni").val($(this).attr("data-dni"));
+        $("#txt_dni").val($.trim($(this).attr("data-dni")));
         $("#txt_nombre").val($(this).attr("data-name"));
         $("#txt_ape").val($(this).attr("data-ape"));
         $("#txt_nac").val($(this).attr("data-naci"));
@@ -144,7 +287,13 @@ $(document).ready(function () {
         $("#txt_itra").val($(this).attr("data-itra"));
         $("#txt_user").val($(this).attr("data-user"));
         $("#password-showhide2").val($(this).attr("data-pass"));
-
+        $('#txt_dni').parent().removeClass('has-error');
+        dni_trabajador = $.trim($(this).attr("data-dni"));
+        $('#txt_user').parent().removeClass('has-error');
+        user_trabajador = $.trim($(this).attr("data-user"));
+        $('#txt_nombre').parent().removeClass('has-error');
+        $('#txt_ape').parent().removeClass('has-error');
+        $('#txt_dir').parent().removeClass('has-error');
         $("#agregartrabajador").modal("show");
     });
 });
@@ -264,4 +413,46 @@ function sexoTrabajador(sexo) {
         $('input:radio[name=txt_sexo]')[1].checked = true;
     }
 
+}
+function BuscarTrabajador_For_DNI(data) {
+    var _data;
+    $.ajax({
+        type: "POST",
+        url: "Trabajador/BuscarTrabajador_For_DNI",
+        data: data,
+        async: false,
+        datatype: "JSON",
+        success: function (response) {
+            _data = JSON.parse(response);
+        },
+        complete: function () {
+            if ($.trim(_data.Message) == $("#txt_dni").val()) {
+                dni_existe = true;
+            } else {
+                dni_existe = false;
+            }
+
+        }
+    });
+}
+function BuscarTrabajador_For_Usuario(data) {
+    var _data;
+    $.ajax({
+        type: "POST",
+        url: "Trabajador/BuscarTrabajador_For_Usuario",
+        data: data,
+        async: false,
+        datatype: "JSON",
+        success: function (response) {
+            _data = JSON.parse(response);
+        },
+        complete: function () {
+            if ($.trim(_data.Message) == $("#txt_user").val()) {
+                user_existe = true;
+            } else {
+                user_existe = false;
+            }
+
+        }
+    });
 }

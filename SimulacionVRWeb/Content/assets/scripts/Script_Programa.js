@@ -12,8 +12,8 @@
 
 var ID = 0;
 var arrayParticipanteID;
-var fecha_ini;
-var fecha_fin;
+var fecha_ini="";
+var fecha_fin="";
 var existe = false;
 var actualizado = false;
 
@@ -24,15 +24,45 @@ $(document).ready(function () {
 
     CurrectSelecteditem('#li_programa');
 
+    var getDate = function (input) {
+        return new Date(input.date.valueOf());
+    }
+    $('#fech_ini_fil, #fech_fin_fil').datepicker({
+        language: 'es'
+    });
+    $('#fech_ini_fil').datepicker({
+        startDate: '+5d',
+        endDate: '+35d',
+    }).on('changeDate',
+        function (selected) {
+            $('#fech_fin_fil').datepicker('setStartDate', getDate(selected));
+        });
+    $('#fech_fin_fil').datepicker({
+        startDate: '+6d',
+        endDate: '+36d',
+    }).on('changeDate',
+        function (selected) {
+            $('#fech_ini_fil').datepicker('setEndDate', getDate(selected));
+        });
+
     $("#filtro_fechas").on("click", function () {
-        
+
         fecha_ini = $("#fech_ini_fil").val();
         fecha_fin = $("#fech_fin_fil").val();
 
-        Load_Programa({
-            FechaInicio: fecha_ini,
-            FechaFin: fecha_fin
-        });
+        if (fecha_ini != "" && fecha_fin != "") {
+
+            Load_Programa({
+                FechaInicio: fecha_ini,
+                FechaFin: fecha_fin
+            });
+        } else {
+            Toast({
+                action: "warning",
+                message: "Seleccione los rangos de fecha",
+                position: "top-right",
+            });
+        }
         
     });
 
@@ -42,24 +72,64 @@ $(document).ready(function () {
         Load_Simulacion();
         $("#txt_descripcion_add").val("");
         $("#txt_fecha_add").val("");
+        $('#txt_descripcion_add').parent().removeClass('has-error');
+        
     });
-
+    $("#txt_descripcion").on("keyup", function () {
+        var string = $("#txt_descripcion").val();
+        $("#txt_descripcion").val(string.trimLeft());
+        if ($('#txt_descripcion').val().length > 500) {
+            var cadena = $('#txt_descripcion').val();
+            inicio = 0;
+            fin = 500;
+            $('#txt_descripcion').val(cadena.substring(inicio, fin))
+            $('#txt_descripcion').parent().addClass('has-error');
+        } else {
+            $('#txt_descripcion').parent().removeClass('has-error');
+        }
+    });
     $("#programa_save_edit").on("click", function () {
+       
+        if ($.trim($("#txt_descripcion").val()) != "" && $("#txt_fecha").val() != "") {
 
-        Managment_Programa({
-            ProgramaId: ID,
-            TrabajadorRolId: sessionStorage.getItem("TrabajadorRolId"),
-            pr_Descripcion: $("#txt_descripcion").val(),
-            SimulacionId: $("#txt_simulacion").val(),
-            LocalId: $("#txt_local").val(),
-            FechaPrograma: $("#txt_fecha").val(),
-            HoraInicio: $("#txt_inicio").val(),
-            HoraFin: $("#txt_fin").val(),
-            Estado: 1,
-            Action: 2
-        });
-        $("#editarprograma").hide();
-        $("#listaprograma").show({ direction: "right" }, 5000);
+            var date_add = $("#txt_fecha").val()
+            var x = new Date();
+            var fecha = date_add.split("/");
+            x.setFullYear(fecha[2], fecha[1] - 1, fecha[0]);
+            var today = new Date();
+
+            if (x >= today) {
+                Managment_Programa({
+                    ProgramaId: ID,
+                    TrabajadorRolId: sessionStorage.getItem("TrabajadorRolId"),
+                    pr_Descripcion: $("#txt_descripcion").val(),
+                    SimulacionId: $("#txt_simulacion").val(),
+                    LocalId: $("#txt_local").val(),
+                    FechaPrograma: $("#txt_fecha").val(),
+                    HoraInicio: $("#txt_inicio").val(),
+                    HoraFin: $("#txt_fin").val(),
+                    Estado: 1,
+                    Action: 2
+                });
+                $("#editarprograma").hide();
+                $("#listaprograma").show({ direction: "right" }, 5000);
+            } else {
+                Toast({
+                    action: "warning",
+                    message: "La fecha asignada no es valida",
+                    position: "top-right",
+                });
+            }
+
+
+            
+        } else {
+            Toast({
+                action: "error",
+                message: "Llene los campos correctamente",
+                position: "top-right",
+            });
+        }
     });
 
     $(document).on("click", ".btn_remove", function () {
@@ -91,25 +161,53 @@ $(document).ready(function () {
 
     });
 
+    $("#txt_descripcion_add").on("keyup", function () {
+        var string = $("#txt_descripcion_add").val();
+        $("#txt_descripcion_add").val(string.trimLeft());
+        if ($('#txt_descripcion_add').val().length > 500) {
+            var cadena = $('#txt_descripcion_add').val();
+            inicio = 0;
+            fin = 500;
+            $('#txt_descripcion_add').val(cadena.substring(inicio, fin))
+            $('#txt_descripcion_add').parent().addClass('has-error');
+        } else {
+            $('#txt_descripcion_add').parent().removeClass('has-error');
+        }
+    });
+
     $("#btn_guardar").on("click", function () {
         
-
-        if ($("#txt_descripcion_add").val() != "" && $("#txt_fecha_add").val() != "") {
+        if ($.trim($("#txt_descripcion_add").val()) != "" && $("#txt_fecha_add").val() != "") {
             
-            if (ID == 0) {
-                Managment_Programa({
-                    ProgramaId: 0,
-                    TrabajadorRolId: sessionStorage.getItem("TrabajadorRolId"),
-                    pr_Descripcion: $("#txt_descripcion_add").val(),
-                    SimulacionId: $("#txt_simulacion_add").val(),
-                    LocalId: $("#txt_local_add").val(),
-                    FechaPrograma: $("#txt_fecha_add").val(),
-                    HoraInicio: $("#txt_h_ini_add").val(),
-                    HoraFin: $("#txt_h_fin_add").val(),
-                    Estado: 1,
-                    Action: 1
+            var date_add = $("#txt_fecha_add").val()
+            var x = new Date();
+            var fecha = date_add.split("/");
+            x.setFullYear(fecha[2], fecha[1] - 1, fecha[0]);
+            var today = new Date();
+
+            if (x >= today) {
+                if (ID == 0) {
+                    Managment_Programa({
+                        ProgramaId: 0,
+                        TrabajadorRolId: sessionStorage.getItem("TrabajadorRolId"),
+                        pr_Descripcion: $("#txt_descripcion_add").val(),
+                        SimulacionId: $("#txt_simulacion_add").val(),
+                        LocalId: $("#txt_local_add").val(),
+                        FechaPrograma: $("#txt_fecha_add").val(),
+                        HoraInicio: $("#txt_h_ini_add").val(),
+                        HoraFin: $("#txt_h_fin_add").val(),
+                        Estado: 1,
+                        Action: 1
+                    });
+                }
+            } else {
+                Toast({
+                    action: "warning",
+                    message: "La fecha asignada no es valida",
+                    position: "top-right",
                 });
             }
+                
         } else {
             Toast({
                 action: "error",
@@ -131,7 +229,7 @@ $(document).ready(function () {
         $("#txt_local").val($(this).attr("data-local"));
         $("#txt_simulacion").val($(this).attr("data-simu"));
         $("#txt_descripcion").val($(this).attr("data-desc"));
-
+        $('#txt_descripcion').parent().removeClass('has-error');
         $("#listaprograma").hide();
         $("#editarprograma").show({ direction: "right" }, 5000);
     });
@@ -352,11 +450,13 @@ function Managment_Programa(data) {
             if (_data.Result == 1) {
                 $("#agregarprograma").modal("hide");
                 if (data.Action == 1) {
-                    Load_Programa({
-                        FechaInicio: fecha_ini,
-                        FechaFin: fecha_fin
-                    });
-
+                    if (fecha_ini != "" && fecha_fin !="") {
+                        Load_Programa({
+                            FechaInicio: fecha_ini,
+                            FechaFin: fecha_fin
+                        });
+                    }
+                    
                     Toast({
                         action: "success",
                         message: "EL programa se ha registrado correctamente",

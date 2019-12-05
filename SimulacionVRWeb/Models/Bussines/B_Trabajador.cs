@@ -29,6 +29,18 @@ namespace SimulacionVRWeb.Models.Bussines
             Trabajador_Result ar = dao.login(_Trabajador);
             return ar;
         }
+        public Trabajador_Result BuscarTrabajador_For_DNI(Trabajador _Trabajador)
+        {
+            P_Trabajador dao = new P_Trabajador();
+            Trabajador_Result ar = dao.BuscarTrabajador_For_DNI(_Trabajador);
+            return ar;
+        }
+        public Trabajador_Result BuscarTrabajador_For_Usuario(Trabajador _Trabajador)
+        {
+            P_Trabajador dao = new P_Trabajador();
+            Trabajador_Result ar = dao.BuscarTrabajador_For_Usuario(_Trabajador);
+            return ar;
+        }
 
         public TrabajadorApi LoginApi(String UserName, String Password)
         {

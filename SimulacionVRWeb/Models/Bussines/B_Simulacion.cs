@@ -23,6 +23,12 @@ namespace SimulacionVRWeb.Models.Bussines
             Simulacion_Result ar = dao.Managment_Simulacion(_Simulacion, Action);
             return ar;
         }
+        public Simulacion_Result BuscarSimulacion_For_Nombre(Simulacion _Simulacion)
+        {
+            P_Simulacion dao = new P_Simulacion();
+            Simulacion_Result ar = dao.BuscarSimulacion_For_Nombre(_Simulacion);
+            return ar;
+        }
         public List<Simulacion_Rpt> report_simulacion_aciertoss_fallos()
         {
             List<Simulacion_Rpt> listEntidad = null;

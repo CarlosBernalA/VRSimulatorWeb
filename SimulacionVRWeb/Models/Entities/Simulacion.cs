@@ -38,6 +38,10 @@ namespace SimulacionVRWeb.Models.Entities
             this.si_Estado = si_Estado;
             this.ts_Nombre = ts_Nombre;
         }
+        public Simulacion(String Nombre)
+        {
+            this.Nombre = Nombre;
+        }
     }
 
     public class Simulacion_S
@@ -55,6 +59,10 @@ namespace SimulacionVRWeb.Models.Entities
     {
         public int Result { get; set; }
         public String Message { get; set; }
+    }
+    public class Simulacion_S_C
+    {
+        public String Nombre { get; set; }
     }
     public class Simulacion_Rpt
     {

@@ -79,6 +79,44 @@ namespace SimulacionVRWeb.Models.Persistent
             }
             return resu;
         }
+
+        public Simulacion_Result BuscarSimulacion_For_Nombre(Simulacion _Simulacion)
+        {
+            Simulacion_Result resu = new Simulacion_Result();
+            using (SqlConnection connection = new SqlConnection(cadena))
+            {
+
+                try
+                {
+                    String nombre = "";
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("VR_BuscarSimulacion_For_Nombre", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = _Simulacion.Nombre;
+                    SqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleResult);
+                    if (reader.HasRows)
+                    {
+
+                        if (reader.Read())
+                        {
+                            nombre = reader.GetValue(0).ToString();
+                        }
+                    }
+                    reader.Close();
+                    connection.Close();
+                    resu.Result = 1;
+                    resu.Message = nombre;
+                }
+                catch (Exception e)
+                {
+                    connection.Close();
+                    resu.Result = 0;
+                    resu.Message = e.Message;
+                }
+            }
+            return resu;
+        }
         public List<Simulacion_Rpt> report_simulacion_aciertoss_fallos()
         {
             List<Simulacion_Rpt> listEntidad = new List<Simulacion_Rpt>();

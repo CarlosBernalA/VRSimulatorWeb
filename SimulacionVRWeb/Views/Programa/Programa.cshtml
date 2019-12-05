@@ -9,16 +9,7 @@
     <script src="~/Content/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 }
 
-<div class="content-heading clearfix">
-    <div class="heading-left">
-        <h1 class="page-title" id="view-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Programa</font></font></h1>
-        <p class="page-subtitle" id="view-description"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Panel de administracion para programas</font></font></p>
-    </div>
-    <ul class="breadcrumb" id="view-breadcrumb">
-        <li class="home"><a href="Principal"><i class="fa fa-home"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Principal</font></font></a></li>
-        <li class="active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Programa </font></font></li>
-    </ul>
-</div>
+<br />
 <!--panel lista de programas-->
 <div class="panel" id="listaprograma">
     <div class="panel-heading">
@@ -31,11 +22,11 @@
         <div class="row bg-gris pt1 pb1 mb1">
             <div class="col-md-3">
                 <label class="control-label">Fecha inicio:</label>
-                <input id="fech_ini_fil" data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy">
+                <input id="fech_ini_fil" data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy" autocomplete="off">
             </div>
             <div class="col-md-3">
                 <label class="control-label">Fecha fin:</label>
-                <input id="fech_fin_fil" data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy">
+                <input id="fech_fin_fil" data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy" autocomplete="off">
             </div>
             <div class="col-md-1">
                 <button id="filtro_fechas" type="button" style="margin-top:24px;width:50px;padding-left:15px;" class="btn btn-primary">
@@ -170,7 +161,7 @@
                     </div>
                     <div class="col-md-12 mt1 pt1">
                         <legend><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Descripción</font></font></legend>
-                        <textarea id="txt_descripcion_add" class="form-control" rows="3" cols="30" required=""></textarea>
+                        <textarea id="txt_descripcion_add" class="form-control has-error" rows="2" cols="30" required=""></textarea>
                     </div>
                 </div>
                 <div class="row bg-gris mt1 pt1 pb1">
