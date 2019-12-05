@@ -1,0 +1,153 @@
+﻿@{
+    ViewBag.Title = "Principal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script src="~/Content/assets/scripts/Script_Reporte.js"></script>
+    <script src="~/Content/assets/scripts/ui-panels.js"></script>
+    <!-- <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/maps.js"></script>
+    <script src="https://www.amcharts.com/lib/4/geodata/usaAlbersLow.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script> -->
+}
+<style>
+    #chartdiv {
+        width: 100%;
+        max-height: 450px;
+        height: 100vh;
+    }
+
+    #chartdiv2 {
+        width: 100%;
+        max-height: 400px;
+        height: 100vh;
+    }
+</style>
+<div class="row pt2">
+    <div class="col-md-7">
+        <!-- SALES STATISTIC -->
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cantidad de Aciertos y fallos de los participantes</font></font></h3>
+                <div class="right">
+                    <button id="reporte_1" type="button" class="btn btn-primary btn-xs"><i class="fa fa-refresh"></i> <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Actualizar</font></font></span></button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div id="reporte_panel1" class="overlay-refresh">
+                    <div class="vertical-align-wrap">
+                        <div class="vertical-align-middle">
+                            <i class="fa fa-refresh fa-spin"></i>
+                            <span>Refrescando...</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="chartdiv"></div>
+
+            </div>
+        </div>
+        <!-- END SALES STATISTIC -->
+    </div>
+    <div class="col-md-5">
+        <!-- SHARES GOAL -->
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cantidad de aciertos de las simulaciones</font></font></h3>
+                <div class="right">
+                    <button id="reporte_2" type="button" class="btn btn-primary btn-xs"><i class="fa fa-refresh"></i> <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Actualizar</font></font></span></button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div id="reporte_panel2" class="overlay-refresh">
+                    <div class="vertical-align-wrap">
+                        <div class="vertical-align-middle">
+                            <i class="fa fa-refresh fa-spin"></i>
+                            <span>Refrescando...</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="chartdiv2"></div>
+
+            </div>
+        </div>
+        <!-- END SHARES GOAL -->
+    </div>
+</div>
+<div class="row pt2">
+    <div class="col-md-5 ">
+        <!-- SALES STATISTIC -->
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cantidad de aciertos y fallos de los programas</font></font></h3>
+                <div class="right">
+                    <button id="reporte_3" type="button" class="btn btn-primary btn-xs"><i class="fa fa-refresh"></i> <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Actualizar</font></font></span></button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div id="reporte_panel3" class="overlay-refresh">
+                    <div class="vertical-align-wrap">
+                        <div class="vertical-align-middle">
+                            <i class="fa fa-refresh fa-spin"></i>
+                            <span>Refrescando...</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="chartdiv3"></div>
+
+            </div>
+        </div>
+        <!-- END SALES STATISTIC -->
+    </div>
+    <div class="col-md-7">
+        <!-- SHARES GOAL -->
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cantidad de fallos de las simulaciones</font></font></h3>
+                <div class="right">
+                    <button id="reporte_4" type="button" class="btn btn-primary btn-xs"><i class="fa fa-refresh"></i> <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Actualizar</font></font></span></button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div id="reporte_panel4" class="overlay-refresh">
+                    <div class="vertical-align-wrap">
+                        <div class="vertical-align-middle">
+                            <i class="fa fa-refresh fa-spin"></i>
+                            <span>Refrescando...</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="chartdiv4"></div>
+
+            </div>
+        </div>
+        <!-- END SHARES GOAL -->
+    </div>
+</div>
+<div  class="row pt2">
+    <div class="col-md-12">
+        <!-- SALES STATISTIC -->
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Puntajes de Trabajador</font></font></h3>
+                <div class="right">
+                    <button id="reporte_5" type="button" class="btn btn-primary btn-xs"><i class="fa fa-refresh"></i> <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Actualizar</font></font></span></button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div id="reporte_panel5" class="overlay-refresh">
+                    <div class="vertical-align-wrap">
+                        <div class="vertical-align-middle">
+                            <i class="fa fa-refresh fa-spin"></i>
+                            <span>Refrescando...</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="chartdiv5"></div>
+
+            </div>
+        </div>
+        <!-- END SALES STATISTIC -->
+    </div>
+</div>

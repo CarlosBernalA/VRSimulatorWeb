@@ -89,3 +89,6 @@ D:\USP\CICLO 8\SOLUCIONES 4\Proyecto\Simulacion RV\SimulacionVRWeb\SimulacionVRW
 D:\USP\CICLO 8\SOLUCIONES 4\Proyecto\Simulacion RV\SimulacionVRWeb\SimulacionVRWeb\obj\Release\SimulacionVRWeb.csproj.CopyComplete
 D:\USP\CICLO 8\SOLUCIONES 4\Proyecto\Simulacion RV\SimulacionVRWeb\SimulacionVRWeb\obj\Release\SimulacionVRWeb.dll
 D:\USP\CICLO 8\SOLUCIONES 4\Proyecto\Simulacion RV\SimulacionVRWeb\SimulacionVRWeb\obj\Release\SimulacionVRWeb.pdb
+D:\USP\CICLO 8\SOLUCIONES 4\Proyecto\Simulacion RV\SimulacionVRWeb\SimulacionVRWeb\bin\Microsoft.WebSockets.dll
+D:\USP\CICLO 8\SOLUCIONES 4\Proyecto\Simulacion RV\SimulacionVRWeb\SimulacionVRWeb\bin\websocket-sharp.dll
+D:\USP\CICLO 8\SOLUCIONES 4\Proyecto\Simulacion RV\SimulacionVRWeb\SimulacionVRWeb\bin\websocket-sharp.xml

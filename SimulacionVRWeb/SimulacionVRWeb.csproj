@@ -47,6 +47,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.WebSockets, Version=0.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WebSockets.0.2.3.1\lib\net45\Microsoft.WebSockets.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -109,6 +112,9 @@
     <Reference Include="Antlr3.Runtime">
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="websocket-sharp, Version=1.0.1.0, Culture=neutral, PublicKeyToken=5660b08a1845a91e, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebSocketSharp-netstandard.1.0.1\lib\net45\websocket-sharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +284,7 @@
     <Content Include="Content\assets\scripts\Script_Principal.js" />
     <Content Include="Content\assets\scripts\Script_Programa.js" />
     <Content Include="Content\assets\scripts\Script_Reporte.js" />
+    <Content Include="Content\assets\scripts\Script_WebSocket.js" />
     <Content Include="Content\assets\scripts\Script_Rol.js" />
     <Content Include="Content\assets\scripts\Script_Simulacion.js" />
     <Content Include="Content\assets\scripts\Script_TipoSimulacion.js" />

@@ -11,22 +11,70 @@
 	});
 
 var ID = 0;
+var arrayRol;
 
 $(document).ready(function () {
 
     CurrectSelecteditem('#li_asignacionrol');
     Load_Trabajador();
+    Load_Roles();
 
     $("#btn_guardar").on("click", function () {
+        if (arrayRol == null) {
+            Managment_trabajadorRol({
+                tr_Nombre: "Sin descripcion",
+                TrabajadorRolId: ID,
+                RolId: $("#rolid").val(),
+                Action: 1
+            });
+        } else {
+            $.each(arrayRol, function (i, item) {
+            
+                if (item.TrabajadorId == ID) {
+                    if (item.RolId == $("#rolid").val()) {
+                        if (item.ad_Estado==0) {
+                             Managment_trabajadorRol({
+                                tr_Nombre: "Sin descripcion",
+                                TrabajadorRolId: ID,
+                                RolId: $("#rolid").val(),
+                                Action: 3
+                            });
+                        } else {
+                            Toast({
+                                action: "error",
+                                message: "El rol ya esta asignado",
+                                position: "top-right",
+                            });
+                        }
+                    
+                    } else {
+                        Managment_trabajadorRol({
+                            tr_Nombre: "Sin descripcion",
+                            TrabajadorRolId: ID,
+                            RolId: $("#rolid").val(),
+                            Action: 1
+                        });
+                    }
 
-        Managment_trabajadorRol({
-            tr_Nombre: "trabajadores con roles",
-            TrabajadorRolId: ID,
-            RolId: $("#rolid").val(),
-            Action: 1
-        });
+                } else {
+                    Managment_trabajadorRol({
+                        tr_Nombre: "Sin descripcion",
+                        TrabajadorRolId: ID,
+                        RolId: $("#rolid").val(),
+                        Action: 1
+                    });
+                }
+
+            });
+        }
+        
     });
 
+    $("#cuargarmodal").on("click", function () {
+
+        $("#trabajadorrol").modal("hide");
+    });
+    
     $(document).on("click", ".btn_edit", function () {
         ID = $(this).attr("data-id");
         roles_trabajador({ TrabajadorId: ID });
@@ -49,11 +97,12 @@ $(document).ready(function () {
             cancelButtonText: 'Cancelar'
         }).then(function () {
             Managment_trabajadorRol({
-                tr_Nombre:"trabajadores con roles" ,
+                tr_Nombre: "Sin descripcion",
                 TrabajadorRolId: ID,
                 RolId: btn.attr("data-id"),
                 Action: 2
             });
+
         }).catch(swal.noop);
         
     });
@@ -72,13 +121,13 @@ function roles_trabajador(data) {
             _data = JSON.parse(response);
         },
         complete: function () {
-            
+            arrayRol = _data;
             $.each(_data, function (i, item) {
-                                            
-                resultTable += "<div class='widget widget-metric_6 mb1' style='padding:1rem;box-shadow: 2px 2px 4px #cccccc;'>";
-                resultTable += "<span>" + item.tr_Nombre + "</span>";
-                resultTable += "<i data-id='" + item.RolId + "' class='fa fa-trash-o btn_remove' style='float: right;color: red;font-size: 2rem;margin-top: -1px;margin-right: 5px;cursor: pointer;'></i></div>";
-                
+                if (item.ad_Estado != 0) {
+                    resultTable += "<div class='widget widget-metric_6 mb1' style='padding:1rem;box-shadow: 2px 2px 4px #cccccc;'>";
+                    resultTable += "<span>" + item.tr_Nombre + "</span>";
+                    resultTable += "<i data-id='" + item.RolId + "' class='fa fa-trash-o btn_remove' style='float: right;color: red;font-size: 2rem;margin-top: -1px;margin-right: 5px;cursor: pointer;'></i></div>";
+                }
             });
             $('#rolesdeltrabajador').html(resultTable);
             
@@ -108,7 +157,7 @@ function Load_Trabajador() {
                 resultTable += "<tr>";
                 resultTable += "<td>" + item.tr_Nombre + "</td>";
                 resultTable += "<td>" + item.tr_Apellidos + "</td>";
-                resultTable += "<td>" + item.ad_descripcion + "</td>";
+                //resultTable += "<td>" + item.ad_descripcion + "</td>";
                 resultTable += "<td>" + item.roles + "</td>";
                 resultTable += "<td><center>";
                 resultTable += "<button data-nom='" + item.tr_Nombre + "' data-ape='" + item.tr_Apellidos + "' data-id='" + item.TrabajadorId + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-clipboard'></i></button>";
@@ -122,9 +171,33 @@ function Load_Trabajador() {
 
     });
 }
+function Load_Roles() {
+    var data = {};
+    var _data;
+    var resultTable = "";
+    $.ajax({
+        type: "POST",
+        url: "AsignacionRol/list_rol",
+        data: data,
+        async: false,
+        datatype: "JSON",
+        success: function (response) {
+            _data = JSON.parse(response);
+
+        },
+        complete: function () {
+
+            $.each(_data, function (i, item) {
+                resultTable += "<option value='" + item.rol_RolId + "'>" + item.rol_Nombre + "</option>";
+            });
+            $('#rolid').html(resultTable);
+        }
+
+
+    });
+}
 
 function Managment_trabajadorRol(data) {
-    console.log(data);
     var _data;
     $.ajax({
         type: "POST",
@@ -137,7 +210,7 @@ function Managment_trabajadorRol(data) {
         },
         complete: function () {
             if (_data.Result == 1) {
-                if (data.Action == 1) {
+                if (data.Action == 1 || data.Action == 3) {
                     roles_trabajador({ TrabajadorId: ID });
                     Load_Trabajador();
                     Toast({
@@ -155,11 +228,7 @@ function Managment_trabajadorRol(data) {
                     });
                 }
             } else {
-                Toast({
-                    action: "error",
-                    message: _data.Message,
-                    position: "top-right",
-                });
+                
             }
 
         }

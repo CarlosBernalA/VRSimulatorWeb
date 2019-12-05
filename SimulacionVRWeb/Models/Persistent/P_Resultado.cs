@@ -52,11 +52,11 @@ namespace SimulacionVRWeb.Models.Persistent
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add("@ResultadoId", SqlDbType.Int).Value = 0;
                     command.Parameters.Add("@ProgramaId", SqlDbType.Int).Value = data.ProgramaId;
-                    command.Parameters.Add("@TrabajadorID", SqlDbType.Int).Value = data.ProgramaId;
+                    command.Parameters.Add("@TrabajadorID", SqlDbType.Int).Value = data.ParticipanteId;
                     command.Parameters.Add("@R_Duracion", SqlDbType.Int).Value = data.R_Duraccion;
-                    command.Parameters.Add("@R_NivelConcentracion", SqlDbType.Int).Value = data.R_NivelConcentracion;
-                    command.Parameters.Add("@R_Aciertos", SqlDbType.Int).Value = data.R_Aciertos;
-                    command.Parameters.Add("@R_Fallos", SqlDbType.Int).Value = data.R_Fallos;
+                    command.Parameters.Add("@R_NivelConcentracion", SqlDbType.Float).Value = data.R_NivelConcentracion;
+                    command.Parameters.Add("@R_Aciertos", SqlDbType.Float).Value = data.R_Aciertos;
+                    command.Parameters.Add("@R_Fallos", SqlDbType.Float).Value = data.R_Fallos;
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
                     adapter.Fill(dts);
                     

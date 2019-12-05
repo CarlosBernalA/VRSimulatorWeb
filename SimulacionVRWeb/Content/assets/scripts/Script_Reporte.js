@@ -10,16 +10,48 @@
     Rpt_Puntaje_Trabajador();
 
 
-    if ($('#reporte_1').length > 0) {
-        $('#reporte_1').on('click', function () {
-            $('#reporte_panel1').fadeIn(300);
+   
+    $('#reporte_1').on('click', function () {
+        $('#reporte_panel1').fadeIn(300);
 
-            setTimeout(function () {
-                $('#reporte_panel1').fadeOut(300);
-                Rpt_Participantes();
-            }, 1500);
-        });
-    }
+        setTimeout(function () {
+            $('#reporte_panel1').fadeOut(300);
+            Rpt_Participantes();
+        }, 1500);
+    });
+    $('#reporte_2').on('click', function () {
+        $('#reporte_panel2').fadeIn(300);
+
+        setTimeout(function () {
+            $('#reporte_panel2').fadeOut(300);
+            Rpt_Simulacion_cantidad_aciertos_fallos();
+        }, 1500);
+    });
+    $('#reporte_3').on('click', function () {
+        $('#reporte_panel3').fadeIn(300);
+
+        setTimeout(function () {
+            $('#reporte_panel3').fadeOut(300);
+            Rpt_Programa_cantidad_aciertos_fallos();
+        }, 1500);
+    });
+    $('#reporte_4').on('click', function () {
+        $('#reporte_panel4').fadeIn(300);
+
+        setTimeout(function () {
+            $('#reporte_panel4').fadeOut(300);
+            Rpt_Simulacion_cantidad_aciertos_fallos();
+        }, 1500);
+    });
+    $('#reporte_5').on('click', function () {
+        $('#reporte_panel5').fadeIn(300);
+
+        setTimeout(function () {
+            $('#reporte_panel5').fadeOut(300);
+            Rpt_Puntaje_Trabajador();
+        }, 1500);
+    });
+    
 
 });
 

@@ -1,13 +1,19 @@
-﻿using SimulacionVRWeb.Models.Bussines;
+﻿using Microsoft.Web.WebSockets;
+using Newtonsoft.Json;
+using SimulacionVRWeb.Models.Bussines;
 using SimulacionVRWeb.Models.Entities;
 using SimulacionVRWeb.Models.Persistent;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
+using WebSocketSharp;
 
 namespace SimulacionVRWeb.Controllers
 {
@@ -151,6 +157,57 @@ namespace SimulacionVRWeb.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
             }
         }
+
+
+        [HttpGet]
+        [Route("api/v1.0/VR/NotificationResult")]
+        public HttpResponseMessage NotificationResult()
+        {
+            HttpContext.Current.AcceptWebSocketRequest(new ResultWebSocketHandler());
+            return Request.CreateResponse(HttpStatusCode.SwitchingProtocols);
+        }
+
+        class ResultWebSocketHandler : WebSocketHandler { 
+            public ResultWebSocketHandler()
+            {              
+
+            }
+
+            public static WebSocketCollection _notificationSocket = new WebSocketCollection();
+            public override void OnOpen()
+            {
+                _notificationSocket.Add(this);
+            }
+            public override void OnMessage(String message)
+            {
+                _notificationSocket.Broadcast(message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/v1.0/VR/InsertNotification")]
+        public HttpResponseMessage InsertNotification([FromBody] tempresult _json)
+        {
+            //using (var ws = new WebSocket("ws://localhost/VR_Simulator/api/v1.0/VR/NotificationResult"))
+            //{
+            //    ws.Connect();
+            //    ws.Send(_json);
+            //}
+            String mJson = JsonConvert.SerializeObject(_json,Formatting.Indented);
+            ResultWebSocketHandler._notificationSocket.Broadcast(mJson);
+            //if (_json.Equals("1"))
+            //{
+            //    ResultWebSocketHandler._notificationSocket.Broadcast(_json);
+            //}
+            //else
+            //{
+            //    ResultWebSocketHandler._notificationSocket.Broadcast(_json);
+
+            //}
+
+            return Request.CreateResponse(HttpStatusCode.OK, _json);
+        }
+
     }
 
     class temp
@@ -162,6 +219,26 @@ namespace SimulacionVRWeb.Controllers
         {
             SimulacionId = simulacionId;
             SimulacionName = simulacionName;
+        }
+    }
+
+    public class tempresult
+    {
+        public String SimulacionName { get; set; }
+        public String User { get; set; }
+        public String Fallos { get; set; }
+        public String Aciertos { get; set; } 
+        public String Concentracion { get; set; }
+        public int State { get; set; }
+
+        public tempresult(String simulacionName, String user, String fallos, String aciertos, String concentracion, int state)
+        {
+            SimulacionName = simulacionName;
+            User = user;
+            Fallos = fallos;
+            Aciertos = aciertos;
+            Concentracion = concentracion;
+            State = state;
         }
     }
 

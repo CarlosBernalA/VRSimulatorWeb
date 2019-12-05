@@ -10,13 +10,13 @@ namespace SimulacionVRWeb.Models.Entities
         public int ResultadoId { get; set; }
         public String R_fechacreacion { get; set; }
         public int ProgramaId { get; set; }
-        public int ParticipanteId { get; set; }
+        public string ParticipanteId { get; set; }
         public int R_Duraccion { get; set; }
-        public int R_NivelConcentracion { get; set; }
-        public int R_Aciertos { get; set; }
-        public int R_Fallos { get; set; }
+        public string R_NivelConcentracion { get; set; }
+        public string R_Aciertos { get; set; }
+        public string R_Fallos { get; set; }
 
-        public Resultado(int resultadoId, string r_fechacreacion, int programaId, int participanteId, int r_Duraccion, int r_NivelConcentracion, int r_Aciertos, int r_Fallos)
+        public Resultado(int resultadoId, string r_fechacreacion, int programaId, string participanteId, int r_Duraccion, string r_NivelConcentracion, string r_Aciertos, string r_Fallos)
         {
             ResultadoId = resultadoId;
             R_fechacreacion = r_fechacreacion;

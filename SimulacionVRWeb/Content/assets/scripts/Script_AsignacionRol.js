@@ -157,7 +157,7 @@ function Load_Trabajador() {
                 resultTable += "<tr>";
                 resultTable += "<td>" + item.tr_Nombre + "</td>";
                 resultTable += "<td>" + item.tr_Apellidos + "</td>";
-                resultTable += "<td>" + item.ad_descripcion + "</td>";
+                //resultTable += "<td>" + item.ad_descripcion + "</td>";
                 resultTable += "<td>" + item.roles + "</td>";
                 resultTable += "<td><center>";
                 resultTable += "<button data-nom='" + item.tr_Nombre + "' data-ape='" + item.tr_Apellidos + "' data-id='" + item.TrabajadorId + "' type='button' class='btn_edit btn btn-default btn-sm'><i class='fa fa-clipboard'></i></button>";
